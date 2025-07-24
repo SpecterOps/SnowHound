@@ -1,0 +1,46 @@
+{
+  "custom_types": {
+    "SNOWAccount": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "building",
+        "color": "#5FED83"
+      }
+    },
+    "SNOWUser": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "user",
+        "color": "#FF8E40"
+      }
+    },
+    "SNOWRole": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "user-group",
+        "color": "#C06EFF"
+      }
+    },
+    "SNOWWarehouse": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "box-archive",
+        "color": "#9EECFF"
+      }
+    },
+    "SNOWDatabase": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "code-branch",
+        "color": "#FF80D2"
+      }
+    },
+    "SNOWIntegration": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "user-tie",
+        "color": "#BFFFD1"
+      }
+    }
+  }
+}
