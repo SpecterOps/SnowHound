@@ -24,7 +24,7 @@
     "SNOWWarehouse": {
       "icon": {
         "type": "font-awesome",
-        "name": "box-archive",
+        "name": "warehouse",
         "color": "#9EECFF"
       }
     },
