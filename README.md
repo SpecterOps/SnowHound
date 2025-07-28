@@ -35,11 +35,11 @@ Nodes correspond to each object type.
 
 The first step is to collect the graph-relevant data from Snowflake. The cool thing is that this is actually a relatively simple process. I’ve found that Snowflake’s default web client, Snowsight, does a fine job gathering this information. You can navigate to Snowsight once you’ve logged in by clicking on the Query data button at the top of the Home page.
 
-![](./images/snowsight.png)
+![](./images/snowsight.webp)
 
 Once there, you will have the opportunity to execute commands. This section will describe the commands that collect the data necessary to build the graph. My parsing script is built for CSV files that follow a specific naming convention. Once your command has returned results, click the download button (downward pointing arrow) and select the “Download as .csv” option.
 
-![](./images/query.png)
+![](./images/query.webp)
 
 The model supports Accounts, Applications, Databases, Roles, Users, and Warehouses. This means we will have to query those entities, which will serve as the nodes in our graph. This will download the file with a name related to your account. My parsing script expects the output of certain commands to be named in a specific way. The expected name will be shared in the corresponding sections below.
 
@@ -76,7 +76,7 @@ Note: As mentioned above, users can only enumerate warehouses for which they hav
 
 At this point, we have almost all the entity data we need. We have one final query that will allow us to gather details about our Snowflake account. This query can only be done by the ORGADMIN role. Assuming your user has been granted ORGADMIN, go to the top right corner of the browser and click on your current role. This will result in a drop-down that displays all of the roles that are effectively granted to your user. Here, you will select ORGADMIN, allowing you to run commands in the context of the ORGADMIN role.
 
-![](./images/accountadmin.png)
+![](./images/accountadmin.webp)
 
 Once complete, run the following command to list the account details.
 
