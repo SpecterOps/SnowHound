@@ -6,31 +6,6 @@ The BloodHound extension for Snowflake provides a powerful way to visualize acce
 
 ## Collector Setup & Usage
 
-
-
-## Schema
-
-Below is the complete set of nodes and edges as defined in the [model](./model.json).
-
-### Nodes
-
-Nodes correspond to each object type.
-
-| Node                                                                           | Description                                                                                                                                | Icon        | Color   |
-|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------|---------|
-| <img src="./images/black_SNOWAccount.png" width="30"/> SNOWAccount             | The top-level container for all Snowflake resources such as users, roles, databases, and integrations.                                     | building    | #5FED83 |
-| <img src="./images/black_SNOWUser.png" width="30"/> SNOWUser                   | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access.                 | user        | #FF8E40 |
-| <img src="./images/black_SNOWRole.png" width="30"/> SNOWRole                   | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles.                           | user-group  | #C06EFF |
-| <img src="./images/black_SNOWWarehouse.png" width="30"/> SNOWWarehouse         | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. | warehouse   | #9EECFF |
-| <img src="./images/black_SNOWDatabase.png" width="30"/> SNOWDatabase           | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it.                                            | database    | #FF80D2 |
-| <img src="./images/black_SNOWIntegration.png" width="30"/> SNOWIntegration     | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application.             | user-tie    | #BFFFD1 |
-
-### Edges
-
-
-
-## Usage Examples
-
 ### Collecting Data
 
 The first step is to collect the graph-relevant data from Snowflake. The cool thing is that this is actually a relatively simple process. I’ve found that Snowflake’s default web client, Snowsight, does a fine job gathering this information. You can navigate to Snowsight once you’ve logged in by clicking on the Query data button at the top of the Home page.
@@ -102,6 +77,53 @@ The final view is [grants_to_roles](https://docs.snowflake.com/en/sql-reference/
 ```
 SELECT * FROM snowflake.account_usage.grants_to_roles WHERE GRANTED_ON IN ('ACCOUNT', 'APPLICATION', 'DATABASE', 'INTEGRATION', 'ROLE', 'USER', 'WAREHOUSE');
 ```
+
+### Generating BloodHound OpenGraph Payload
+
+After you've collected the relevant data from your Snowflake tenant, you must convert it from csv to a BloodHound OpenGraph payload. This is done via the [snowhound.ps1](./snowhound.ps1) script found in this repository.
+
+1) In a PowerShell terminal, navigate to the folder where the Snowflake csv files are located.
+
+2) Load snowhound.ps1 into your PowerShell session:
+
+```powershell
+. ./snowhound.ps1
+```
+
+3) Execute the Invoke-SnowHound function:
+
+```powershell
+Invoke-SnowHound
+```
+
+SnowHound will output a payload to your current working directory called `snowhound_<accountid>.json`
+
+4) Upload the payload via BloodHound's File Ingest page
+
+## Schema
+
+Below is the complete set of nodes and edges as defined in the [model](./model.json).
+
+### Nodes
+
+Nodes correspond to each object type.
+
+| Node                                                                           | Description                                                                                                                                | Icon        | Color   |
+|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------|---------|
+| <img src="./images/black_SNOWAccount.png" width="30"/> SNOWAccount             | The top-level container for all Snowflake resources such as users, roles, databases, and integrations.                                     | building    | #5FED83 |
+| <img src="./images/black_SNOWUser.png" width="30"/> SNOWUser                   | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access.                 | user        | #FF8E40 |
+| <img src="./images/black_SNOWRole.png" width="30"/> SNOWRole                   | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles.                           | user-group  | #C06EFF |
+| <img src="./images/black_SNOWWarehouse.png" width="30"/> SNOWWarehouse         | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. | warehouse   | #9EECFF |
+| <img src="./images/black_SNOWDatabase.png" width="30"/> SNOWDatabase           | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it.                                            | database    | #FF80D2 |
+| <img src="./images/black_SNOWIntegration.png" width="30"/> SNOWIntegration     | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application.             | user-tie    | #BFFFD1 |
+
+### Edges
+
+
+
+## Usage Examples
+
+
 
 ## Contributing
 
