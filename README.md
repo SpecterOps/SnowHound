@@ -31,7 +31,77 @@ Nodes correspond to each object type.
 
 ## Usage Examples
 
+### Collecting Data
 
+The first step is to collect the graph-relevant data from Snowflake. The cool thing is that this is actually a relatively simple process. I’ve found that Snowflake’s default web client, Snowsight, does a fine job gathering this information. You can navigate to Snowsight once you’ve logged in by clicking on the Query data button at the top of the Home page.
+
+![](./images/snowsight.png)
+
+Once there, you will have the opportunity to execute commands. This section will describe the commands that collect the data necessary to build the graph. My parsing script is built for CSV files that follow a specific naming convention. Once your command has returned results, click the download button (downward pointing arrow) and select the “Download as .csv” option.
+
+![](./images/query.png)
+
+The model supports Accounts, Applications, Databases, Roles, Users, and Warehouses. This means we will have to query those entities, which will serve as the nodes in our graph. This will download the file with a name related to your account. My parsing script expects the output of certain commands to be named in a specific way. The expected name will be shared in the corresponding sections below.
+
+I’ve found that I can query Applications, Databases, Roles, and Users as an unprivileged user. However, this is different for Accounts, which require ORGADMIN, and Warehouses, which require instance-specific access (e.g., [ACCOUNTADMIN](https://docs.snowflake.com/en/user-guide/warehouses-tasks#delegating-warehouse-management)).
+
+#### Applications
+
+* Command: [SHOW APPLICATIONS;](https://docs.snowflake.com/en/sql-reference/sql/show-applications)
+* File Name: application.csv
+
+#### Databases
+
+* Command: [SHOW DATABASES;](https://docs.snowflake.com/en/sql-reference/sql/show-databases)
+* File Name: database.csv
+
+#### Roles
+
+* Command: [SHOW ROLES;](https://docs.snowflake.com/en/sql-reference/sql/show-roles)
+* File Name: role.csv
+
+#### Users
+
+* Command: [SHOW USERS;](https://docs.snowflake.com/en/sql-reference/sql/show-users)
+* File Name: user.csv
+
+#### Warehouses
+
+* Command: [SHOW WAREHOUSES;](https://docs.snowflake.com/en/sql-reference/sql/show-warehouses)
+* File Name: warehouse.csv
+
+Note: As mentioned above, users can only enumerate warehouses for which they have been granted privileges. One way to grant a non-ACCOUNTADMIN user visibility of all warehouses is to grant the [MANAGE WAREHOUSES](https://docs.snowflake.com/en/user-guide/warehouses-tasks#delegating-warehouse-management) privilege.
+
+#### Accounts
+
+At this point, we have almost all the entity data we need. We have one final query that will allow us to gather details about our Snowflake account. This query can only be done by the ORGADMIN role. Assuming your user has been granted ORGADMIN, go to the top right corner of the browser and click on your current role. This will result in a drop-down that displays all of the roles that are effectively granted to your user. Here, you will select ORGADMIN, allowing you to run commands in the context of the ORGADMIN role.
+
+![](./images/accountadmin.png)
+
+Once complete, run the following command to list the account details.
+
+* Command: [SHOW ACCOUNTS;](https://docs.snowflake.com/en/sql-reference/sql/show-accounts)
+* File Name: account.csv
+
+#### Grants
+
+Finally, we must gather information on privilege grants. These are maintained in the ACCOUNT_USAGE schema of the default SNOWFLAKE database. By default, these views are only available to the ACCOUNTADMIN role. Still, users not granted USAGE of the ACCOUNTADMIN role can be granted the necessary read access via the [SECURITY_VIEWER](https://docs.snowflake.com/en/sql-reference/account-usage#account-usage-views-by-database-role) database role. The following command does this (if run as ACCOUNTADMIN):
+
+```
+GRANT DATABASE ROLE snowflake.SECURITY_VIEWER TO <Role>
+```
+
+Once you have the necessary privilege, you can query the relevant views and export them to a CSV file. The first view is [grants_to_users](https://docs.snowflake.com/en/sql-reference/account-usage/grants_to_users), which maintains a list of which roles have been granted to which users. You can enumerate this list using the following command. Then save it to a CSV file and rename it grants_to_users.csv.
+
+```
+SELECT * FROM snowflake.account_usage.grants_to_users;
+```
+
+The final view is [grants_to_roles](https://docs.snowflake.com/en/sql-reference/account-usage/grants_to_roles), which maintains a list of all the privileges granted to roles. This glue ultimately allows users to interact with the different Snowflake entities. This view can be enumerated using the following command. The results should be saved as a CSV file named grants_to_roles.csv.
+
+```
+SELECT * FROM snowflake.account_usage.grants_to_roles WHERE GRANTED_ON IN ('ACCOUNT', 'APPLICATION', 'DATABASE', 'INTEGRATION', 'ROLE', 'USER', 'WAREHOUSE');
+```
 
 ## Contributing
 
