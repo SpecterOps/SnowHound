@@ -102,6 +102,10 @@ SnowHound will output a payload to your current working directory called `snowho
 
 ## Schema
 
+The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOWAccount, SNOWUser, SNOWRole, SNOWWarehouse, SNOWDatabase, and SNOWIntegration. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
+
+The schema allows you to visualize the relationships between users, roles, databases, and other entities in your Snowflake account, providing a comprehensive view of your environment’s security posture. By defining these entities and their permissions, the schema enables you to identify potential attack paths, privilege escalation opportunities, and access risks. Each node type is linked through explicit access permissions, ensuring a clear mapping of how users and roles can exploit vulnerabilities or gain access to sensitive data.
+
 Below is the complete set of nodes and edges as defined in the [model](./model.json).
 
 ### Nodes
@@ -119,7 +123,74 @@ Nodes correspond to each object type.
 
 ### Edges
 
+Edges capture every relationship; who contains what, membership, view vs. manage permissions, etc.
 
+| Edge Type                         | Source            | Target            | Description                                  | Travesable |
+|-----------------------------------|-------------------|-------------------|----------------------------------------------| ---------- |
+| `SNOWUsage`                       | `SNOWApplication` | `SNOWDatabase`    | Account contains items                       | n          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWDatabase`    | Account contains items                       | n          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWIntegration` | Account contains items                       | n          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWRole`        | Account contains items                       | n          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWUser`        | Account contains items                       | n          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWWarehouse`   | Account contains items                       | n          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWDatabase`    | Account contains users                       | n          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWIntegration` | Account contains users                       | n          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWRole`        | Account contains users                       | n          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWUser`        | Account contains users                       | n          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWWarehouse`   | Account contains users                       | n          |
+| `SNOWApplyBudget`                 | `SNOWRole`        | `SNOWDatabase`    | Account contains vaults                      | n          |
+| `SNOWApplyBudget`                 | `SNOWRole`        | `SNOWWarehouse`   | Account contains vaults                      | n          |
+| `SNOWAudit`                       | `SNOWRole`        | `SNOWAccount`     | Account contains groups                      | n          |
+| `SNOWModify`                      | `SNOWRole`        | `SNOWDatabase`    | Vault holds items                            | y          |
+| `SNOWModify`                      | `SNOWRole`        | `SNOWWarehouse`   | Vault holds items                            | y          |
+| `SNOWMonitor`                     | `SNOWRole`        | `SNOWAccount`     | User can view items in the vault             | y          |
+| `SNOWMonitor`                     | `SNOWRole`        | `SNOWDatabase`    | User can view items in the vault             | y          |
+| `SNOWMonitor`                     | `SNOWRole`        | `SNOWWarehouse`   | User can view items in the vault             | y          |
+| `SNOWOperate`                     | `SNOWRole`        | `SNOWWarehouse`   | Group can view items in the vault            | y          |
+| `SNOWApplyAggregationPolicy`      | `SNOWRole`        | `SNOWAccount`     | User can manage the vault                    | y          |
+| `SNOWApplyAuthenticationPolicy`   | `SNOWRole`        | `SNOWAccount`     | Group can manage the vault                   | y          |
+| `SNOWApplyMaskingPolicy`          | `SNOWRole`        | `SNOWAccount`     | User is a member of a group                  | y          |
+| `SNOWApplyPackagesPolicy`         | `SNOWRole`        | `SNOWAccount`     | Group can manage other groups in the account | y          |
+| `SNOWApplyPasswordPolicy`         | `SNOWRole`        | `SNOWAccount`     | Group can recover accounts                   | y          |
+| `SNOWApplyProtectionPolicy`       | `SNOWRole`        | `SNOWAccount`     | Group can view items in the vault            | y          |
+| `SNOWApplyRowAccessPolicy`        | `SNOWRole`        | `SNOWAccount`     | User can manage the vault                    | y          |
+| `SNOWApplySessionPolicy`          | `SNOWRole`        | `SNOWAccount`     | Group can manage the vault                   | y          |
+| `SNOWAttachPolicy`                | `SNOWRole`        | `SNOWAccount`     | User is a member of a group                  | y          |
+| `SNOWBindServiceEndpoint`         | `SNOWRole`        | `SNOWAccount`     | Group can manage other groups in the account | y          |
+| `SNOWCancelQuery`                 | `SNOWRole`        | `SNOWAccount`     | Group can recover accounts                   | y          |
+| `SNOWCreateAccount`               | `SNOWRole`        | `SNOWAccount`     | Group can view items in the vault            | y          |
+| `SNOWCreateApiIntegration`        | `SNOWRole`        | `SNOWAccount`     | User can manage the vault                    | y          |
+| `SNOWCreateApplication`           | `SNOWRole`        | `SNOWAccount`     | Group can manage the vault                   | y          |
+| `SNOWCreateApplicationPackage`    | `SNOWRole`        | `SNOWAccount`     | User is a member of a group                  | y          |
+| `SNOWCreateComputerPool`          | `SNOWRole`        | `SNOWAccount`     | Group can manage other groups in the account | y          |
+| `SNOWCreateCredential`            | `SNOWRole`        | `SNOWAccount`     | Group can recover accounts                   | y          |
+| `SNOWCreateDataExchangeListing`   | `SNOWRole`        | `SNOWAccount`     | Group can view items in the vault            | y          |
+| `SNOWCreateDatabase`              | `SNOWRole`        | `SNOWAccount`     | User can manage the vault                    | y          |
+| `SNOWCreateDatabaseRole`          | `SNOWRole`        | `SNOWDatabase`    | Group can manage the vault                   | y          |
+| `SNOWCreateExternalVolume`        | `SNOWRole`        | `SNOWAccount`     | User is a member of a group                  | y          |
+| `SNOWCreateIntegration`           | `SNOWRole`        | `SNOWAccount`     | Group can manage other groups in the account | y          |
+| `SNOWCreateNetworkPolicy`         | `SNOWRole`        | `SNOWAccount`     | Group can recover accounts                   | y          |
+| `SNOWCreateReplicationGroup`      | `SNOWRole`        | `SNOWAccount`     | Group can view items in the vault            | y          |
+| `SNOWCreateRole`                  | `SNOWRole`        | `SNOWAccount`     | User can manage the vault                    | y          |
+| `SNOWCreateSchema`                | `SNOWRole`        | `SNOWDatabase`    | Group can manage the vault                   | y          |
+| `SNOWCreateShare`                 | `SNOWRole`        | `SNOWAccount`     | User is a member of a group                  | y          |
+| `SNOWCreateUser`                  | `SNOWRole`        | `SNOWAccount`     | Group can manage other groups in the account | y          |
+| `SNOWCreateWarehouse`             | `SNOWRole`        | `SNOWAccount`     | Group can recover accounts                   | y          |
+| `SNOWExecuteDataMetricFunction`   | `SNOWRole`        | `SNOWAccount`     | Group can view items in the vault            | y          |
+| `SNOWExecuteManagedAlert`         | `SNOWRole`        | `SNOWAccount`     | User can manage the vault                    | y          |
+| `SNOWExecuteManagedTask`          | `SNOWApplication` | `SNOWAccount`     | Group can manage the vault                   | y          |
+| `SNOWExecuteManagedTask`          | `SNOWRole`        | `SNOWAccount`     | Group can manage the vault                   | y          |
+| `SNOWExecuteTask`                 | `SNOWApplication` | `SNOWAccount`     | Group can manage the vault                   | y          |
+| `SNOWExecuteTask`                 | `SNOWRole`        | `SNOWAccount`     | Group can manage the vault                   | y          |
+| `SNOWImportShare`                 | `SNOWRole`        | `SNOWAccount`     | User is a member of a group                  | y          |
+| `SNOWManageGrants`                | `SNOWRole`        | `SNOWAccount`     | Group can manage other groups in the account | y          |
+| `SNOWManageWarehouses`            | `SNOWRole`        | `SNOWAccount`     | Group can recover accounts                   | y          |
+| `SNOWManagementSharing`           | `SNOWRole`        | `SNOWAccount`     | Account contains items                       | n          |
+| `SNOWMonitorExecution`            | `SNOWRole`        | `SNOWAccount`     | Account contains users                       | n          |
+| `SNOWOverrideShareRestrictions`   | `SNOWRole`        | `SNOWAccount`     | Account contains vaults                      | n          |
+| `SNOWPurchaseDataExchangeListing` | `SNOWRole`        | `SNOWAccount`     | Account contains groups                      | n          |
+| `SNOWReferenceUsage`              | `SNOWRole`        | `SNOWDatabase`    | Vault holds items                            | y          |
+| `SNOWUseAnyRole`                  | `SNOWRole`        | `SNOWIntegration` | User can view items in the vault             | y          |
 
 ## Usage Examples
 
