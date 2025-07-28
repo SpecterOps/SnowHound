@@ -2,7 +2,7 @@
 
 ## Overview
 
-
+The BloodHound extension for Snowflake tenants enables organizations to visualize their Snowflake environment by mapping key elements such as Users, Databases, Roles, Warehouses, and Integrations, along with the permissions that connect them. This provides a comprehensive view of access and potential attack paths within the Snowflake tenant, empowering security teams to identify vulnerabilities and better manage their environment's security posture.
 
 ## Collector Setup & Usage
 
