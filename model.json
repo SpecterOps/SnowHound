@@ -31,7 +31,7 @@
     "SNOWDatabase": {
       "icon": {
         "type": "font-awesome",
-        "name": "code-branch",
+        "name": "database",
         "color": "#FF80D2"
       }
     },
