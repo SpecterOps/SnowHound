@@ -106,6 +106,8 @@ The schema defines the structure and relationships between various entities in t
 
 The schema allows you to visualize the relationships between users, roles, databases, and other entities in your Snowflake account, providing a comprehensive view of your environment’s security posture. By defining these entities and their permissions, the schema enables you to identify potential attack paths, privilege escalation opportunities, and access risks. Each node type is linked through explicit access permissions, ensuring a clear mapping of how users and roles can exploit vulnerabilities or gain access to sensitive data.
 
+![Snowflake Schema](./images/snowflake_schema.png)
+
 Below is the complete set of nodes and edges as defined in the [model](./model.json).
 
 ### Nodes
