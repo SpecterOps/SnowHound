@@ -1,6 +1,3 @@
-$1passDefinition = Get-Content ./kinddefinition.json
-BHAPI /custom-nodes POST ($1passdefinition) -expand data
-
 function New-SnowflakeNode
 {
     Param(
