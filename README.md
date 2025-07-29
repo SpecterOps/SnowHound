@@ -8,9 +8,9 @@ I recommend reading my [Mapping Snowflake's Access Landscape](https://specterops
 
 ## Collector Setup & Usage
 
-### Collecting Data
-
 NOTE: I expect that over time we will develop a more robust/specific collector for SNOWHound, but in the short term it seemed simpler to leverage Snowflake's fantastic query interface.
+
+### Collecting Data
 
 The first step is to collect the graph-relevant data from Snowflake. The cool thing is that this is actually a relatively simple process. I’ve found that Snowflake’s default web client, Snowsight, does a fine job gathering this information. You can navigate to Snowsight once you’ve logged in by clicking on the Query data button at the top of the Home page.
 
@@ -199,10 +199,6 @@ NOTE: I need to go back and add SNOWContains edges from the SNOWAccount to all o
 | `SNOWPurchaseDataExchangeListing` | `SNOWRole`        | `SNOWAccount`     |            |
 | `SNOWReferenceUsage`              | `SNOWRole`        | `SNOWDatabase`    |            |
 | `SNOWUseAnyRole`                  | `SNOWRole`        | `SNOWIntegration` |            |
-
-## Usage Examples
-
-
 
 ## Contributing
 
