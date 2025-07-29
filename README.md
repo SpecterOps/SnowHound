@@ -137,70 +137,70 @@ NOTE: I need to go back and add SNOWContains edges from the SNOWAccount to all o
 
 | Edge Type                         | Source            | Target            | Travesable |
 |-----------------------------------|-------------------|-------------------| ---------- |
-| `SNOWUsage`                       | `SNOWApplication` | `SNOWDatabase`    |            |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWDatabase`    |            |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWIntegration` |            |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWRole`        |            |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWUser`        |            |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWWarehouse`   |            |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWDatabase`    |            |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWIntegration` |            |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWRole`        |            |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWUser`        |            |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWWarehouse`   |            |
-| `SNOWApplyBudget`                 | `SNOWRole`        | `SNOWDatabase`    |            |
-| `SNOWApplyBudget`                 | `SNOWRole`        | `SNOWWarehouse`   |            |
-| `SNOWAudit`                       | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWModify`                      | `SNOWRole`        | `SNOWDatabase`    |            |
-| `SNOWModify`                      | `SNOWRole`        | `SNOWWarehouse`   |            |
-| `SNOWMonitor`                     | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWMonitor`                     | `SNOWRole`        | `SNOWDatabase`    |            |
-| `SNOWMonitor`                     | `SNOWRole`        | `SNOWWarehouse`   |            |
-| `SNOWOperate`                     | `SNOWRole`        | `SNOWWarehouse`   |            |
-| `SNOWApplyAggregationPolicy`      | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWApplyAuthenticationPolicy`   | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWApplyMaskingPolicy`          | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWApplyPackagesPolicy`         | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWApplyPasswordPolicy`         | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWApplyProtectionPolicy`       | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWApplyRowAccessPolicy`        | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWApplySessionPolicy`          | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWAttachPolicy`                | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWBindServiceEndpoint`         | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCancelQuery`                 | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateAccount`               | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateApiIntegration`        | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateApplication`           | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateApplicationPackage`    | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateComputerPool`          | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateCredential`            | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateDataExchangeListing`   | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateDatabase`              | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateDatabaseRole`          | `SNOWRole`        | `SNOWDatabase`    |            |
-| `SNOWCreateExternalVolume`        | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateIntegration`           | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateNetworkPolicy`         | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateReplicationGroup`      | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateRole`                  | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateSchema`                | `SNOWRole`        | `SNOWDatabase`    |            |
-| `SNOWCreateShare`                 | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateUser`                  | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWCreateWarehouse`             | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWExecuteDataMetricFunction`   | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWExecuteManagedAlert`         | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWExecuteManagedTask`          | `SNOWApplication` | `SNOWAccount`     |            |
-| `SNOWExecuteManagedTask`          | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWExecuteTask`                 | `SNOWApplication` | `SNOWAccount`     |            |
-| `SNOWExecuteTask`                 | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWImportShare`                 | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWManageGrants`                | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWManageWarehouses`            | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWManagementSharing`           | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWMonitorExecution`            | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWOverrideShareRestrictions`   | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWPurchaseDataExchangeListing` | `SNOWRole`        | `SNOWAccount`     |            |
-| `SNOWReferenceUsage`              | `SNOWRole`        | `SNOWDatabase`    |            |
-| `SNOWUseAnyRole`                  | `SNOWRole`        | `SNOWIntegration` |            |
+| `SNOWUsage`                       | `SNOWApplication` | `SNOWDatabase`    | y          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWDatabase`    | y          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWIntegration` | y          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWRole`        | y          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWUser`        | y          |
+| `SNOWUsage`                       | `SNOWRole`        | `SNOWWarehouse`   | y          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWDatabase`    | y          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWIntegration` | y          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWRole`        | y          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWUser`        | y          |
+| `SNOWOwnership`                   | `SNOWRole`        | `SNOWWarehouse`   | y          |
+| `SNOWApplyBudget`                 | `SNOWRole`        | `SNOWDatabase`    | n          |
+| `SNOWApplyBudget`                 | `SNOWRole`        | `SNOWWarehouse`   | n          |
+| `SNOWAudit`                       | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWModify`                      | `SNOWRole`        | `SNOWDatabase`    | n          |
+| `SNOWModify`                      | `SNOWRole`        | `SNOWWarehouse`   | n          |
+| `SNOWMonitor`                     | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWMonitor`                     | `SNOWRole`        | `SNOWDatabase`    | n          |
+| `SNOWMonitor`                     | `SNOWRole`        | `SNOWWarehouse`   | n          |
+| `SNOWOperate`                     | `SNOWRole`        | `SNOWWarehouse`   | n          |
+| `SNOWApplyAggregationPolicy`      | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWApplyAuthenticationPolicy`   | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWApplyMaskingPolicy`          | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWApplyPackagesPolicy`         | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWApplyPasswordPolicy`         | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWApplyProtectionPolicy`       | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWApplyRowAccessPolicy`        | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWApplySessionPolicy`          | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWAttachPolicy`                | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWBindServiceEndpoint`         | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCancelQuery`                 | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateAccount`               | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateApiIntegration`        | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateApplication`           | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateApplicationPackage`    | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateComputerPool`          | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateCredential`            | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateDataExchangeListing`   | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateDatabase`              | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateDatabaseRole`          | `SNOWRole`        | `SNOWDatabase`    | n          |
+| `SNOWCreateExternalVolume`        | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateIntegration`           | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateNetworkPolicy`         | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateReplicationGroup`      | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateRole`                  | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateSchema`                | `SNOWRole`        | `SNOWDatabase`    | n          |
+| `SNOWCreateShare`                 | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateUser`                  | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWCreateWarehouse`             | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWExecuteDataMetricFunction`   | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWExecuteManagedAlert`         | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWExecuteManagedTask`          | `SNOWApplication` | `SNOWAccount`     | n          |
+| `SNOWExecuteManagedTask`          | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWExecuteTask`                 | `SNOWApplication` | `SNOWAccount`     | n          |
+| `SNOWExecuteTask`                 | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWImportShare`                 | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWManageGrants`                | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWManageWarehouses`            | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWManagementSharing`           | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWMonitorExecution`            | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWOverrideShareRestrictions`   | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWPurchaseDataExchangeListing` | `SNOWRole`        | `SNOWAccount`     | n          |
+| `SNOWReferenceUsage`              | `SNOWRole`        | `SNOWDatabase`    | n          |
+| `SNOWUseAnyRole`                  | `SNOWRole`        | `SNOWIntegration` | n          |
 
 ## Contributing
 
