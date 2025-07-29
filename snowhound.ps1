@@ -53,7 +53,7 @@ function New-SnowflakeEdge
     Write-Output $edge
 }
 
-function Invoke-ShowHound
+function Invoke-SnowHound
 {
     [CmdletBinding()]
     Param(
