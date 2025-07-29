@@ -10,6 +10,8 @@ I recommend reading my [Mapping Snowflake's Access Landscape](https://specterops
 
 ### Collecting Data
 
+NOTE: I expect that over time we will develop a more robust/specific collector for SNOWHound, but in the short term it seemed simpler to leverage Snowflake's fantastic query interface.
+
 The first step is to collect the graph-relevant data from Snowflake. The cool thing is that this is actually a relatively simple process. I’ve found that Snowflake’s default web client, Snowsight, does a fine job gathering this information. You can navigate to Snowsight once you’ve logged in by clicking on the Query data button at the top of the Home page.
 
 ![](./images/snowsight.webp)
@@ -98,7 +100,7 @@ After you've collected the relevant data from your Snowflake tenant, you must co
 Invoke-SnowHound
 ```
 
-SnowHound will output a payload to your current working directory called `snowhound_<accountid>.json`
+SnowHound will output a payload to your current working directory called `snowhound_output.json`
 
 4) Upload the payload via BloodHound's File Ingest page
 
