@@ -221,6 +221,9 @@ function Invoke-SnowHound
     }
 
     $payload = [PSCustomObject]@{
+        metadata = [PSCustomObject]@{
+            source_kind = "SNOWBase"
+        }
         graph = [PSCustomObject]@{
             nodes = $nodes.ToArray()
             edges = $edges.ToArray()
