@@ -106,6 +106,9 @@ SnowHound will output a payload to your current working directory called `snowho
 
 4) Upload the payload via BloodHound's File Ingest page
 
+### Sample
+If you do not have a Snowflake environment or if you want to test out Snowhound before collecting from your own production environment, we've included a sample data set at ./samples/example.json.
+
 ## Schema
 
 The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOWAccount, SNOWUser, SNOWRole, SNOWWarehouse, SNOWDatabase, and SNOWIntegration. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
