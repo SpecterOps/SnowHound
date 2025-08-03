@@ -1,0 +1,1734 @@
+{
+  "metadata": {
+    "source_kind": "SNOWBase"
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "ZV42484",
+        "kinds": [
+          "SNOWAccount",
+          "SNOWBase"
+        ],
+        "properties": {
+          "organization_name": "CGXOVHZ",
+          "account_name": "NR46411",
+          "snowflake_region": "AZURE_CENTRALUS",
+          "edition": "STANDARD",
+          "account_url": "https://cgxovhz-nr46411.snowflakecomputing.com",
+          "created_on": "2024-06-21 08:30:41.189 -0700",
+          "account_locator": "ZV42484",
+          "account_locator_url": "https://zv42484.central-us.azure.snowflakecomputing.com",
+          "managed_accounts": "0",
+          "is_org_admin": "true"
+        }
+      },
+      {
+        "id": "ACHILES@SPECTERDEV.ONMICROSOFT.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "ACHILES@SPECTERDEV.ONMICROSOFT.COM",
+          "created_on": "2024-07-01 12:32:29.712 -0700",
+          "login_name": "ACHILES@SPECTERDEV.ONMICROSOFT.COM",
+          "display_name": "Andew Chiles",
+          "first_name": "Andrew",
+          "last_name": "Chiles",
+          "email": "achiles@specterdev.onmicrosoft.com",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "AAD_PROVISIONER",
+          "last_success_login": "",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "AROBBINS@SPECTERDEV.ONMICROSOFT.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "AROBBINS@SPECTERDEV.ONMICROSOFT.COM",
+          "created_on": "2024-06-30 14:32:22.110 -0700",
+          "login_name": "AROBBINS@SPECTERDEV.ONMICROSOFT.COM",
+          "display_name": "Andy Robbins",
+          "first_name": "Andy",
+          "last_name": "Robbins",
+          "email": "arobbins@specterdev.onmicrosoft.com",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "AAD_PROVISIONER",
+          "last_success_login": "",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "CMADDALENA@SPECTERDEV.ONMICROSOFT.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "CMADDALENA@SPECTERDEV.ONMICROSOFT.COM",
+          "created_on": "2024-06-30 15:16:07.931 -0700",
+          "login_name": "CMADDALENA@SPECTERDEV.ONMICROSOFT.COM",
+          "display_name": "cmaddalena",
+          "first_name": "Christopher",
+          "last_name": "Maddalena",
+          "email": "",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "AAD_PROVISIONER",
+          "last_success_login": "",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "DUMMYUSER@GMAIL.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "DUMMYUSER@GMAIL.COM",
+          "created_on": "2025-06-10 14:21:17.295 -0700",
+          "login_name": "DUMMYUSER@GMAIL.COM",
+          "display_name": "dummyuser",
+          "first_name": "dummy",
+          "last_name": "user",
+          "email": "dummyuser@gmail.com",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "GENERIC_SCIM_PROVISIONER",
+          "last_success_login": "2025-06-10 20:28:21.367 -0700",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "GFOSTER@SPECTEROPS.IO",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "GFOSTER@SPECTEROPS.IO",
+          "created_on": "2025-06-10 16:08:19.402 -0700",
+          "login_name": "GFOSTER@SPECTEROPS.IO",
+          "display_name": "",
+          "first_name": "",
+          "last_name": "",
+          "email": "gfoster@specterops.io",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "GENERIC_SCIM_PROVISIONER",
+          "last_success_login": "",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "HOPEW@SPECTERDEV.ONMICROSOFT.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "HOPEW@SPECTERDEV.ONMICROSOFT.COM",
+          "created_on": "2024-06-30 15:16:08.341 -0700",
+          "login_name": "HOPEW@SPECTERDEV.ONMICROSOFT.COM",
+          "display_name": "Hope Walker",
+          "first_name": "",
+          "last_name": "",
+          "email": "hopew@specterdev.onmicrosoft.com",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "AAD_PROVISIONER",
+          "last_success_login": "",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM",
+          "created_on": "2024-06-30 14:54:05.639 -0700",
+          "login_name": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM",
+          "display_name": "Jared Atkinson",
+          "first_name": "Jared",
+          "last_name": "Atkinson",
+          "email": "jatkinson@specterdev.onmicrosoft.com",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "AAD_PROVISIONER",
+          "last_success_login": "2025-03-25 21:05:13.849 -0700",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "JKNUDSEN@SPECTERDEV.ONMICROSOFT.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "JKNUDSEN@SPECTERDEV.ONMICROSOFT.COM",
+          "created_on": "2024-07-01 09:37:08.964 -0700",
+          "login_name": "JKNUDSEN@SPECTERDEV.ONMICROSOFT.COM",
+          "display_name": "Jonas Knudsen",
+          "first_name": "Jonas",
+          "last_name": "Knudsen",
+          "email": "",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "AAD_PROVISIONER",
+          "last_success_login": "",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "LPAINE@SPECTERDEV.ONMICROSOFT.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "LPAINE@SPECTERDEV.ONMICROSOFT.COM",
+          "created_on": "2024-06-30 14:32:21.918 -0700",
+          "login_name": "LPAINE@SPECTERDEV.ONMICROSOFT.COM",
+          "display_name": "Luke Paine",
+          "first_name": "Luke",
+          "last_name": "Paine",
+          "email": "",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "AAD_PROVISIONER",
+          "last_success_login": "2024-07-01 11:58:28.904 -0700",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "RWINCHESTER@SPECTERDEV.ONMICROSOFT.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "RWINCHESTER@SPECTERDEV.ONMICROSOFT.COM",
+          "created_on": "2024-06-30 15:16:07.588 -0700",
+          "login_name": "RWINCHESTER@SPECTERDEV.ONMICROSOFT.COM",
+          "display_name": "Robby Winchester",
+          "first_name": "Robby",
+          "last_name": "Winchester",
+          "email": "rwinchester@specterdev.onmicrosoft.com",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "AAD_PROVISIONER",
+          "last_success_login": "2024-07-01 09:46:56.259 -0700",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "SNOWFLAKE",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "SNOWFLAKE",
+          "created_on": "2024-06-21 08:30:41.209 -0700",
+          "login_name": "SNOWFLAKE",
+          "display_name": "SNOWFLAKE",
+          "first_name": "",
+          "last_name": "",
+          "email": "",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "",
+          "last_success_login": "2024-06-21 08:30:45.102 -0700",
+          "has_password": "true",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "SPECTERDEV",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "SPECTERDEV",
+          "created_on": "2024-06-21 08:30:41.191 -0700",
+          "login_name": "SPECTERDEV",
+          "display_name": "SPECTERDEV",
+          "first_name": "Specter",
+          "last_name": "Admin",
+          "email": "admin@specterops.io",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "COMPUTE_WH",
+          "default_namespace": "",
+          "default_role": "ACCOUNTADMIN",
+          "ext_authn_duo": "false",
+          "owner": "ACCOUNTADMIN",
+          "last_success_login": "2025-08-03 10:07:52.853 -0700",
+          "has_password": "true",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "TESTACCOUNT@GMAIL.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "TESTACCOUNT@GMAIL.COM",
+          "created_on": "2025-06-10 20:30:02.163 -0700",
+          "login_name": "TESTACCOUNT@GMAIL.COM",
+          "display_name": "",
+          "first_name": "Test Account",
+          "last_name": "",
+          "email": "testaccount@gmail.com",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "GENERIC_SCIM_PROVISIONER",
+          "last_success_login": "2025-06-10 22:26:58.801 -0700",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "WSHCRODER@SPECTERDEV.ONMICROSOFT.COM",
+        "kinds": [
+          "SNOWUser",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "WSHCRODER@SPECTERDEV.ONMICROSOFT.COM",
+          "created_on": "2024-06-30 14:32:22.425 -0700",
+          "login_name": "WSHCRODER@SPECTERDEV.ONMICROSOFT.COM",
+          "display_name": "Will Schroeder",
+          "first_name": "Will",
+          "last_name": "Schroeder",
+          "email": "wshcroder@specterdev.onmicrosoft.com",
+          "disabled": "false",
+          "must_change_password": "false",
+          "snowflake_lock": "false",
+          "default_warehouse": "",
+          "default_namespace": "",
+          "default_role": "",
+          "ext_authn_duo": "false",
+          "owner": "AAD_PROVISIONER",
+          "last_success_login": "2024-08-29 16:01:45.981 -0700",
+          "has_password": "false",
+          "has_rsa_public_key": "false"
+        }
+      },
+      {
+        "id": "AAD_PROVISIONER",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-30 14:14:09.572 -0700",
+          "name": "AAD_PROVISIONER",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "Y",
+          "assigned_to_users": "0",
+          "grated_to_roles": "1",
+          "granted_roles": "0",
+          "owner": "ACCOUNTADMIN"
+        }
+      },
+      {
+        "id": "ACCOUNTADMIN",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-21 08:30:41.229 -0700",
+          "name": "ACCOUNTADMIN",
+          "is_default": "Y",
+          "is_current": "Y",
+          "is_inherited": "N",
+          "assigned_to_users": "2",
+          "grated_to_roles": "0",
+          "granted_roles": "4",
+          "owner": ""
+        }
+      },
+      {
+        "id": "DETECTION",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-30 15:16:10.387 -0700",
+          "name": "DETECTION",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "N",
+          "assigned_to_users": "5",
+          "grated_to_roles": "0",
+          "granted_roles": "0",
+          "owner": "AAD_PROVISIONER"
+        }
+      },
+      {
+        "id": "GENERIC_SCIM_PROVISIONER",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2025-06-10 10:45:07.272 -0700",
+          "name": "GENERIC_SCIM_PROVISIONER",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "Y",
+          "assigned_to_users": "0",
+          "grated_to_roles": "1",
+          "granted_roles": "0",
+          "owner": "ACCOUNTADMIN"
+        }
+      },
+      {
+        "id": "ORGADMIN",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-21 08:30:41.493 -0700",
+          "name": "ORGADMIN",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "N",
+          "assigned_to_users": "2",
+          "grated_to_roles": "0",
+          "granted_roles": "0",
+          "owner": ""
+        }
+      },
+      {
+        "id": "PUBLIC",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-21 08:30:41.220 -0700",
+          "name": "PUBLIC",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "Y",
+          "assigned_to_users": "0",
+          "grated_to_roles": "0",
+          "granted_roles": "0",
+          "owner": ""
+        }
+      },
+      {
+        "id": "SECURITYADMIN",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-21 08:30:41.237 -0700",
+          "name": "SECURITYADMIN",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "Y",
+          "assigned_to_users": "1",
+          "grated_to_roles": "1",
+          "granted_roles": "1",
+          "owner": ""
+        }
+      },
+      {
+        "id": "SNOWFLAKE ADMIN",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-07-01 13:12:12.141 -0700",
+          "name": "SNOWFLAKE ADMIN",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "N",
+          "assigned_to_users": "2",
+          "grated_to_roles": "0",
+          "granted_roles": "0",
+          "owner": "AAD_PROVISIONER"
+        }
+      },
+      {
+        "id": "SNOWFLAKE USERS",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-30 15:16:09.904 -0700",
+          "name": "SNOWFLAKE USERS",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "N",
+          "assigned_to_users": "1",
+          "grated_to_roles": "0",
+          "granted_roles": "0",
+          "owner": "AAD_PROVISIONER"
+        }
+      },
+      {
+        "id": "SYSADMIN",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-21 08:30:41.244 -0700",
+          "name": "SYSADMIN",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "Y",
+          "assigned_to_users": "0",
+          "grated_to_roles": "1",
+          "granted_roles": "0",
+          "owner": ""
+        }
+      },
+      {
+        "id": "USERADMIN",
+        "kinds": [
+          "SNOWRole",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-21 08:30:41.249 -0700",
+          "name": "USERADMIN",
+          "is_default": "N",
+          "is_current": "N",
+          "is_inherited": "Y",
+          "assigned_to_users": "1",
+          "grated_to_roles": "1",
+          "granted_roles": "0",
+          "owner": ""
+        }
+      },
+      {
+        "id": "COMPUTE_WH",
+        "kinds": [
+          "SNOWWarehouse",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "COMPUTE_WH",
+          "state": "STARTED",
+          "type": "STANDARD",
+          "size": "X-Small",
+          "owner": "ACCOUNTADMIN"
+        }
+      },
+      {
+        "id": "SYSTEM$STREAMLIT_NOTEBOOK_WH",
+        "kinds": [
+          "SNOWWarehouse",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "SYSTEM$STREAMLIT_NOTEBOOK_WH",
+          "state": "SUSPENDED",
+          "type": "STANDARD",
+          "size": "X-Small",
+          "owner": "ACCOUNTADMIN"
+        }
+      },
+      {
+        "id": "SNOWFLAKE",
+        "kinds": [
+          "SNOWDatabase",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-21 08:30:41.631 -0700",
+          "name": "SNOWFLAKE",
+          "is_default": "N",
+          "is_current": "N",
+          "origin": "SNOWFLAKE.ACCOUNT_USAGE",
+          "owner": "",
+          "kind": "APPLICATION"
+        }
+      },
+      {
+        "id": "SNOWFLAKE_SAMPLE_DATA",
+        "kinds": [
+          "SNOWDatabase",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-21 08:30:46.037 -0700",
+          "name": "SNOWFLAKE_SAMPLE_DATA",
+          "is_default": "N",
+          "is_current": "N",
+          "origin": "SFSALESSHARED.SFC_SAMPLES_AZURECENTRALUS.SAMPLE_DATA",
+          "owner": "ACCOUNTADMIN",
+          "kind": "IMPORTED DATABASE"
+        }
+      },
+      {
+        "id": "SPECTERDEV_AZURE",
+        "kinds": [
+          "SNOWDatabase",
+          "SNOWBase"
+        ],
+        "properties": {
+          "created_on": "2024-06-21 08:34:59.541 -0700",
+          "name": "SPECTERDEV_AZURE",
+          "is_default": "N",
+          "is_current": "N",
+          "origin": "",
+          "owner": "ACCOUNTADMIN",
+          "kind": "STANDARD"
+        }
+      },
+      {
+        "id": "AAD_PROVISIONING",
+        "kinds": [
+          "SNOWIntegration",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "AAD_PROVISIONING",
+          "type": "SCIM - AZURE",
+          "category": "SECURITY",
+          "enabled": "true",
+          "created_on": "2024-06-30 14:15:00.476 -0700"
+        }
+      },
+      {
+        "id": "GENERIC_SCIM_PROVISIONING",
+        "kinds": [
+          "SNOWIntegration",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "GENERIC_SCIM_PROVISIONING",
+          "type": "SCIM - GENERIC",
+          "category": "SECURITY",
+          "enabled": "true",
+          "created_on": "2025-06-10 10:46:13.357 -0700"
+        }
+      },
+      {
+        "id": "PINGONE_SSO",
+        "kinds": [
+          "SNOWIntegration",
+          "SNOWBase"
+        ],
+        "properties": {
+          "name": "PINGONE_SSO",
+          "type": "SAML2",
+          "category": "SECURITY",
+          "enabled": "true",
+          "created_on": "2025-06-10 20:21:59.034 -0700"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "ACHILES@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "SNOWFLAKE ADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "CMADDALENA@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "SNOWFLAKE ADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "ACCOUNTADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "SNOWFLAKE"
+        },
+        "end": {
+          "value": "ACCOUNTADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "SPECTERDEV"
+        },
+        "end": {
+          "value": "ACCOUNTADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "JKNUDSEN@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "SNOWFLAKE USERS"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "CMADDALENA@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "DETECTION"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "DETECTION"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "HOPEW@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "DETECTION"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "RWINCHESTER@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "DETECTION"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "WSHCRODER@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "DETECTION"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "LPAINE@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "SECURITYADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "SNOWFLAKEADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "SPECTERDEV"
+        },
+        "end": {
+          "value": "ORGADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "ORGADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "AROBBINS@SPECTERDEV.ONMICROSOFT.COM"
+        },
+        "end": {
+          "value": "USERADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "PUBLIC"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateRole",
+        "start": {
+          "value": "GENERIC_SCIM_PROVISIONER"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateUser",
+        "start": {
+          "value": "GENERIC_SCIM_PROVISIONER"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "DATA_QUALITY_MONITORING_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "APP_USAGE_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "DATA_QUALITY_MONITORING_LOOKUP"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWExecuteTask",
+        "start": {
+          "value": "SNOWFLAKE"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "COST_INSIGHTS_USER"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "EVENTS_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "DATA_QUALITY_MONITORING_VIEWER"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "CORTEX_ANALYST_REQUESTS_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWApplyBudget",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "SYSTEM$STREAMLIT_NOTEBOOK_WH"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "SYSTEM$STREAMLIT_NOTEBOOK_WH"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWManageWarehouses",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateAccount",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWAudit",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWImportShare",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWMonitorExecution",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "SPECTERDEV_AZURE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE_SAMPLE_DATA"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "PINGONE_SSO"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "GENERIC_SCIM_PROVISIONING"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "AAD_PROVISIONER"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "AAD_PROVISIONER"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "GENERIC_SCIM_PROVISIONER"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "GENERIC_SCIM_PROVISIONER"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "COMPUTE_WH"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "SYSTEM$STREAMLIT_NOTEBOOK_WH"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "AAD_PROVISIONING"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOperate",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "SYSTEM$STREAMLIT_NOTEBOOK_WH"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWMonitor",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "SYSTEM$STREAMLIT_NOTEBOOK_WH"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "SYSADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWExecuteTask",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateIntegration",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCancelQuery",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOverrideShareRestrictions",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateReplicationGroup",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateApplication",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWMonitor",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateApiIntegration",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "SECURITYADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateApplicationPackage",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateExternalVolume",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWExecuteManagedAlert",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateShare",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWExecuteDataMetricFunction",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWBindServiceEndpoint",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWPurchaseDataExchangeListing",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWApplyMaskingPolicy",
+        "start": {
+          "value": "ACCOUNTADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "AI_OBSERVABILITY_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "ANOMALY_INSIGHTS_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "PERFORMANCE_EXPLORER_USER"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "PUBLIC"
+        },
+        "end": {
+          "value": "SNOWFLAKE_SAMPLE_DATA"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "PUBLIC"
+        },
+        "end": {
+          "value": "SYSTEM$STREAMLIT_NOTEBOOK_WH"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "PUBLIC"
+        },
+        "end": {
+          "value": "SYSTEM$STREAMLIT_NOTEBOOK_WH"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "TRUST_CENTER_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "APP_USAGE_VIEWER"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "BUDGET_VIEWER"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateWarehouse",
+        "start": {
+          "value": "SYSADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateDatabase",
+        "start": {
+          "value": "SYSADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateComputerPool",
+        "start": {
+          "value": "SYSADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWApplySessionPolicy",
+        "start": {
+          "value": "SECURITYADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWManageGrants",
+        "start": {
+          "value": "SECURITYADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWApplyPackagesPolicy",
+        "start": {
+          "value": "SECURITYADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWAttachPolicy",
+        "start": {
+          "value": "SECURITYADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "SECURITYADMIN"
+        },
+        "end": {
+          "value": "USERADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWBindServiceEndpoint",
+        "start": {
+          "value": "SECURITYADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateNetworkPolicy",
+        "start": {
+          "value": "SECURITYADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWApplyAuthenticationPolicy",
+        "start": {
+          "value": "SECURITYADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWApplyPasswordPolicy",
+        "start": {
+          "value": "SECURITYADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "CORTEX_ANALYST_REQUESTS_VIEWER"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "EXTERNAL_ACCESS_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWPurchaseDataExchangeListing",
+        "start": {
+          "value": "ORGADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "TRUST_CENTER_VIEWER"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "BUDGET_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateRole",
+        "start": {
+          "value": "USERADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateUser",
+        "start": {
+          "value": "USERADMIN"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "AAD_PROVISIONER"
+        },
+        "end": {
+          "value": "DETECTION"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "AAD_PROVISIONER"
+        },
+        "end": {
+          "value": "SNOWFLAKE USERS"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWOwnership",
+        "start": {
+          "value": "AAD_PROVISIONER"
+        },
+        "end": {
+          "value": "SNOWFLAKE ADMIN"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateUser",
+        "start": {
+          "value": "AAD_PROVISIONER"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWCreateRole",
+        "start": {
+          "value": "AAD_PROVISIONER"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "EVENTS_VIEWER"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "CORTEX_MODELS_ADMIN"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOWUsage",
+        "start": {
+          "value": "AI_OBSERVABILITY_EVENTS_LOOKUP"
+        },
+        "end": {
+          "value": "SNOWFLAKE"
+        },
+        "properties": {}
+      }
+    ]
+  }
+}
