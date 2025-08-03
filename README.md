@@ -202,6 +202,11 @@ NOTE: I need to go back and add SNOWContains edges from the SNOWAccount to all o
 | `SNOWReferenceUsage`              | `SNOWRole`        | `SNOWDatabase`    | n          |
 | `SNOWUseAnyRole`                  | `SNOWRole`        | `SNOWIntegration` | n          |
 
+### To Do
+
+- Add support for detailed information on integrations, specifically security integrations associated with SCIM or SSO (type = `SCIM - *` or `SAML2`)
+- Add support for more detailed objects such as Application Roles (these currently show up as unknown objects)
+
 ## Contributing
 
 We welcome and appreciate your contributions! To make the process smooth and efficient, please follow these steps:
