@@ -41,6 +41,20 @@
         "name": "user-tie",
         "color": "#BFFFD1"
       }
+    },
+    "SNOWApplication": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "window-maximize",
+        "color": "#A1C6EA"
+      }
+    },
+    "SNOWSchema": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "network-wired",
+        "color": "#DEFEFA"
+      }
     }
   }
 }

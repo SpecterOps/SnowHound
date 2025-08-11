@@ -26,43 +26,47 @@ The model supports Accounts, Applications, Databases, Roles, Users, and Warehous
 
 I’ve found that I can query Applications, Databases, Roles, and Users as an unprivileged user. However, this is different for Accounts, which require ORGADMIN, and Warehouses, which require instance-specific access (e.g., [ACCOUNTADMIN](https://docs.snowflake.com/en/user-guide/warehouses-tasks#delegating-warehouse-management)).
 
+#### Accounts
+
+* Command: [SELECT * FROM snowflake.organization_usage.accounts WHERE account_locator = CURRENT_ACCOUNT();](https://docs.snowflake.com/en/sql-reference/sql/show-accounts)
+* File Name: accounts.csv
+
 #### Applications
 
 * Command: [SHOW APPLICATIONS;](https://docs.snowflake.com/en/sql-reference/sql/show-applications)
-* File Name: application.csv
+* File Name: applications.csv
 
 #### Databases
 
-* Command: [SHOW DATABASES;](https://docs.snowflake.com/en/sql-reference/sql/show-databases)
-* File Name: database.csv
+* Command: [SELECT * FROM snowflake.account_usage.databases;](https://docs.snowflake.com/en/sql-reference/sql/show-databases)
+* File Name: databases.csv
+
+#### Schemas
+
+* Command: [SHOW SCHEMAS;](https://docs.snowflake.com/en/sql-reference/sql/show-schemas)
+* File Name: schemas.csv
 
 #### Roles
 
-* Command: [SHOW ROLES;](https://docs.snowflake.com/en/sql-reference/sql/show-roles)
-* File Name: role.csv
+* Command: [SELECT * FROM snowflake.account_usage.roles;](https://docs.snowflake.com/en/sql-reference/sql/show-roles)
+* File Name: roles.csv
 
 #### Users
 
-* Command: [SHOW USERS;](https://docs.snowflake.com/en/sql-reference/sql/show-users)
-* File Name: user.csv
+* Command: [SELECT * FROM snowflake.account_usage.users;](https://docs.snowflake.com/en/sql-reference/sql/show-users)
+* File Name: users.csv
 
 #### Warehouses
 
 * Command: [SHOW WAREHOUSES;](https://docs.snowflake.com/en/sql-reference/sql/show-warehouses)
-* File Name: warehouse.csv
+* File Name: warehouses.csv
 
 Note: As mentioned above, users can only enumerate warehouses for which they have been granted privileges. One way to grant a non-ACCOUNTADMIN user visibility of all warehouses is to grant the [MANAGE WAREHOUSES](https://docs.snowflake.com/en/user-guide/warehouses-tasks#delegating-warehouse-management) privilege.
 
-#### Accounts
+#### Integrations
 
-At this point, we have almost all the entity data we need. We have one final query that will allow us to gather details about our Snowflake account. This query can only be done by the ORGADMIN role. Assuming your user has been granted ORGADMIN, go to the top right corner of the browser and click on your current role. This will result in a drop-down that displays all of the roles that are effectively granted to your user. Here, you will select ORGADMIN, allowing you to run commands in the context of the ORGADMIN role.
-
-![](./images/accountadmin.webp)
-
-Once complete, run the following command to list the account details.
-
-* Command: [SHOW ACCOUNTS;](https://docs.snowflake.com/en/sql-reference/sql/show-accounts)
-* File Name: account.csv
+* Command: [SHOW INTEGRATIONS;](https://docs.snowflake.com/en/sql-reference/sql/show-integrations)
+* File Name: integrations.csv
 
 #### Grants
 
@@ -81,7 +85,7 @@ SELECT * FROM snowflake.account_usage.grants_to_users;
 The final view is [grants_to_roles](https://docs.snowflake.com/en/sql-reference/account-usage/grants_to_roles), which maintains a list of all the privileges granted to roles. This glue ultimately allows users to interact with the different Snowflake entities. This view can be enumerated using the following command. The results should be saved as a CSV file named grants_to_roles.csv.
 
 ```
-SELECT * FROM snowflake.account_usage.grants_to_roles WHERE GRANTED_ON IN ('ACCOUNT', 'APPLICATION', 'DATABASE', 'INTEGRATION', 'ROLE', 'USER', 'WAREHOUSE');
+SELECT * FROM snowflake.account_usage.grants_to_roles WHERE GRANTED_ON IN ('ACCOUNT', 'APPLICATION', 'DATABASE', 'INTEGRATION', 'ROLE', 'SCHEMA', 'USER', 'WAREHOUSE');
 ```
 
 ### Generating BloodHound OpenGraph Payload
