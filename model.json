@@ -7,25 +7,11 @@
         "color": "#5FED83"
       }
     },
-    "SNOWUser": {
+    "SNOWApplication": {
       "icon": {
         "type": "font-awesome",
-        "name": "user",
-        "color": "#FF8E40"
-      }
-    },
-    "SNOWRole": {
-      "icon": {
-        "type": "font-awesome",
-        "name": "user-group",
-        "color": "#C06EFF"
-      }
-    },
-    "SNOWWarehouse": {
-      "icon": {
-        "type": "font-awesome",
-        "name": "warehouse",
-        "color": "#9EECFF"
+        "name": "window-maximize",
+        "color": "#A1C6EA"
       }
     },
     "SNOWDatabase": {
@@ -42,18 +28,32 @@
         "color": "#BFFFD1"
       }
     },
-    "SNOWApplication": {
-      "icon": {
-        "type": "font-awesome",
-        "name": "window-maximize",
-        "color": "#A1C6EA"
-      }
-    },
     "SNOWSchema": {
       "icon": {
         "type": "font-awesome",
         "name": "network-wired",
         "color": "#DEFEFA"
+      }
+    },
+    "SNOWRole": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "user-group",
+        "color": "#C06EFF"
+      }
+    },
+    "SNOWUser": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "user",
+        "color": "#FF8E40"
+      }
+    },
+    "SNOWWarehouse": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "warehouse",
+        "color": "#9EECFF"
       }
     }
   }

@@ -129,18 +129,21 @@ Nodes correspond to each object type.
 
 | Node                                                                           | Description                                                                                                                                | Icon        | Color   |
 |--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------|---------|
-| <img src="./images/black_SNOWAccount.png" width="30"/> SNOWAccount             | The top-level container for all Snowflake resources such as users, roles, databases, and integrations.                                     | building    | #5FED83 |
-| <img src="./images/black_SNOWUser.png" width="30"/> SNOWUser                   | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access.                 | user        | #FF8E40 |
-| <img src="./images/black_SNOWRole.png" width="30"/> SNOWRole                   | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles.                           | user-group  | #C06EFF |
-| <img src="./images/black_SNOWWarehouse.png" width="30"/> SNOWWarehouse         | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. | warehouse   | #9EECFF |
-| <img src="./images/black_SNOWDatabase.png" width="30"/> SNOWDatabase           | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it.                                            | database    | #FF80D2 |
-| <img src="./images/black_SNOWIntegration.png" width="30"/> SNOWIntegration     | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application.             | user-tie    | #BFFFD1 |
+| <img src="./images/black_SNOWAccount.svg" width="30"/> SNOWAccount             | The top-level container for all Snowflake resources such as users, roles, databases, and integrations.                                     | building    | #5FED83 |
+| <img src="./images/black_SNOWApplication.svg" width="30"/> SNOWApplication     | | window-maximize | #A1C6EA |
+| <img src="./images/black_SNOWDatabase.svg" width="30"/> SNOWDatabase           | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it.                                            | database    | #FF80D2 |
+| <img src="./images/black_SNOWIntegration.svg" width="30"/> SNOWIntegration     | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application.             | user-tie    | #BFFFD1 |
+| <img src="./images/black_SNOWRole.svg" width="30"/> SNOWRole                   | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles.                           | user-group  | #C06EFF |
+| <img src="./images/black_SNOWSchema.svg" width="30"/> SNOWSchema               | | network-wired | #DEFEFA |
+| <img src="./images/black_SNOWUser.svg" width="30"/> SNOWUser                   | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access.                 | user        | #FF8E40 |
+| <img src="./images/black_SNOWWarehouse.svg" width="30"/> SNOWWarehouse         | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. | warehouse   | #9EECFF |
 
 ### Edges
 
 Edges capture every relationship; who contains what, membership, view vs. manage permissions, etc.
 
 NOTE: I need to go back and add SNOWContains edges from the SNOWAccount to all of the components of the account.
+NOTE: I need to go back and document all of the edges to and from SNOWApplication and SNOWSchema nodes.
 
 | Edge Type                         | Source            | Target            | Travesable |
 |-----------------------------------|-------------------|-------------------| ---------- |
