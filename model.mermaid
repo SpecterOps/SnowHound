@@ -1,0 +1,168 @@
+---
+config:
+  layout: elk
+---
+flowchart TD
+    SNOWAccount[fa:fa-building SNOWAccount]
+    SNOWApplication[fa:fa-window-maximize SNOWApplication]
+    SNOWApplicationRole[fa:fa-user-shield SNOWApplicationRole]
+    SNOWDatabase[fa:fa-database SNOWDatabase]
+    SNOWFunction[fa:fa-code SNOWFunction]
+    SNOWIntegration[fa:fa-user-tie SNOWIntegration]
+    SNOWProcedure[fa:fa-cogs SNOWProcedure]
+    SNOWRole[fa:fa-user-group SNOWRole]
+    SNOWSchema[fa:fa-network-wired SNOWSchema]
+    SNOWStage[fa:fa-layer-group SNOWStage]
+    SNOWTable[fa:fa-table SNOWTable]
+    SNOWUser[fa:fa-user SNOWUser]
+    SNOWView[fa:fa-eye SNOWView]
+    SNOWWarehouse[fa:fa-warehouse SNOWWarehouse]
+
+    style SNOWAccount fill:#5FED83
+    style SNOWApplication fill:#A1C6EA
+    style SNOWApplicationRole fill:#C6C3FF
+    style SNOWDatabase fill:#FF80D2
+    style SNOWFunction fill:#A9E5E5
+    style SNOWIntegration fill:#BFFFD1
+    style SNOWProcedure fill:#D8C8F8
+    style SNOWRole fill:#C06EFF
+    style SNOWSchema fill:#DEFEFA
+    style SNOWStage fill:#80E0C6
+    style SNOWTable fill:#FFD2A6
+    style SNOWUser fill:#FF8E40
+    style SNOWView fill:#A6E0FF
+    style SNOWWarehouse fill:#9EECFF
+    
+    SNOWAccount -.->|SNOWContains| SNOWApplication
+    SNOWAccount -.->|SNOWContains| SNOWApplicationRole
+    SNOWAccount -.->|SNOWContains| SNOWDatabase
+    SNOWAccount -.->|SNOWContains| SNOWFunction
+    SNOWAccount -.->|SNOWContains| SNOWIntegration
+    SNOWAccount -.->|SNOWContains| SNOWProcedure
+    SNOWAccount -.->|SNOWContains| SNOWRole
+    SNOWAccount -.->|SNOWContains| SNOWSchema
+    SNOWAccount -.->|SNOWContains| SNOWStage
+    SNOWAccount -.->|SNOWContains| SNOWTable
+    SNOWAccount -.->|SNOWContains| SNOWUser
+    SNOWAccount -.->|SNOWContains| SNOWView
+    SNOWAccount -.->|SNOWContains| SNOWWarehouse
+    
+    SNOWApplication -.->|SNOWContains| SNOWApplicationRole
+    SNOWApplication -.->|SNOWExecuteManagedTask| SNOWAccount
+    SNOWApplication -.->|SNOWExecuteTask| SNOWAccount
+
+    SNOWApplicationRole -.->|SNOWDelete| SNOWTable
+    SNOWApplicationRole -.->|SNOWSelect| SNOWTable
+    SNOWApplicationRole -.->|SNOWSelect| SNOWView
+    SNOWApplicationRole -.->|SNOWTruncate| SNOWTable
+    SNOWApplicationRole -.->|SNOWUsage| SNOWDatabase
+    SNOWApplicationRole -.->|SNOWUsage| SNOWProcedure
+    SNOWApplicationRole -.->|SNOWUsage| SNOWSchema
+    
+    SNOWDatabase -.->|SNOWContains| SNOWSchema
+    
+    SNOWSchema -.->|SNOWContains| SNOWFunction
+    SNOWSchema -.->|SNOWContains| SNOWProcedure
+    SNOWSchema -.->|SNOWContains| SNOWStage
+    SNOWSchema -.->|SNOWContains| SNOWTable
+    SNOWSchema -.->|SNOWContains| SNOWView
+
+    SNOWUser -.->|SNOWUsage| SNOWRole
+
+    SNOWRole -.->|SNOWCreateSchema| SNOWDatabase
+    SNOWRole -.->|SNOWModify| SNOWDatabase
+    SNOWRole -.->|SNOWOwnership| SNOWDatabase
+    SNOWRole -.->|SNOWUsage| SNOWDatabase
+
+    SNOWRole -.->|SNOWModify| SNOWSchema
+    SNOWRole -.->|SNOWMonitor| SNOWSchema
+    SNOWRole -.->|SNOWOwnership| SNOWSchema
+    SNOWRole -.->|SNOWUseage| SNOWSchema
+    SNOWRole -.->|SNOWCreateAggregationPolicy| SNOWSchema
+    SNOWRole -.->|SNOWCreateAlert| SNOWSchema
+    SNOWRole -.->|SNOWCreateAuthenticationPolicy| SNOWSchema
+    SNOWRole -.->|SNOWCreateDataset| SNOWSchema
+    SNOWRole -.->|SNOWCreateDynamicTable| SNOWSchema
+    SNOWRole -.->|SNOWCreateEventTable| SNOWSchema
+    SNOWRole -.->|SNOWCreateExternalTable| SNOWSchema
+    SNOWRole -.->|SNOWCreateFileFormat| SNOWSchema
+    SNOWRole -.->|SNOWCreateFunction| SNOWSchema
+    SNOWRole -.->|SNOWCreateGitRepository| SNOWSchema
+    SNOWRole -.->|SNOWCreateIcebergTable| SNOWSchema
+    SNOWRole -.->|SNOWCreateImageRepository| SNOWSchema
+    SNOWRole -.->|SNOWCreateMaskingPolicy| SNOWSchema
+    SNOWRole -.->|SNOWCreateMaterializedView| SNOWSchema
+    SNOWRole -.->|SNOWCreateModel| SNOWSchema
+    SNOWRole -.->|SNOWCreateNetworkRule| SNOWSchema
+    SNOWRole -.->|SNOWCreateNotebook| SNOWSchema
+    SNOWRole -.->|SNOWCreatePackagesPolicy| SNOWSchema
+    SNOWRole -.->|SNOWCreatePasswordPolicy| SNOWSchema
+    SNOWRole -.->|SNOWCreatePipe| SNOWSchema
+    SNOWRole -.->|SNOWCreateProcedure| SNOWSchema
+    SNOWRole -.->|SNOWCreateProjectionPolicy| SNOWSchema
+    SNOWRole -.->|SNOWCreateResourceGroup| SNOWSchema
+    SNOWRole -.->|SNOWCreateRowAccessPolicy| SNOWSchema
+    SNOWRole -.->|SNOWCreateSecret| SNOWSchema
+    SNOWRole -.->|SNOWCreateSequence| SNOWSchema
+    SNOWRole -.->|SNOWCreateService| SNOWSchema
+    SNOWRole -.->|SNOWCreateServiceClass| SNOWSchema
+    SNOWRole -.->|SNOWCreateSessionPolicy| SNOWSchema
+    SNOWRole -.->|SNOWCreateSnapshot| SNOWSchema
+    SNOWRole -.->|SNOWCreateStage| SNOWSchema
+    SNOWRole -.->|SNOWCreateStream| SNOWSchema
+    SNOWRole -.->|SNOWCreateStreamlit| SNOWSchema
+    SNOWRole -.->|SNOWCreateTable| SNOWSchema
+    SNOWRole -.->|SNOWCreateTag| SNOWSchema
+    SNOWRole -.->|SNOWCreateTask| SNOWSchema
+    SNOWRole -.->|SNOWCreateTemporaryTable| SNOWSchema
+    SNOWRole -.->|SNOWCreateView| SNOWSchema
+    SNOWRole -.->|SNOWManageGrants| SNOWSchema
+
+    SNOWRole -.->|SNOWOwnership| SNOWIntegration
+    SNOWRole -.->|SNOWUsage| SNOWIntegration
+    SNOWRole -.->|SNOWUseAnyRole| SNOWIntegration
+
+    SNOWRole -.->|SNOWOwnership| SNOWRole
+    SNOWRole -.->|SNOWUsage| SNOWRole
+
+    SNOWRole -.->|SNOWOwnership| SNOWUser
+
+    SNOWRole -.->|SNOWModify| SNOWWarehouse
+    SNOWRole -.->|SNOWMonitor| SNOWWarehouse
+    SNOWRole -.->|SNOWOperate| SNOWWarehouse
+    SNOWRole -.->|SNOWOwnership| SNOWWarehouse
+    SNOWRole -.->|SNOWUsage| SNOWWarehouse
+
+    SNOWRole -.->|SNOWAddSearchOptimization| SNOWSchema
+    SNOWRole -.->|SNOWAddSearchOptimization| SNOWSchema
+
+    SNOWRole -.->|SNOWOwnership| SNOWFunction
+    SNOWRole -.->|SNOWUsage| SNOWFunction
+
+    SNOWRole -.->|SNOWOwnership| SNOWProcedure
+    SNOWRole -.->|SNOWUsage| SNOWProcedure
+
+    SNOWRole -.->|SNOWOwnership| SNOWStage
+    SNOWRole -.->|SNOWRead| SNOWStage
+    SNOWRole -.->|SNOWUsage| SNOWStage
+    SNOWRole -.->|SNOWWrite| SNOWStage
+
+    SNOWRole -.->|SNOWDelete| SNOWTable
+    SNOWRole -.->|SNOWInsert| SNOWTable
+    SNOWRole -.->|SNOWOwnership| SNOWTable
+    SNOWRole -.->|SNOWRebuild| SNOWTable
+    SNOWRole -.->|SNOWReferences| SNOWTable
+    SNOWRole -.->|SNOWSelect| SNOWTable
+    SNOWRole -.->|SNOWTruncate| SNOWTable
+    SNOWRole -.->|SNOWUpdate| SNOWTable
+
+    SNOWRole -.->|SNOWDelete| SNOWView
+    SNOWRole -.->|SNOWInsert| SNOWView
+    SNOWRole -.->|SNOWOwnership| SNOWView
+    SNOWRole -.->|SNOWRebuild| SNOWView
+    SNOWRole -.->|SNOWReferences| SNOWView
+    SNOWRole -.->|SNOWSelect| SNOWView
+    SNOWRole -.->|SNOWTruncate| SNOWView
+    SNOWRole -.->|SNOWUpdate| SNOWView
+
+%% Complete model

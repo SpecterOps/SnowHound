@@ -14,11 +14,25 @@
         "color": "#A1C6EA"
       }
     },
+    "SNOWApplicationRole": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "user-shield",
+        "color": "#C6C3FF"
+      }
+    },
     "SNOWDatabase": {
       "icon": {
         "type": "font-awesome",
         "name": "database",
         "color": "#FF80D2"
+      }
+    },
+    "SNOWFunction": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "code",
+        "color": "#A9E5E5"
       }
     },
     "SNOWIntegration": {
@@ -28,11 +42,11 @@
         "color": "#BFFFD1"
       }
     },
-    "SNOWSchema": {
+    "SNOWProcedure": {
       "icon": {
         "type": "font-awesome",
-        "name": "network-wired",
-        "color": "#DEFEFA"
+        "name": "cogs",
+        "color": "#D8C8F8"
       }
     },
     "SNOWRole": {
@@ -42,11 +56,39 @@
         "color": "#C06EFF"
       }
     },
+    "SNOWSchema": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "network-wired",
+        "color": "#DEFEFA"
+      }
+    },
+    "SNOWStage": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "layer-group",
+        "color": "#80E0C6"
+      }
+    },
+    "SNOWTable": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "table",
+        "color": "#FFD2A6"
+      }
+    },
     "SNOWUser": {
       "icon": {
         "type": "font-awesome",
         "name": "user",
         "color": "#FF8E40"
+      }
+    },
+    "SNOWView": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "eye",
+        "color": "#A6E0FF"
       }
     },
     "SNOWWarehouse": {

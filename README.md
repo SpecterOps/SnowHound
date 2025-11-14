@@ -1,6 +1,6 @@
 # SnowHound
 
-![](./images/snowhound-example.png)
+![Example Snowflake Graph](./images/snowhound-example.png)
 
 ## Overview
 
@@ -8,109 +8,119 @@ The BloodHound extension for Snowflake provides a powerful way to visualize acce
 
 I recommend reading my [Mapping Snowflake's Access Landscape](https://specterops.io/blog/2024/06/13/mapping-snowflakes-access-landscape/) blogpost from June of 2024 to understand why Snowflake was interesting to me and to understand some of the types of questions that we can begin to ask with this model.
 
+### Naming Convention
+
+Snowflake, unlike many other systems, does not use globally unique identifiers for objects. Instead, it relies on a contextual naming convention as described in the Snowflake Identifier Documentation
+. However, because BloodHound can contain data from multiple Snowflake accounts within the same graph, we extend this convention to ensure global uniqueness. For account-level objects, SNOWHound prefixes the object name with the organization and account name, following the pattern:
+
+```bash
+<org_name>-<account_name>.<object_name>
+```
+
+For schema-level objects, this pattern extends to include database and schema context:
+
+```bash
+<org_name>-<account_name>.<database_name>.<schema_name>.<object_name>
+```
+
+This full identifier uniquely distinguishes every object in the graph, while the node’s name field retains only the object name for readability. Additionally, to provide a more familiar representation for users coming from an Active Directory background, SNOWHound includes a second naming format in the fqdn field:
+
+```bash
+<database_name>.<schema_name>.<object_name>@<account_name>.<org_name>
+```
+
+This dual naming approach balances legibility and uniqueness, enabling consistent referencing across multiple Snowflake environments.
+
 ## Collector Setup & Usage
 
 NOTE: I expect that over time we will develop a more robust/specific collector for SNOWHound, but in the short term it seemed simpler to leverage Snowflake's fantastic query interface.
 
+### SNOWCLI SnowHound
+
+#### Creating a Service Account
+
+To collect data from your Snowflake tenant, you’ll need a service account that can authenticate via key pair authentication and execute the required queries. Follow these steps to create and configure the service account:
+
+1. Install Snowflake CLI
+
+   Install the Snowflake CLI to manage connections and test authentication from your local environment.
+
+2. Generate a Key Pair
+
+   Snowflake supports public/private key pair authentication. Follow the [official documentation](https://docs.snowflake.com/en/user-guide/key-pair-auth#generate-the-private-keys) to generate the key pair.
+
+   The private key stays on your local machine and will be used by the Snow CLI and collector.
+
+   The public key must be added to the service account in Snowflake.
+
+3. Create the Service Account
+
+   Create a dedicated user for automation and data collection. For example:
+
+   ```sql
+   CREATE USER SNOWHOUND_SVC
+   PASSWORD = 'StrongPassword!'
+   DEFAULT_ROLE = ACCOUNTADMIN
+   MUST_CHANGE_PASSWORD = FALSE
+   RSA_PUBLIC_KEY = '<public_key_contents>';
+   ```
+
+   Replace <public_key_contents> with your actual public key (without headers or newlines).
+
+4. Assign Roles and Privileges
+
+   Assign an appropriate role to the service account. For testing, you can use ACCOUNTADMIN:
+
+   ```sql
+   GRANT ROLE ACCOUNTADMIN TO USER SNOWHOUND_SVC;
+   ```
+
+   For production deployments, you should create a custom role with only the permissions needed to query account metadata.
+
+   NOTE: We plan to evaluate the minimum required privileges necessary to perform a snowflake collection.
+
+5. Configure the Snowflake CLI Connection
+
+Use the Snow CLI to configure your connection with the private key and user:
+
+```bash
+snow connection add \
+  --connection-name snowhound \
+  --account <account_name> \
+  --user SNOWHOUND_SVC \
+  --private-key-path ~/.ssh/snowflake_key.p8 \
+  --role ACCOUNTADMIN \
+  --warehouse <warehouse_name>
+```
+
+You can verify connectivity with:
+
+```bash
+snow sql -q "SELECT CURRENT_USER(), CURRENT_ROLE();"
+```
+
 ### Collecting Data
-
-The first step is to collect the graph-relevant data from Snowflake. The cool thing is that this is actually a relatively simple process. I’ve found that Snowflake’s default web client, Snowsight, does a fine job gathering this information. You can navigate to Snowsight once you’ve logged in by clicking on the Query data button at the top of the Home page.
-
-![](./images/snowsight.webp)
-
-Once there, you will have the opportunity to execute commands. This section will describe the commands that collect the data necessary to build the graph. My parsing script is built for CSV files that follow a specific naming convention. Once your command has returned results, click the download button (downward pointing arrow) and select the “Download as .csv” option.
-
-![](./images/query.webp)
-
-The model supports Accounts, Applications, Databases, Roles, Users, and Warehouses. This means we will have to query those entities, which will serve as the nodes in our graph. This will download the file with a name related to your account. My parsing script expects the output of certain commands to be named in a specific way. The expected name will be shared in the corresponding sections below.
-
-I’ve found that I can query Applications, Databases, Roles, and Users as an unprivileged user. However, this is different for Accounts, which require ORGADMIN, and Warehouses, which require instance-specific access (e.g., [ACCOUNTADMIN](https://docs.snowflake.com/en/user-guide/warehouses-tasks#delegating-warehouse-management)).
-
-#### Accounts
-
-* Command: [SELECT * FROM snowflake.organization_usage.accounts WHERE account_locator = CURRENT_ACCOUNT();](https://docs.snowflake.com/en/sql-reference/sql/show-accounts)
-* File Name: accounts.csv
-
-#### Applications
-
-* Command: [SHOW APPLICATIONS;](https://docs.snowflake.com/en/sql-reference/sql/show-applications)
-* File Name: applications.csv
-
-#### Databases
-
-* Command: [SELECT * FROM snowflake.account_usage.databases;](https://docs.snowflake.com/en/sql-reference/sql/show-databases)
-* File Name: databases.csv
-
-#### Schemas
-
-* Command: [SHOW SCHEMAS;](https://docs.snowflake.com/en/sql-reference/sql/show-schemas)
-* File Name: schemas.csv
-
-#### Roles
-
-* Command: [SELECT * FROM snowflake.account_usage.roles;](https://docs.snowflake.com/en/sql-reference/sql/show-roles)
-* File Name: roles.csv
-
-#### Users
-
-* Command: [SELECT * FROM snowflake.account_usage.users;](https://docs.snowflake.com/en/sql-reference/sql/show-users)
-* File Name: users.csv
-
-#### Warehouses
-
-* Command: [SHOW WAREHOUSES;](https://docs.snowflake.com/en/sql-reference/sql/show-warehouses)
-* File Name: warehouses.csv
-
-Note: As mentioned above, users can only enumerate warehouses for which they have been granted privileges. One way to grant a non-ACCOUNTADMIN user visibility of all warehouses is to grant the [MANAGE WAREHOUSES](https://docs.snowflake.com/en/user-guide/warehouses-tasks#delegating-warehouse-management) privilege.
-
-#### Integrations
-
-* Command: [SHOW INTEGRATIONS;](https://docs.snowflake.com/en/sql-reference/sql/show-integrations)
-* File Name: integrations.csv
-
-#### Grants
-
-Finally, we must gather information on privilege grants. These are maintained in the ACCOUNT_USAGE schema of the default SNOWFLAKE database. By default, these views are only available to the ACCOUNTADMIN role. Still, users not granted USAGE of the ACCOUNTADMIN role can be granted the necessary read access via the [SECURITY_VIEWER](https://docs.snowflake.com/en/sql-reference/account-usage#account-usage-views-by-database-role) database role. The following command does this (if run as ACCOUNTADMIN):
-
-```
-GRANT DATABASE ROLE snowflake.SECURITY_VIEWER TO <Role>
-```
-
-Once you have the necessary privilege, you can query the relevant views and export them to a CSV file. The first view is [grants_to_users](https://docs.snowflake.com/en/sql-reference/account-usage/grants_to_users), which maintains a list of which roles have been granted to which users. You can enumerate this list using the following command. Then save it to a CSV file and rename it grants_to_users.csv.
-
-```
-SELECT * FROM snowflake.account_usage.grants_to_users;
-```
-
-The final view is [grants_to_roles](https://docs.snowflake.com/en/sql-reference/account-usage/grants_to_roles), which maintains a list of all the privileges granted to roles. This glue ultimately allows users to interact with the different Snowflake entities. This view can be enumerated using the following command. The results should be saved as a CSV file named grants_to_roles.csv.
-
-```
-SELECT * FROM snowflake.account_usage.grants_to_roles WHERE GRANTED_ON IN ('ACCOUNT', 'APPLICATION', 'DATABASE', 'INTEGRATION', 'ROLE', 'SCHEMA', 'USER', 'WAREHOUSE');
-```
-
-### Generating BloodHound OpenGraph Payload
-
-After you've collected the relevant data from your Snowflake tenant, you must convert it from csv to a BloodHound OpenGraph payload. This is done via the [snowhound.ps1](./snowhound.ps1) script found in this repository.
 
 1) In a PowerShell terminal, navigate to the folder where the Snowflake csv files are located.
 
 2) Load snowhound.ps1 into your PowerShell session:
 
-```powershell
-. ./snowhound.ps1
-```
+   ```powershell
+   . ./snowhound.ps1
+   ```
 
 3) Execute the Invoke-SnowHound function:
 
-```powershell
-Invoke-SnowHound
-```
+   ```powershell
+   Invoke-SnowHound
+   ```
 
-SnowHound will output a payload to your current working directory called `snowhound_output.json`
+   SnowHound will output a payload to your current working directory called `snowhound_output.json`
 
 4) Upload the payload via BloodHound's File Ingest page
 
 ### Sample
+
 If you do not have a Snowflake environment or if you want to test out Snowhound before collecting from your own production environment, we've included a sample data set at ./samples/example.json.
 
 ## Schema
@@ -127,16 +137,22 @@ Below is the complete set of nodes and edges as defined in the [model](./model.j
 
 Nodes correspond to each object type.
 
-| Node                                                                           | Description                                                                                                                                | Icon        | Color   |
-|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------|---------|
-| <img src="./images/black_SNOWAccount.svg" width="30"/> SNOWAccount             | The top-level container for all Snowflake resources such as users, roles, databases, and integrations.                                     | building    | #5FED83 |
-| <img src="./images/black_SNOWApplication.svg" width="30"/> SNOWApplication     | | window-maximize | #A1C6EA |
-| <img src="./images/black_SNOWDatabase.svg" width="30"/> SNOWDatabase           | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it.                                            | database    | #FF80D2 |
-| <img src="./images/black_SNOWIntegration.svg" width="30"/> SNOWIntegration     | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application.             | user-tie    | #BFFFD1 |
-| <img src="./images/black_SNOWRole.svg" width="30"/> SNOWRole                   | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles.                           | user-group  | #C06EFF |
-| <img src="./images/black_SNOWSchema.svg" width="30"/> SNOWSchema               | | network-wired | #DEFEFA |
-| <img src="./images/black_SNOWUser.svg" width="30"/> SNOWUser                   | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access.                 | user        | #FF8E40 |
-| <img src="./images/black_SNOWWarehouse.svg" width="30"/> SNOWWarehouse         | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. | warehouse   | #9EECFF |
+| Node                                                                               | Icon            | Color     | Description |
+|------------------------------------------------------------------------------------|-----------------|-----------|-------------|
+| <img src="./images/black_SNOWAccount.svg" width="30"/> SNOWAccount                 | building        | #5FED83 | The top-level container for all Snowflake resources such as users, roles, databases, and integrations. |
+| <img src="./images/black_SNOWApplication.svg" width="30"/> SNOWApplication         | window-maximize | #A1C6EA | |
+| <img src="./images/black_SNOWApplicationRole.svg" width="30"/> SNOWApplicationRole | user-shield     | #C6C3FF | |
+| <img src="./images/black_SNOWDatabase.svg" width="30"/> SNOWDatabase               | database        | #FF80D2 | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it. |
+| <img src="./images/black_SNOWFunction.svg" width="30"/> SNOWFunction               | code            | #A9E5E5 | |
+| <img src="./images/black_SNOWIntegration.svg" width="30"/> SNOWIntegration         | user-tie        | #BFFFD1 | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application. |
+| <img src="./images/black_SNOWProcedure.svg" width="30"/> SNOWProcedure             | cogs            | #D8C8F8 | |
+| <img src="./images/black_SNOWRole.svg" width="30"/> SNOWRole                       | user-group      | #C06EFF | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles. |
+| <img src="./images/black_SNOWSchema.svg" width="30"/> SNOWSchema                   | network-wired   | #DEFEFA | |
+| <img src="./images/black_SNOWStage.svg" width="30"/> SNOWStage                     | layer-group     | #80E0C6 | |
+| <img src="./images/black_SNOWTable.svg" width="30"/> SNOWTable                     | table           | #FFD2A6 | |
+| <img src="./images/black_SNOWUser.svg" width="30"/> SNOWUser                       | user            | #FF8E40 | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access. |
+| <img src="./images/black_SNOWView.svg" width="30"/> SNOWView                       | eye             | #A6E0FF | |
+| <img src="./images/black_SNOWWarehouse.svg" width="30"/> SNOWWarehouse             | warehouse       | #9EECFF | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. |
 
 ### Edges
 
@@ -227,6 +243,7 @@ We welcome and appreciate your contributions! To make the process smooth and eff
 2. **Fork & Create a Branch**  
    - Fork this repository to your own account.  
    - Create a topic branch for your work:
+
      ```bash
      git checkout -b feat/my-new-feature
      ```
@@ -235,15 +252,18 @@ We welcome and appreciate your contributions! To make the process smooth and eff
    - Follow the existing style and patterns in the repo.  
    - Add or update any tests/examples to cover your changes.  
    - Verify your code runs as expected:
+
      ```bash
      # e.g. dot-source the collector and run it, or load the model.json in BloodHound
      ```
 
 4. **Submit a Pull Request**  
    - Push your branch to your fork:
+
      ```bash
      git push origin feat/my-new-feature
      ```  
+
    - Open a Pull Request against the `main` branch of this repository.  
    - In your PR description, please include:
      - **What** you’ve changed and **why**.  
@@ -257,7 +277,7 @@ Thank you for helping improve this extension! 🎉
 
 ## Licensing
 
-```
+```text
 Copyright 2025 Jared Atkinson
 
 Licensed under the Apache License, Version 2.0

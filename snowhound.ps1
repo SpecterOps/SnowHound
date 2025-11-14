@@ -36,6 +36,72 @@ function New-SnowflakeEdge
 
         [Parameter(Position = 2, Mandatory = $true)]
         [PSObject]
+        $EndId,
+
+        [Parameter(Mandatory = $false)]
+        [String]
+        $StartKind,
+        
+        [Parameter(Mandatory = $false)]
+        [ValidateSet('id', 'name')]
+        [String]
+        $StartMatchBy = 'id',
+
+        [Parameter(Mandatory = $false)]
+        [String]
+        $EndKind,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateSet('id', 'name')]
+        [String]
+        $EndMatchBy = 'id'
+    )
+
+    $edge = @{
+        kind = $Kind
+        start = @{
+            value = $StartId
+        }
+        end = @{
+            value = $EndId
+        }
+        properties = @{}
+    }
+
+    if($PSBoundParameters.ContainsKey('StartKind')) 
+    {
+        $edge.start.Add('kind', $StartKind)
+    }
+    if($PSBoundParameters.ContainsKey('StartMatchBy')) 
+    {
+        $edge.start.Add('match_by', $StartMatchBy)
+    }
+    if($PSBoundParameters.ContainsKey('EndKind'))
+    {
+        $edge.end.Add('kind', $EndKind)
+    }
+    if($PSBoundParameters.ContainsKey('EndMatchBy')) 
+    {
+        $edge.end.Add('match_by', $EndMatchBy)
+    }
+
+    Write-Output $edge
+}
+
+<#
+function New-SnowflakeEdge
+{
+    Param(
+        [Parameter(Position = 0, Mandatory = $true)]
+        [String]
+        $Kind,
+
+        [Parameter(Position = 1, Mandatory = $true)]
+        [PSObject]
+        $StartId,
+
+        [Parameter(Position = 2, Mandatory = $true)]
+        [PSObject]
         $EndId
     )
 
@@ -52,6 +118,7 @@ function New-SnowflakeEdge
 
     Write-Output $edge
 }
+#>
 
 function Normalize-Null
 {
@@ -60,34 +127,37 @@ function Normalize-Null
     return $Value
 }
 
-function Get-MD5Hash
-{
-    param($String)
+function ConvertTo-PascalCase {
+    param (
+        [string]$String
+    )
 
-    $md5 = New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
-    $utf8 = New-Object -TypeName System.Text.UTF8Encoding
-    $Hash = ([System.BitConverter]::ToString($md5.ComputeHash($utf8.GetBytes($String)))).replace("-","").ToLower()
-    Write-Output $Hash
+    if ([string]::IsNullOrEmpty($String)) {
+        return $String
+    }
+
+    # Replace common delimiters with spaces and convert to lowercase to handle various input formats
+    $cleanedString = $String -replace '[-_]', ' ' | ForEach-Object { $_.ToLower() }
+
+    # Use TextInfo.ToTitleCase to capitalize the first letter of each word
+    # Then remove spaces to achieve PascalCase
+    $pascalCaseString = (Get-Culture).TextInfo.ToTitleCase($cleanedString).Replace(' ', '')
+
+    return $pascalCaseString
 }
 
 function Invoke-SnowHound
 {
-    [CmdletBinding()]
-    Param(
-        [Parameter(Position = 0)]
-        [string]
-        $Path = (Get-Location).Path
-    )
-
     $nodes = New-Object System.Collections.ArrayList
     $edges = New-Object System.Collections.ArrayList
 
-    # SELECT * FROM snowflake.organization_usage.accounts WHERE account_locator = CURRENT_ACCOUNT();
-    $account = Get-Content "$($Path)/accounts.csv" | ConvertFrom-Csv
+    $account = snow sql -q "SELECT * FROM snowflake.organization_usage.accounts WHERE account_locator = CURRENT_ACCOUNT();" --format json | ConvertFrom-Json
 
     $accountProps = [PSCustomObject]@{
+        name              = Normalize-Null $account.account_name
         organization_name = Normalize-Null $account.organization_name
         account_name      = Normalize-Null $account.account_name
+        fqdn              = Normalize-Null "$($account.account_name).$($account.organization_name)"
         created_on        = Normalize-Null $account.created_on
         region            = Normalize-Null $account.region
         region_group      = Normalize-Null $account.region_group
@@ -100,210 +170,499 @@ function Invoke-SnowHound
         is_managed        = Normalize-Null $account.is_managed
         parent_account    = Normalize-Null $account.parent_account
     }
-    
-    $accountId = Get-MD5Hash -String "$($account.account_locator)-ACCOUNT-$($account.account_locator)"
-    $null = $nodes.Add((New-SnowflakeNode -Id $accountId -Kind SNOWAccount -Properties $accountProps))
 
-    # SELECT * FROM snowflake.account_usage.users;
-    foreach($user in (Get-Content "$($Path)/users.csv" | ConvertFrom-Csv | Where-Object {$_.DELETED_ON -eq ""}))
+    # Collect Account Information
+    $accountId = "$($account.organization_name)-$($account.account_name)"
+    $null = $nodes.Add((New-SnowflakeNode -Id $accountId -Kind "SNOWAccount" -Properties $accountProps))
+
+    # Collect Users
+    foreach($user in (snow object list user --format json | ConvertFrom-Json))
     {
         $userProps = [PSCustomObject]@{
-            user_id              = Normalize-Null $user.user_id
-            name                 = Normalize-Null $user.name
-            created_on           = Normalize-Null $user.created_on
-            login_name           = Normalize-Null $user.login_name
-            display_name         = Normalize-Null $user.display_name
-            first_name           = Normalize-Null $user.first_name
-            last_name            = Normalize-Null $user.last_name
-            email                = Normalize-Null $user.email
-            must_change_password = Normalize-Null $user.must_change_password
-            has_password         = Normalize-Null $user.has_password
-            snowflake_lock       = Normalize-Null $user.snowflake_lock
-            default_warehouse    = Normalize-Null $user.default_warehouse
-            default_namespace    = Normalize-Null $user.default_namespace
-            default_role         = Normalize-Null $user.default_role
-            ext_authn_duo        = Normalize-Null $user.ext_authn_duo
-            ext_authn_uid        = Normalize-Null $user.ext_authn_uid
-            has_mfa              = Normalize-Null $user.has_mfa
-            last_success_login   = Normalize-Null $user.last_success_login
-            has_rsa_public_key   = Normalize-Null $user.has_rsa_public_key
+            name                    = Normalize-Null $user.name
+            fqdn                    = Normalize-Null "$($user.name)@$($account.account_name).$($account.organization_name)"
+            created_on              = Normalize-Null $user.created_on
+            login_name              = Normalize-Null $user.login_name
+            display_name            = Normalize-Null $user.display_name
+            first_name              = Normalize-Null $user.first_name
+            last_name               = Normalize-Null $user.last_name
+            email                   = Normalize-Null $user.email
+            mins_to_unlock          = Normalize-Null $user.mins_to_unlock
+            days_to_expiry          = Normalize-Null $user.days_to_expiry
+            comment                 = Normalize-Null $user.comment
+            disabled                = Normalize-Null $user.disabled
+            must_change_password    = Normalize-Null $user.must_change_password
+            snowflake_lock          = Normalize-Null $user.snowflake_lock
+            default_warehouse       = Normalize-Null $user.default_warehouse
+            default_namespace       = Normalize-Null $user.default_namespace
+            default_role            = Normalize-Null $user.default_role
+            default_secondary_roles = Normalize-Null $user.default_secondary_roles -join ","
+            ext_authn_duo           = Normalize-Null $user.ext_authn_duo
+            ext_authn_uid           = Normalize-Null $user.ext_authn_uid
+            mins_to_bypass_mfa      = Normalize-Null $user.mins_to_bypass_mfa
+            owner                   = Normalize-Null $user.owner
+            last_successful_login   = Normalize-Null $user.last_successful_login
+            expires_at_time         = Normalize-Null $user.expires_at_time
+            locked_until_time       = Normalize-Null $user.locked_until_time
+            has_password            = Normalize-Null $user.has_password
+            has_rsa_public_key      = Normalize-Null $user.has_rsa_public_key
+            type                    = Normalize-Null $user.type
+            has_mfa                 = Normalize-Null $user.has_mfa
+            has_pat                 = Normalize-Null $user.has_pat
+            has_workload_identity   = Normalize-Null $user.has_workload_identity
         }
 
-        $userId = Get-MD5Hash -String "$($account.account_locator)-USER-$($user.login_name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $userId -Kind SNOWUser -Properties $userProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $userId))
-        if($user.owner -ne "")
-        {
-            $ownerId = Get-MD5Hash -String "$($account.account_locator)-ROLE-$($user.owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $userId))
-        }
+        $userId = "$($accountId).$($user.login_name)"
+        $null = $nodes.Add((New-SnowflakeNode -Id $userId -Kind "SNOWUser" -Properties $userProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $userId))
     }
 
-    # SELECT * FROM snowflake.account_usage.roles;
-    foreach($role in (Get-Content "$($Path)/roles.csv" | ConvertFrom-Csv | Where-Object {$_.DELETED_ON -eq ""}))
+    # Collect Roles
+    foreach($role in (snow object list role --format json | ConvertFrom-Json))
     {
         $roleProps = [PSCustomObject]@{
-            role_id            = Normalize-Null $role.role_id
-            created_on         = Normalize-Null $role.created_on
-            name               = Normalize-Null $role.name
-            role_type          = Normalize-Null $role.role_type
-            role_database_name = Normalize-Null $role.role_database_name
-            role_instance_id   = Normalize-Null $role.role_instance_id
+            name              = Normalize-Null $role.name
+            fqdn              = Normalize-Null "$($role.name)@$($account.account_name).$($account.organization_name)"
+            created_on        = Normalize-Null $role.created_on
+            is_default        = Normalize-Null $role.is_default
+            is_current        = Normalize-Null $role.is_current
+            is_inherited      = Normalize-Null $role.is_inherited
+            assigned_to_users = Normalize-Null $role.assigned_to_users
+            granted_to_roles  = Normalize-Null $role.granted_to_roles
+            granted_roles     = Normalize-Null $role.granted_roles
+            owner             = Normalize-Null $role.owner
+            comment           = Normalize-Null $role.comment
         }
 
-        $roleId = Get-MD5Hash -String "$($account.account_locator)-ROLE-$($role.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $roleId -Kind 'SNOWRole' -Properties $roleProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $roleId))
-        if($role.owner -ne "")
+        $roleId = "$($accountId).$($role.name)"
+        $null = $nodes.Add((New-SnowflakeNode -Id $roleId -Kind "SNOWRole" -Properties $roleProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $roleId))
+    }
+
+    # Collect Applications and Application Roles
+    foreach ($application in (snow sql -q "SHOW APPLICATIONS" --format json | ConvertFrom-Json))
+    {
+        $appProps = [PSCustomObject]@{
+            name                 = Normalize-Null $application.name
+            fqdn                 = Normalize-Null "$($application.name)@$($account.account_name).$($account.organization_name)"
+            created_on           = Normalize-Null $application.created_on
+            is_default           = Normalize-Null $application.is_default
+            is_current           = Normalize-Null $application.is_current
+            source_type          = Normalize-Null $application.source_type
+            owner                = Normalize-Null $application.owner
+            comment              = Normalize-Null $application.comment
+            version              = Normalize-Null $application.version
+            label                = Normalize-Null $application.label
+            patch                = Normalize-Null $application.patch
+            options              = Normalize-Null $application.options
+            retention_time       = Normalize-Null $application.retention_time
+            upgrade_state        = Normalize-Null $application.upgrade_state
+            disablement_reasons  = Normalize-Null $application.disablement_reasons
+            last_upgraded_on     = Normalize-Null $application.last_upgraded_on
+            release_channel_name = Normalize-Null $application.release_channel_name
+            type                 = Normalize-Null $application.type    
+        }
+
+        $appId = "$($accountId).$($application.name)"
+        $null = $nodes.Add((New-SnowflakeNode -Id $appId -Kind "SNOWApplication" -Properties $appProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $appId))
+
+        foreach($appRole in (snow sql -q "SHOW APPLICATION ROLES IN APPLICATION $($application.name)" --format json | ConvertFrom-Json))
         {
-            $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($role.owner_role_type)-$($role.owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $roleId))
+            $appRoleProps = [PSCustomObject]@{
+                name            = Normalize-Null $appRole.name
+                created_on      = Normalize-Null $appRole.created_on
+                owner           = Normalize-Null $appRole.owner
+                comment         = Normalize-Null $appRole.comment
+                owner_role_type = Normalize-Null $appRole.owner_role_type
+            }
+
+            # This one is maybe questionable whether it is the appropriate object identifier
+            $appRoleId = "$($accountId).$($appRole.owner).$($appRole.name)"
+            $null = $nodes.Add((New-SnowflakeNode -Id $appRoleId -Kind "SNOWApplicationRole" -Properties $appRoleProps))
+            $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $appId -EndId $appRoleId))
+            $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $appRoleId))
         }
     }
 
-    # SHOW WAREHOUSES;
-    foreach($warehouse in (Get-Content "$($Path)/warehouses.csv" | ConvertFrom-Csv))
+    # Collect Warehouses
+    foreach($wh in (snow object list warehouse --format json | ConvertFrom-Json))
     {
         $warehouseProps = [PSCustomObject]@{
-            name  = Normalize-Null $warehouse.name
-            state = Normalize-Null $warehouse.state
-            type  = Normalize-Null $warehouse.type
-            size  = Normalize-Null $warehouse.size
-            owner = Normalize-Null $warehouse.owner
+            name                   = Normalize-Null $wh.name
+            fqdn                   = Normalize-Null "$($wh.name)@$($account.account_name).$($account.organization_name)"
+            state                  = Normalize-Null $wh.state
+            type                   = Normalize-Null $wh.type
+            size                   = Normalize-Null $wh.size
+            running                = Normalize-Null $wh.running
+            queued                 = Normalize-Null $wh.queued
+            is_default             = Normalize-Null $wh.is_default
+            is_current             = Normalize-Null $wh.is_current
+            auto_suspend           = Normalize-Null $wh.auto_suspend
+            auto_resume            = Normalize-Null $wh.auto_resume
+            available              = Normalize-Null $wh.available
+            provisioning           = Normalize-Null $wh.provisioning
+            quiescing              = Normalize-Null $wh.quiescing
+            other                  = Normalize-Null $wh.other
+            created_on             = Normalize-Null $wh.created_on
+            resumed_on             = Normalize-Null $wh.resumed_on
+            updated_on             = Normalize-Null $wh.updated_on
+            owner                  = Normalize-Null $wh.owner
+            comment                = Normalize-Null $wh.comment
+            resource_monitor       = Normalize-Null $wh.resource_monitor
+            actives                = Normalize-Null $wh.actives
+            pendings               = Normalize-Null $wh.pendings
+            failed                 = Normalize-Null $wh.failed
+            suspended              = Normalize-Null $wh.suspended
+            uuid                   = Normalize-Null $wh.uuid
+            owner_role_type        = Normalize-Null $wh.owner_role_type
+            resource_constraint    = Normalize-Null $wh.resource_constraint
+            warehouse_credit_limit = Normalize-Null $wh.warehouse_credit_limit
+            target_statement_size  = Normalize-Null $wh.target_statement_size
+            disabled_reasons       = Normalize-Null $wh.disabled_reasons
         }
 
-        $warehouseId = Get-MD5Hash -String "$($account.account_locator)-WAREHOUSE-$($warehouse.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $warehouseId -Kind SNOWWarehouse -Properties $warehouseProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $warehouseId))
-        if($warehouse.owner -ne "")
-        {
-            $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($warehouse.owner_role_type)-$($warehouse.owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $warehouseId))
-        }
+        $warehouseId = "$($accountId).$($wh.name)"
+        $null = $nodes.Add((New-SnowflakeNode -Id $warehouseId -Kind "SNOWWarehouse" -Properties $warehouseProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $warehouseId))
     }
 
-    # SHOW APPLICATIONS;
-    foreach($application in (Get-Content "$($Path)/applications.csv" | ConvertFrom-Csv))
-    {
-        $applicationProps = [PSCustomObject]@{
-            name = $application.name
-            created_on = $application.created_on
-            source_type = $application.source_type
-            source = $application.source
-        }
-
-        $applicationId = Get-MD5Hash -String "$($account.account_locator)-APPLICATION-$($application.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $applicationId -Kind SNOWApplication -Properties $applicationProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $applicationId))
-        #if($application.owner -ne "")
-        #{
-        #    $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($database.owner_role_type)-$($application.owner)"
-        #    $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $applicationId))
-        #}
-    }
-
-    # SELECT * FROM snowflake.account_usage.databases;
-    foreach($database in (Get-Content "$($Path)/databases.csv" | ConvertFrom-Csv))
+    # Collect Databases
+    foreach($db in (snow object list database --format json | ConvertFrom-Json))
     {
         $databaseProps = [PSCustomObject]@{
-            database_id       = Normalize-Null $database.id
-            name              = Normalize-Null $database.database_name
-            is_transient      = Normalize-Null $database.is_transient
-            created           = Normalize-Null $database.created_on
-            last_altered      = Normalize-Null $database.last_altered
-            retention_time    = Normalize-Null $database.retention_time
-            resource_group    = Normalize-Null $database.resource_group
-            type              = Normalize-Null $database.type
-            owner_role_type   = Normalize-Null $database.owner_role_type
-            object_visibility = Normalize-Null $database.object_visibility
+            name              = Normalize-Null $db.name
+            fqdn              = Normalize-Null "$($db.name)@$($account.account_name).$($account.organization_name)"
+            created_on        = Normalize-Null $db.created_on
+            is_default        = Normalize-Null $db.is_default
+            is_current        = Normalize-Null $db.is_current
+            origin            = Normalize-Null $db.origin
+            owner             = Normalize-Null $db.owner
+            comment           = Normalize-Null $db.comment
+            options           = Normalize-Null $db.options
+            retention_time    = Normalize-Null $db.retention_time
+            kind              = Normalize-Null $db.kind
+            owner_role_type   = Normalize-Null $db.owner_role_type
+            object_visibility = Normalize-Null $db.object_visibility
         }
 
-        $databaseId = Get-MD5Hash -String "$($account.account_locator)-DATABASE-$($database.database_name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $databaseId -Kind SNOWDatabase -Properties $databaseProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $databaseId))
-        if($database.database_owner -ne "")
+        $databaseId = "$($accountId).$($db.name)"
+        $null = $nodes.Add((New-SnowflakeNode -Id $databaseId -Kind "SNOWDatabase" -Properties $databaseProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $databaseId))
+
+        # Need to figure out how to handle Database Roles
+        <#
+        foreach($dbRole in (snow sql -q "SHOW DATABASE ROLES IN DATABASE $($db.name)" --format json | ConvertFrom-Json))
         {
-            $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($database.owner_role_type)-$($database.database_owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $databaseId))
+            $dbRoleProps = [PSCustomObject]@{
+                name                      = Normalize-Null $dbRole.name
+                created_on                = Normalize-Null $dbRole.created_on
+                is_default                = Normalize-Null $dbRole.is_default
+                is_current                = Normalize-Null $dbRole.is_current
+                is_inherited              = Normalize-Null $dbRole.is_inherited
+                granted_to_roles          = Normalize-Null $dbRole.granted_to_roles
+                granted_to_database_roles = Normalize-Null $dbRole.granted_to_database_roles
+                granted_database_roles    = Normalize-Null $dbRole.granted_database_roles
+                owner                     = Normalize-Null $dbRole.owner
+                comment                   = Normalize-Null $dbRole.comment
+                owner_role_type           = Normalize-Null $dbRole.owner_role_type
+            }
+
+            $dbRoleId = "$($accountId).$($db.name).$($dbRole.name)"
+            $null = $nodes.Add((New-SnowHoundNode -Id $dbRoleId -Kind "SNOWDatabaseRole" -Properties $dbRoleProps))
+            $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $databaseId -EndId $dbRoleId))
+            $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $dbRoleId))
         }
+        #>
     }
 
-    # SHOW SCHEMAS;
-    foreach($schema in (Get-Content "$($Path)/schemas.csv" | ConvertFrom-Csv))
+    # Collect Schemas
+    # Naming Convention Derived from: https://docs.snowflake.com/en/sql-reference/identifiers
+    foreach($schema in (snow object list schema --format json | ConvertFrom-Json))
     {
         $schemaProps = [PSCustomObject]@{
-            name = $schema.name
-            created_on = $schema.created_on
-            is_default = $schema.is_default
-            is_current = $schema.is_current
+            name                            = Normalize-Null $schema.name
+            fqdn                            = Normalize-Null "$($schema.database_name).$($schema.name)@$($account.account_name).$($account.organization_name)"
+            database_name                   = Normalize-Null $schema.database_name
+            created_on                      = Normalize-Null $schema.created_on
+            is_default                      = Normalize-Null $schema.is_default
+            is_current                      = Normalize-Null $schema.is_current
+            owner                           = Normalize-Null $schema.owner
+            comment                         = Normalize-Null $schema.comment
+            options                         = Normalize-Null $schema.options
+            retention_time                  = Normalize-Null $schema.retention_time
+            owner_role_type                 = Normalize-Null $schema.owner_role_type
+            classification_profile_database = Normalize-Null $schema.classification_profile_database
+            classification_profile_schema   = Normalize-Null $schema.classification_profile_schema
+            classification_profile          = Normalize-Null $schema.classification_profile
+            object_visibility               = Normalize-Null $schema.object_visibility
         }
 
-        $schemaId = Get-MD5Hash -String "$($account.account_locator)-SCHEMA-$($schema.database_name)\$($schema.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $schemaId -Kind SNOWSchema -Properties $schemaProps))
-        $databaseId = Get-MD5Hash -String "$($account.account_locator)-DATABASE-$($schema.database_name)"
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $schemaId))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $databaseId -EndId $schemaId))
-        if($schema.owner -ne "")
-        {
-            $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($schema.owner_role_type)-$($schema.owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $schemaId))
-        }
+        $schemaId = "$($accountId).$($schema.database_name).$($schema.name)"
+        $null = $nodes.Add((New-SnowflakeNode -Id $schemaId -Kind "SNOWSchema" -Properties $schemaProps))
+        $databaseId = "$($accountId).$($schema.database_name)"
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $schemaId))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $databaseId -EndId $schemaId))
     }
 
-    # SHOW INTEGRATIONS;
-    # This will eventually need to be much more detailed because there are several integration types that each have more detailed information
-    # e.g. DESC SECURITY INTEGRATION PINGONE_SSO
-    foreach($integration in (Get-Content "$($Path)/integrations.csv" | ConvertFrom-Csv))
+    <#
+    # Collect Functions
+    foreach($function in (snow object list function --format json | ConvertFrom-Json | Where-Object {$_.catalog_name -ne ""}))
+    {
+        $functionProps = [PSCustomObject]@{
+            name                         = Normalize-Null $function.name
+            fqdn                         = Normalize-Null "$($function.catalog_name).$($function.schema_name).$($function.name)@$($account.account_name).$($account.organization_name)"
+            created_on                   = Normalize-Null $function.created_on
+            schema_name                  = Normalize-Null $function.schema_name
+            is_builtin                   = Normalize-Null $function.is_builtin
+            is_aggregate                 = Normalize-Null $function.is_aggregate
+            is_ansi                      = Normalize-Null $function.is_ansi
+            min_num_arguments            = Normalize-Null $function.min_num_arguments
+            max_num_arguments            = Normalize-Null $function.max_num_arguments
+            arguments                    = Normalize-Null $function.arguments
+            description                  = Normalize-Null $function.description
+            catalog_name                 = Normalize-Null $function.catalog_name
+            is_table_function            = Normalize-Null $function.is_table_function
+            valid_for_clustering         = Normalize-Null $function.valid_for_clustering
+            is_secure                    = Normalize-Null $function.is_secure
+            secrets                      = Normalize-Null $function.secrets
+            external_access_integrations = Normalize-Null $function.external_access_integrations
+            is_external_function         = Normalize-Null $function.is_external_function
+            language                     = Normalize-Null $function.language
+            is_memoizable                = Normalize-Null $function.is_memoizable
+            is_data_metric               = Normalize-Null $function.is_data_metric
+        }
+
+        $functionId = "$($accountId).$($function.catalog_name).$($function.schema_name).$($function.name)"
+        $null = $nodes.Add((New-SnowHoundNode -Id $functionId -Kind "SNOWFunction" -Properties $functionProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $functionId))
+        $schemaId = "$($accountId).$($function.catalog_name).$($function.schema_name)"
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $schemaId -EndId $functionId))
+    }
+
+    # Collect Procedures
+    foreach($procedure in (snow object list procedure --format json | ConvertFrom-Json | Where-Object {$_.catalog_name -ne ""}))
+    {
+        $procedureProps = [PSCustomObject]@{
+            name                         = Normalize-Null $procedure.name
+            fqdn                         = Normalize-Null "$($procedure.catalog_name).$($procedure.schema_name).$($procedure.name)@$($account.account_name).$($account.organization_name)"
+            created_on                   = Normalize-Null $procedure.created_on
+            schema_name                  = Normalize-Null $procedure.schema_name
+            is_builtin                   = Normalize-Null $procedure.is_builtin
+            is_aggregate                 = Normalize-Null $procedure.is_aggregate
+            is_ansi                      = Normalize-Null $procedure.is_ansi
+            min_num_arguments            = Normalize-Null $procedure.min_num_arguments
+            max_num_arguments            = Normalize-Null $procedure.max_num_arguments
+            arguments                    = Normalize-Null $procedure.arguments
+            description                  = Normalize-Null $procedure.description
+            catalog_name                 = Normalize-Null $procedure.catalog_name
+            is_table_function            = Normalize-Null $procedure.is_table_function
+            valid_for_clustering         = Normalize-Null $procedure.valid_for_clustering
+            is_secure                    = Normalize-Null $procedure.is_secure
+            secrets                      = Normalize-Null $procedure.secrets
+            external_access_integrations = Normalize-Null $procedure.external_access_integrations
+        }
+
+        $procedureId = "$($accountId).$($procedure.catalog_name).$($procedure.schema_name).$($procedure.name)"
+        $null = $nodes.Add((New-SnowHoundNode -Id $procedureId -Kind "SNOWProcedure" -Properties $procedureProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $procedureId))
+        $schemaId = "$($accountId).$($procedure.catalog_name).$($procedure.schema_name)"
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $schemaId -EndId $procedureId))
+    }
+    #>
+
+    # Collect Stages
+    foreach($stage in (snow object list stage --format json | ConvertFrom-Json))
+    {
+        $stageProps = [PSCustomObject]@{
+            name                 = Normalize-Null $stage.name
+            fqdn                 = Normalize-Null "$($stage.database_name).$($stage.schema_name).$($stage.name)@$($account.account_name).$($account.organization_name)"
+            created_on           = Normalize-Null $stage.created_on
+            database_name        = Normalize-Null $stage.database_name
+            schema_name          = Normalize-Null $stage.schema_name
+            url                  = Normalize-Null $stage.url
+            has_credentials      = Normalize-Null $stage.has_credentials
+            has_encryption_key   = Normalize-Null $stage.has_encryption_key
+            owner                = Normalize-Null $stage.owner
+            comment              = Normalize-Null $stage.comment
+            region               = Normalize-Null $stage.region
+            type                 = Normalize-Null $stage.type
+            cloud                = Normalize-Null $stage.cloud
+            notification_channel = Normalize-Null $stage.notification_channel
+            storage_integration  = Normalize-Null $stage.storage_integration
+            endpoint             = Normalize-Null $stage.endpoint
+            owner_role_type      = Normalize-Null $stage.owner_role_type
+            directory_enabled    = Normalize-Null $stage.directory_enabled
+        }
+
+        $stageId = "$($accountId).$($stage.database_name).$($stage.schema_name).$($stage.name)"
+        $null = $nodes.Add((New-SnowflakeNode -Id $stageId -Kind "SNOWStage" -Properties $stageProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $stageId))
+        $schemaId = "$($accountId).$($stage.database_name).$($stage.schema_name)"
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $schemaId -EndId $stageId))
+    }
+
+    # Collect Tables
+    foreach($table in (snow object list table --format json | ConvertFrom-Json))
+    {
+        $tableProps = [PSCustomObject]@{
+            name                    = Normalize-Null $table.name
+            fqdn                    = Normalize-Null "$($table.database_name).$($table.schema_name).$($table.name)@$($account.account_name).$($account.organization_name)"
+            created_on              = Normalize-Null $table.created_on
+            database_name           = Normalize-Null $table.database_name
+            schema_name             = Normalize-Null $table.schema_name
+            kind                    = Normalize-Null $table.kind
+            comment                 = Normalize-Null $table.comment
+            cluster_by              = Normalize-Null $table.cluster_by
+            rows                    = Normalize-Null $table.rows
+            bytes                   = Normalize-Null $table.bytes
+            owner                   = Normalize-Null $table.owner
+            retention_time          = Normalize-Null $table.retention_time
+            change_tracking         = Normalize-Null $table.change_tracking
+            is_external             = Normalize-Null $table.is_external
+            enable_schema_evolution = Normalize-Null $table.enable_schema_evolution
+            owner_role_type         = Normalize-Null $table.owner_role_type
+            is_event                = Normalize-Null $table.is_event
+            is_hybrid               = Normalize-Null $table.is_hybrid
+            is_iceberg              = Normalize-Null $table.is_iceberg
+            is_dynamic              = Normalize-Null $table.is_dynamic
+            is_immutable            = Normalize-Null $table.is_immutable
+        }
+
+        $tableId = "$($accountId).$($table.database_name).$($table.schema_name).$($table.name)"
+        $null = $nodes.Add((New-SnowflakeNode -Id $tableId -Kind "SNOWTable" -Properties $tableProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $tableId))
+        $schemaId = "$($accountId).$($table.database_name).$($table.schema_name)"
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $schemaId -EndId $tableId))
+    }
+
+    # Collect Views
+    foreach($view in (snow object list view --format json | ConvertFrom-Json))
+    {
+        $viewProps = [PSCustomObject]@{
+            name             = Normalize-Null $view.name
+            fqdn             = Normalize-Null "$($view.database_name).$($view.schema_name).$($view.name)@$($account.account_name).$($account.organization_name)"
+            created_on       = Normalize-Null $view.created_on
+            reserved         = Normalize-Null $view.reserved
+            database_name    = Normalize-Null $view.database_name
+            schema_name      = Normalize-Null $view.schema_name
+            owner            = Normalize-Null $view.owner
+            comment          = Normalize-Null $view.comment
+            text             = Normalize-Null $view.text
+            is_secure        = Normalize-Null $view.is_secure
+            isi_materialized = Normalize-Null $view.is_materialized
+            owner_role_type  = Normalize-Null $view.owner_role_type
+            change_tracking  = Normalize-Null $view.change_tracking
+        }
+
+        $viewId = "$($accountId).$($view.database_name).$($view.schema_name).$($view.name)"
+        $null = $nodes.Add((New-SnowflakeNode -Id $viewId -Kind "SNOWView" -Properties $viewProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $viewId))
+        $schemaId = "$($accountId).$($view.database_name).$($view.schema_name)"
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $schemaId -EndId $viewId))
+    }
+
+    # Collect Integrations
+    foreach($int in (snow object list integration --format json | ConvertFrom-Json))
     {
         $integrationProps = [PSCustomObject]@{
-            name       = Normalize-Null $integration.name
-            type       = Normalize-Null $integration.type
-            category   = Normalize-Null $integration.category
-            enabled    = Normalize-Null $integration.enabled
-            created_on = Normalize-Null $integration.created_on
+            name       = Normalize-Null $int.name
+            fqdn       = Normalize-Null "$($int.name)@$($account.account_name).$($account.organization_name)"
+            type       = Normalize-Null $int.type
+            category   = Normalize-Null $int.category
+            created_on = Normalize-Null $int.created_on
         }
 
-        $integrationId = Get-MD5Hash -String "$($account.account_locator)-INTEGRATION-$($integration.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $integrationId -Kind SNOWIntegration -Properties $integrationProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $integrationId))
+        $integrationId = "$($accountId).$($int.name)"
+        
+        switch ($int.category)
+        {
+            'API' {}
+            'CATALOG' {}
+            'EXTERNAL_ACCESS' {}
+            'NOTIFICATION' {}
+            'SECURITY' {
+                foreach($property in ($secIntegration = snow sql -q "DESCRIBE SECURITY INTEGRATION $($int.name)" --format json | ConvertFrom-Json))
+                {
+                    if($property.property.toLower() -eq 'run_as_role')
+                    {
+                        $runasroleId = "$($accountId).$($property.property_value)"
+                        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWRunAsRole" -StartId $integrationId -EndId $runasroleId))
+                    }
+                    $integrationProps | Add-Member -MemberType NoteProperty -Name $property.property.toLower() -Value (Normalize-Null $property.property_value)
+                }
+            }
+            'STORAGE' {}
+        }
+        
+        $null = $nodes.Add((New-SnowflakeNode -Id $integrationId -Kind "SNOWIntegration" -Properties $integrationProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $integrationId))
     }
 
-    # SELECT * FROM snowflake.account_usage.grants_to_users;
-    foreach($grant_to_user in (Get-Content "$($Path)/grants_to_users.csv" | ConvertFrom-Csv | Where-Object {$_.DELETED_ON -eq ""}))
+    # Collect Grants to Users
+    foreach($grant_to_user in (snow sql -q "SELECT * FROM snowflake.account_usage.grants_to_users" --format json | ConvertFrom-Json | Where-Object {$_.DELETED_ON -eq $null}))
     {
-        $userId = Get-MD5Hash -String "$($account.account_locator)-$($grant_to_user.GRANTED_TO)-$($grant_to_user.GRANTEE_NAME)"
-        $roleId = Get-MD5Hash -String "$($account.account_locator)-ROLE-$($grant_to_user.ROLE)"
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWUsage -StartId $userId -EndId $roleId))
+        $userId = "$($accountId).$($grant_to_user.GRANTEE_NAME)"
+        $roleId = "$($accountId).$($grant_to_user.ROLE)"
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWUsage" -StartId $userId -EndId $roleId))
     }
 
-    # SELECT * FROM snowflake.account_usage.grants_to_roles WHERE GRANTED_ON IN ('ACCOUNT', 'APPLICATION', 'DATABASE', 'INTEGRATION', 'ROLE', 'SCHEMA', 'USER', 'WAREHOUSE'); 
-    foreach($grant_to_role in (Get-Content "$($Path)/grants_to_roles.csv" | ConvertFrom-Csv))
+    # Collect Grants to Roles
+    foreach($grant_to_role in (snow sql -q "SELECT * FROM snowflake.account_usage.grants_to_roles WHERE GRANTED_ON IN ('ACCOUNT', 'APPLICATION', 'DATABASE', 'INTEGRATION', 'ROLE', 'SCHEMA', 'STAGE', 'TABLE', 'USER', 'VIEW', 'WAREHOUSE');" --format json | ConvertFrom-Json | Where-Object {$_.DELETED_ON -eq $null}))
     {
+        $startKind = "SNOW$(ConvertTo-PascalCase -String $grant_to_role.GRANTED_TO)"
+        $edgeKind = "SNOW$(ConvertTo-PascalCase -String $grant_to_role.PRIVILEGE)"
+        $endKind = "SNOW$(ConvertTo-PascalCase -String $grant_to_role.GRANTED_ON)"
+
         switch($grant_to_role.GRANTED_TO)
         {
-            APPLICATION_ROLE { $type = 'ROLE' }
-            DEFAULT { $type = $grant_to_role.GRANTED_TO }
+            APPLICATION_ROLE { $startId = "$($accountId).$($grant_to_role.TABLE_CATALOG).$($grant_to_role.GRANTEE_NAME)" }   
+            DEFAULT { $startId = "$($accountId).$($grant_to_role.GRANTEE_NAME)" }
         }
-        $startId = Get-MD5Hash -String "$($account.account_locator)-$($type)-$($grant_to_role.GRANTEE_NAME)"
-        if($grant_to_role.GRANTED_ON -eq "SCHEMA")
+        
+        switch($grant_to_role.GRANTED_ON)
         {
-            $name = "$($grant_to_role.TABLE_CATALOG)\$($grant_to_role.NAME)"
+            ACCOUNT { $endId = "$($accountId)" }
+            #DATABASE_ROLE { $endId = "$($accountId).$($grant_to_role.TABLE_CATALOG).$($grant_to_role.NAME)" }
+            SCHEMA { $endId = "$($accountId).$($grant_to_role.TABLE_CATALOG).$($grant_to_role.NAME)" }
+            FUNCTION {
+                if($grant_to_role.TABLE_CATALOG -ne "")
+                {
+                    $endId = "$($accountId).$($grant_to_role.TABLE_CATALOG).$($grant_to_role.TABLE_SCHEMA).$($grant_to_role.NAME)"
+                }
+            }
+            PROCEDURE {
+                if($grant_to_role.TABLE_CATALOG -ne "")
+                {
+                    $endId = "$($accountId).$($grant_to_role.TABLE_CATALOG).$($grant_to_role.TABLE_SCHEMA).$($grant_to_role.NAME)"
+                }
+            }
+            TABLE { $endId = "$($accountId).$($grant_to_role.TABLE_CATALOG).$($grant_to_role.TABLE_SCHEMA).$($grant_to_role.NAME)" }
+            VIEW { $endId = "$($accountId).$($grant_to_role.TABLE_CATALOG).$($grant_to_role.TABLE_SCHEMA).$($grant_to_role.NAME)" }
+            STAGE { $endId = "$($accountId).$($grant_to_role.TABLE_CATALOG).$($grant_to_role.TABLE_SCHEMA).$($grant_to_role.NAME)" }
+            DEFAULT { $endId = "$($accountId).$($grant_to_role.NAME)" }
         }
-        else 
-        {
-            $name = $grant_to_role.NAME
-        }
-        $endId = Get-MD5Hash -String "$($account.account_locator)-$($grant_to_role.GRANTED_ON)-$($name)"
-        #Write-Host "$($name)->$($endId)"
 
+        $null = $edges.Add((New-SnowflakeEdge -Kind $edgeKind -StartId $startId -StartKind $startKind -EndId $endId -EndKind $endKind))
+
+        <#
         switch($grant_to_role.PRIVILEGE){
-            'USAGE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWUsage -StartId $startId -EndId $endId)) }
-            'OWNERSHIP'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwnership -StartId $startId -EndId $endId)) }
             'APPLYBUDGET'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyBudget -StartId $startId -EndId $endId)) }
             'AUDIT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWAudit -StartId $startId -EndId $endId)) }
+            'DELETE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWDelete -StartId $startId -EndId $endId)) }
+            'INSERT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWInsert -StartId $startId -EndId $endId)) }
             'MODIFY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWModify -StartId $startId -EndId $endId)) }
             'MONITOR'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWMonitor -StartId $startId -EndId $endId)) }
             'OPERATE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOperate -StartId $startId -EndId $endId)) }
+            'OWNERSHIP'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwnership -StartId $startId -EndId $endId)) }
+            'READ'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWRead -StartId $startId -EndId $endId)) }
+            'REBUILD'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWRebuild -StartId $startId -EndId $endId)) }
+            'REFERENCES'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWReferences -StartId $startId -EndId $endId)) }
+            'SELECT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWSelect -StartId $startId -EndId $endId)) }
+            'TRUNCATE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWTruncate -StartId $startId -EndId $endId)) }
+            'UPDATE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWUpdate -StartId $startId -EndId $endId)) }
+            'USAGE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWUsage -StartId $startId -EndId $endId)) }
+            'WRITE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWWrite -StartId $startId -EndId $endId)) }
             'APPLY AGGREGATION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyAggregationPolicy -StartId $startId -EndId $endId)) }
             'APPLY AUTHENTICATION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyAuthenticationPolicy -StartId $startId -EndId $endId)) }
             'APPLY MASKING POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyMaskingPolicy -StartId $startId -EndId $endId)) }
@@ -344,8 +703,12 @@ function Invoke-SnowHound
             'OVERRIDE SHARE RESTRICTIONS'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOverrideShareRestrictions -StartId $startId -EndId $endId)) }
             'PURCHASE DATA EXCHANGE LISTING'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWPurchaseDataExchangeListing -StartId $startId -EndId $endId)) }
             'REFERENCE USAGE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWReferenceUsage -StartId $startId -EndId $endId)) }
+            'SERVICE READ'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWServiceRead -StartId $startId -EndId $endId)) }
+            'SERVICE WRITE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWServiceWrite -StartId $startId -EndId $endId)) }
             'USE ANY ROLE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWUseAnyRole -StartId $startId -EndId $endId)) }
+            default { Write-Host "$($grant_to_role.GRANTED_TO):$($grant_to_role.PRIVILEGE):$($grant_to_role.GRANTED_ON) not mapped."}
         }
+        #>
     }
 
     $payload = [PSCustomObject]@{
@@ -353,11 +716,10 @@ function Invoke-SnowHound
             source_kind = "SNOWBase"
         }
         graph = [PSCustomObject]@{
-            nodes = $nodes.ToArray()
-            edges = $edges.ToArray()
+            nodes = $nodes
+            edges = $edges
         }
     } | ConvertTo-Json -Depth 10
 
-    $payload | Out-File -FilePath "./snowhound_$($account.account_locator).json"
-    #$payload | BHDataUploadJSON -Verbose
+    $payload | Out-File -FilePath "./snowhound_$($accountId).json"
 }
