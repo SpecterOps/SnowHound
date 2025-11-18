@@ -154,6 +154,32 @@ Nodes correspond to each object type.
 | <img src="./images/black_SNOWView.svg" width="30"/> SNOWView                       | eye             | #A6E0FF | |
 | <img src="./images/black_SNOWWarehouse.svg" width="30"/> SNOWWarehouse             | warehouse       | #9EECFF | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. |
 
+#### <img src="./images/black_SNOWAccount.svg" width="30"/> SNOWAccount
+
+#### <img src="./images/black_SNOWApplication.svg" width="30"/> SNOWApplication
+
+#### <img src="./images/black_SNOWApplicationRole.svg" width="30"/> SNOWApplicationRole
+
+#### <img src="./images/black_SNOWDatabase.svg" width="30"/> SNOWDatabase
+
+#### <img src="./images/black_SNOWFunction.svg" width="30"/> SNOWFunction
+
+#### <img src="./images/black_SNOWIntegration.svg" width="30"/> SNOWIntegration
+
+#### <img src="./images/black_SNOWProcedure.svg" width="30"/> SNOWProcedure
+
+#### <img src="./images/black_SNOWRole.svg" width="30"/> SNOWRole
+
+#### <img src="./images/black_SNOWSchema.svg" width="30"/> SNOWSchema
+
+#### <img src="./images/black_SNOWTable.svg" width="30"/> SNOWTable
+
+#### <img src="./images/black_SNOWUser.svg" width="30"/> SNOWUser
+
+#### <img src="./images/black_SNOWView.svg" width="30"/> SNOWView
+
+#### <img src="./images/black_SNOWWarehouse.svg" width="30"/> SNOWWarehouse
+
 ### Edges
 
 Edges capture every relationship; who contains what, membership, view vs. manage permissions, etc.
@@ -237,43 +263,43 @@ NOTE: I need to go back and document all of the edges to and from SNOWApplicatio
 
 We welcome and appreciate your contributions! To make the process smooth and efficient, please follow these steps:
 
-1. **Discuss Your Idea**  
+1. **Discuss Your Idea**
    - If you’ve found a bug or want to propose a new feature, please start by opening an issue in this repo. Describe the problem or enhancement clearly so we can discuss the best approach.
 
-2. **Fork & Create a Branch**  
-   - Fork this repository to your own account.  
+2. **Fork & Create a Branch**
+   - Fork this repository to your own account.
    - Create a topic branch for your work:
 
      ```bash
      git checkout -b feat/my-new-feature
      ```
 
-3. **Implement & Test**  
-   - Follow the existing style and patterns in the repo.  
-   - Add or update any tests/examples to cover your changes.  
+3. **Implement & Test**
+   - Follow the existing style and patterns in the repo.
+   - Add or update any tests/examples to cover your changes.
    - Verify your code runs as expected:
 
      ```bash
      # e.g. dot-source the collector and run it, or load the model.json in BloodHound
      ```
 
-4. **Submit a Pull Request**  
+4. **Submit a Pull Request**
    - Push your branch to your fork:
 
      ```bash
      git push origin feat/my-new-feature
-     ```  
+     ```
 
-   - Open a Pull Request against the `main` branch of this repository.  
+   - Open a Pull Request against the `main` branch of this repository.
    - In your PR description, please include:
-     - **What** you’ve changed and **why**.  
+     - **What** you’ve changed and **why**.
      - **How** to reproduce/test your changes.
 
-5. **Review & Merge**  
-   - I’ll review your PR, give feedback if needed, and merge once everything checks out.  
+5. **Review & Merge**
+   - I’ll review your PR, give feedback if needed, and merge once everything checks out.
    - For larger or more complex changes, review may take a little longer—thanks in advance for your patience!
 
-Thank you for helping improve this extension! 🎉  
+Thank you for helping improve this extension! 🎉
 
 ## Licensing
 
