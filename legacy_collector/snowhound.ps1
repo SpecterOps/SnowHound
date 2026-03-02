@@ -16,7 +16,7 @@ function New-SnowflakeNode
 
     $props = [pscustomobject]@{
         id = $Id
-        kinds = @($Kind, 'SNOWBase')
+        kinds = @($Kind, 'SNOW_Base')
         properties = $Properties
     }
 
@@ -102,7 +102,7 @@ function Invoke-SnowHound
     }
     
     $accountId = Get-MD5Hash -String "$($account.account_locator)-ACCOUNT-$($account.account_locator)"
-    $null = $nodes.Add((New-SnowflakeNode -Id $accountId -Kind SNOWAccount -Properties $accountProps))
+    $null = $nodes.Add((New-SnowflakeNode -Id $accountId -Kind SNOW_Account -Properties $accountProps))
 
     # SELECT * FROM snowflake.account_usage.users;
     foreach($user in (Get-Content "$($Path)/users.csv" | ConvertFrom-Csv | Where-Object {$_.DELETED_ON -eq ""}))
@@ -130,12 +130,12 @@ function Invoke-SnowHound
         }
 
         $userId = Get-MD5Hash -String "$($account.account_locator)-USER-$($user.login_name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $userId -Kind SNOWUser -Properties $userProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $userId))
+        $null = $nodes.Add((New-SnowflakeNode -Id $userId -Kind SNOW_User -Properties $userProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Contains -StartId $accountId -EndId $userId))
         if($user.owner -ne "")
         {
             $ownerId = Get-MD5Hash -String "$($account.account_locator)-ROLE-$($user.owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $userId))
+            $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Owns -StartId $ownerId -EndId $userId))
         }
     }
 
@@ -152,12 +152,12 @@ function Invoke-SnowHound
         }
 
         $roleId = Get-MD5Hash -String "$($account.account_locator)-ROLE-$($role.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $roleId -Kind 'SNOWRole' -Properties $roleProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $roleId))
+        $null = $nodes.Add((New-SnowflakeNode -Id $roleId -Kind 'SNOW_Role' -Properties $roleProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Contains -StartId $accountId -EndId $roleId))
         if($role.owner -ne "")
         {
             $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($role.owner_role_type)-$($role.owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $roleId))
+            $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Owns -StartId $ownerId -EndId $roleId))
         }
     }
 
@@ -173,12 +173,12 @@ function Invoke-SnowHound
         }
 
         $warehouseId = Get-MD5Hash -String "$($account.account_locator)-WAREHOUSE-$($warehouse.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $warehouseId -Kind SNOWWarehouse -Properties $warehouseProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $warehouseId))
+        $null = $nodes.Add((New-SnowflakeNode -Id $warehouseId -Kind SNOW_Warehouse -Properties $warehouseProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Contains -StartId $accountId -EndId $warehouseId))
         if($warehouse.owner -ne "")
         {
             $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($warehouse.owner_role_type)-$($warehouse.owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $warehouseId))
+            $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Owns -StartId $ownerId -EndId $warehouseId))
         }
     }
 
@@ -193,12 +193,12 @@ function Invoke-SnowHound
         }
 
         $applicationId = Get-MD5Hash -String "$($account.account_locator)-APPLICATION-$($application.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $applicationId -Kind SNOWApplication -Properties $applicationProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $applicationId))
+        $null = $nodes.Add((New-SnowflakeNode -Id $applicationId -Kind SNOW_Application -Properties $applicationProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Contains -StartId $accountId -EndId $applicationId))
         #if($application.owner -ne "")
         #{
         #    $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($database.owner_role_type)-$($application.owner)"
-        #    $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $applicationId))
+        #    $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Owns -StartId $ownerId -EndId $applicationId))
         #}
     }
 
@@ -219,12 +219,12 @@ function Invoke-SnowHound
         }
 
         $databaseId = Get-MD5Hash -String "$($account.account_locator)-DATABASE-$($database.database_name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $databaseId -Kind SNOWDatabase -Properties $databaseProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $databaseId))
+        $null = $nodes.Add((New-SnowflakeNode -Id $databaseId -Kind SNOW_Database -Properties $databaseProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Contains -StartId $accountId -EndId $databaseId))
         if($database.database_owner -ne "")
         {
             $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($database.owner_role_type)-$($database.database_owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $databaseId))
+            $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Owns -StartId $ownerId -EndId $databaseId))
         }
     }
 
@@ -239,14 +239,14 @@ function Invoke-SnowHound
         }
 
         $schemaId = Get-MD5Hash -String "$($account.account_locator)-SCHEMA-$($schema.database_name)\$($schema.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $schemaId -Kind SNOWSchema -Properties $schemaProps))
+        $null = $nodes.Add((New-SnowflakeNode -Id $schemaId -Kind SNOW_Schema -Properties $schemaProps))
         $databaseId = Get-MD5Hash -String "$($account.account_locator)-DATABASE-$($schema.database_name)"
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $schemaId))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $databaseId -EndId $schemaId))
+        $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Contains -StartId $accountId -EndId $schemaId))
+        $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Contains -StartId $databaseId -EndId $schemaId))
         if($schema.owner -ne "")
         {
             $ownerId = Get-MD5Hash -String "$($account.account_locator)-$($schema.owner_role_type)-$($schema.owner)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwns -StartId $ownerId -EndId $schemaId))
+            $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Owns -StartId $ownerId -EndId $schemaId))
         }
     }
 
@@ -264,8 +264,8 @@ function Invoke-SnowHound
         }
 
         $integrationId = Get-MD5Hash -String "$($account.account_locator)-INTEGRATION-$($integration.name)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $integrationId -Kind SNOWIntegration -Properties $integrationProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWContains -StartId $accountId -EndId $integrationId))
+        $null = $nodes.Add((New-SnowflakeNode -Id $integrationId -Kind SNOW_Integration -Properties $integrationProps))
+        $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Contains -StartId $accountId -EndId $integrationId))
     }
 
     # SELECT * FROM snowflake.account_usage.grants_to_users;
@@ -273,7 +273,7 @@ function Invoke-SnowHound
     {
         $userId = Get-MD5Hash -String "$($account.account_locator)-$($grant_to_user.GRANTED_TO)-$($grant_to_user.GRANTEE_NAME)"
         $roleId = Get-MD5Hash -String "$($account.account_locator)-ROLE-$($grant_to_user.ROLE)"
-        $null = $edges.Add((New-SnowflakeEdge -Kind SNOWUsage -StartId $userId -EndId $roleId))
+        $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Usage -StartId $userId -EndId $roleId))
     }
 
     # SELECT * FROM snowflake.account_usage.grants_to_roles WHERE GRANTED_ON IN ('ACCOUNT', 'APPLICATION', 'DATABASE', 'INTEGRATION', 'ROLE', 'SCHEMA', 'USER', 'WAREHOUSE'); 
@@ -297,60 +297,60 @@ function Invoke-SnowHound
         #Write-Host "$($name)->$($endId)"
 
         switch($grant_to_role.PRIVILEGE){
-            'USAGE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWUsage -StartId $startId -EndId $endId)) }
-            'OWNERSHIP'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOwnership -StartId $startId -EndId $endId)) }
-            'APPLYBUDGET'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyBudget -StartId $startId -EndId $endId)) }
-            'AUDIT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWAudit -StartId $startId -EndId $endId)) }
-            'MODIFY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWModify -StartId $startId -EndId $endId)) }
-            'MONITOR'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWMonitor -StartId $startId -EndId $endId)) }
-            'OPERATE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOperate -StartId $startId -EndId $endId)) }
-            'APPLY AGGREGATION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyAggregationPolicy -StartId $startId -EndId $endId)) }
-            'APPLY AUTHENTICATION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyAuthenticationPolicy -StartId $startId -EndId $endId)) }
-            'APPLY MASKING POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyMaskingPolicy -StartId $startId -EndId $endId)) }
-            'APPLY PACKAGES POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyPackagesPolicy -StartId $startId -EndId $endId)) }
-            'APPLY PASSWORD POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyPasswordPolicy -StartId $startId -EndId $endId)) }
-            'APPLY PROTECTION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyProtectionPolicy -StartId $startId -EndId $endId)) }
-            'APPLY ROW ACCESS POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplyRowAccessPolicy -StartId $startId -EndId $endId)) }
-            'APPLY SESSION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWApplySessionPolicy -StartId $startId -EndId $endId)) }
-            'ATTACH POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWAttachPolicy -StartId $startId -EndId $endId)) }
-            'BIND SERVICE ENDPOINT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWBindServiceEndpoint -StartId $startId -EndId $endId)) }
-            'CANCEL QUERY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCancelQuery -StartId $startId -EndId $endId)) }
-            'CREATE ACCOUNT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateAccount -StartId $startId -EndId $endId)) }
-            'CREATE API INTEGRATION'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateApiIntegration -StartId $startId -EndId $endId)) }
-            'CREATE APPLICATION'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateApplication -StartId $startId -EndId $endId)) }
-            'CREATE APPLICATION PACKAGE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateApplicationPackage -StartId $startId -EndId $endId)) }
-            'CREATE COMPUTE POOL'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateComputerPool -StartId $startId -EndId $endId)) }
-            'CREATE CREDENTIAL'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateCredential -StartId $startId -EndId $endId)) }
-            'CREATE DATA EXCHANGE LISTING'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateDataExchangeListing -StartId $startId -EndId $endId)) }
-            'CREATE DATABASE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateDatabase -StartId $startId -EndId $endId)) }
-            'CREATE DATABASE ROLE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateDatabaseRole -StartId $startId -EndId $endId)) }
-            'CREATE EXTERNAL VOLUME'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateExternalVolume -StartId $startId -EndId $endId)) }
-            'CREATE INTEGRATION' { $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateIntegration -StartId $startId -EndId $endId)) }
-            'CREATE NETWORK POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateNetworkPolicy -StartId $startId -EndId $endId)) }
-            'CREATE REPLICATION GROUP'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateReplicationGroup -StartId $startId -EndId $endId)) }
-            'CREATE ROLE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateRole -StartId $startId -EndId $endId)) }
-            'CREATE SCHEMA'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateSchema -StartId $startId -EndId $endId)) }
-            'CREATE SHARE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateShare -StartId $startId -EndId $endId)) }
-            'CREATE USER'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateUser -StartId $startId -EndId $endId)) }
-            'CREATE WAREHOUSE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWCreateWarehouse -StartId $startId -EndId $endId)) }
-            'EXECUTE DATA METRIC FUNCTION'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWExecuteDataMetricFunction -StartId $startId -EndId $endId)) }
-            'EXECUTE MANAGED ALERT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWExecuteManagedAlert -StartId $startId -EndId $endId)) }
-            'EXECUTE TASK'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWExecuteTask -StartId $startId -EndId $endId)) }
-            'IMPORT SHARE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWImportShare -StartId $startId -EndId $endId)) }
-            'MANAGE GRANTS'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWManageGrants -StartId $startId -EndId $endId)) }
-            'MANAGE WAREHOUSES'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWManageWarehouses -StartId $startId -EndId $endId)) }
-            'MANAGEMENT SHARING'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWManagementSharing -StartId $startId -EndId $endId)) }
-            'MONITOR EXECUTION'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWMonitorExecution -StartId $startId -EndId $endId)) }
-            'OVERRIDE SHARE RESTRICTIONS'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWOverrideShareRestrictions -StartId $startId -EndId $endId)) }
-            'PURCHASE DATA EXCHANGE LISTING'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWPurchaseDataExchangeListing -StartId $startId -EndId $endId)) }
-            'REFERENCE USAGE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWReferenceUsage -StartId $startId -EndId $endId)) }
-            'USE ANY ROLE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOWUseAnyRole -StartId $startId -EndId $endId)) }
+            'USAGE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Usage -StartId $startId -EndId $endId)) }
+            'OWNERSHIP'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Ownership -StartId $startId -EndId $endId)) }
+            'APPLYBUDGET'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ApplyBudget -StartId $startId -EndId $endId)) }
+            'AUDIT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Audit -StartId $startId -EndId $endId)) }
+            'MODIFY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Modify -StartId $startId -EndId $endId)) }
+            'MONITOR'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Monitor -StartId $startId -EndId $endId)) }
+            'OPERATE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_Operate -StartId $startId -EndId $endId)) }
+            'APPLY AGGREGATION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ApplyAggregationPolicy -StartId $startId -EndId $endId)) }
+            'APPLY AUTHENTICATION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ApplyAuthenticationPolicy -StartId $startId -EndId $endId)) }
+            'APPLY MASKING POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ApplyMaskingPolicy -StartId $startId -EndId $endId)) }
+            'APPLY PACKAGES POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ApplyPackagesPolicy -StartId $startId -EndId $endId)) }
+            'APPLY PASSWORD POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ApplyPasswordPolicy -StartId $startId -EndId $endId)) }
+            'APPLY PROTECTION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ApplyProtectionPolicy -StartId $startId -EndId $endId)) }
+            'APPLY ROW ACCESS POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ApplyRowAccessPolicy -StartId $startId -EndId $endId)) }
+            'APPLY SESSION POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ApplySessionPolicy -StartId $startId -EndId $endId)) }
+            'ATTACH POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_AttachPolicy -StartId $startId -EndId $endId)) }
+            'BIND SERVICE ENDPOINT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_BindServiceEndpoint -StartId $startId -EndId $endId)) }
+            'CANCEL QUERY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CancelQuery -StartId $startId -EndId $endId)) }
+            'CREATE ACCOUNT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateAccount -StartId $startId -EndId $endId)) }
+            'CREATE API INTEGRATION'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateApiIntegration -StartId $startId -EndId $endId)) }
+            'CREATE APPLICATION'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateApplication -StartId $startId -EndId $endId)) }
+            'CREATE APPLICATION PACKAGE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateApplicationPackage -StartId $startId -EndId $endId)) }
+            'CREATE COMPUTE POOL'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateComputerPool -StartId $startId -EndId $endId)) }
+            'CREATE CREDENTIAL'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateCredential -StartId $startId -EndId $endId)) }
+            'CREATE DATA EXCHANGE LISTING'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateDataExchangeListing -StartId $startId -EndId $endId)) }
+            'CREATE DATABASE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateDatabase -StartId $startId -EndId $endId)) }
+            'CREATE DATABASE ROLE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateDatabaseRole -StartId $startId -EndId $endId)) }
+            'CREATE EXTERNAL VOLUME'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateExternalVolume -StartId $startId -EndId $endId)) }
+            'CREATE INTEGRATION' { $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateIntegration -StartId $startId -EndId $endId)) }
+            'CREATE NETWORK POLICY'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateNetworkPolicy -StartId $startId -EndId $endId)) }
+            'CREATE REPLICATION GROUP'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateReplicationGroup -StartId $startId -EndId $endId)) }
+            'CREATE ROLE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateRole -StartId $startId -EndId $endId)) }
+            'CREATE SCHEMA'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateSchema -StartId $startId -EndId $endId)) }
+            'CREATE SHARE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateShare -StartId $startId -EndId $endId)) }
+            'CREATE USER'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateUser -StartId $startId -EndId $endId)) }
+            'CREATE WAREHOUSE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_CreateWarehouse -StartId $startId -EndId $endId)) }
+            'EXECUTE DATA METRIC FUNCTION'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ExecuteDataMetricFunction -StartId $startId -EndId $endId)) }
+            'EXECUTE MANAGED ALERT'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ExecuteManagedAlert -StartId $startId -EndId $endId)) }
+            'EXECUTE TASK'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ExecuteTask -StartId $startId -EndId $endId)) }
+            'IMPORT SHARE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ImportShare -StartId $startId -EndId $endId)) }
+            'MANAGE GRANTS'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ManageGrants -StartId $startId -EndId $endId)) }
+            'MANAGE WAREHOUSES'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ManageWarehouses -StartId $startId -EndId $endId)) }
+            'MANAGEMENT SHARING'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ManagementSharing -StartId $startId -EndId $endId)) }
+            'MONITOR EXECUTION'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_MonitorExecution -StartId $startId -EndId $endId)) }
+            'OVERRIDE SHARE RESTRICTIONS'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_OverrideShareRestrictions -StartId $startId -EndId $endId)) }
+            'PURCHASE DATA EXCHANGE LISTING'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_PurchaseDataExchangeListing -StartId $startId -EndId $endId)) }
+            'REFERENCE USAGE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_ReferenceUsage -StartId $startId -EndId $endId)) }
+            'USE ANY ROLE'{ $null = $edges.Add((New-SnowflakeEdge -Kind SNOW_UseAnyRole -StartId $startId -EndId $endId)) }
         }
     }
 
     $payload = [PSCustomObject]@{
         metadata = [PSCustomObject]@{
-            source_kind = "SNOWBase"
+            source_kind = "SNOW_Base"
         }
         graph = [PSCustomObject]@{
             nodes = $nodes.ToArray()

@@ -1,14 +1,14 @@
 {
   "metadata": {
-    "source_kind": "SNOWBase"
+    "source_kind": "SNOW_Base"
   },
   "graph": {
     "nodes": [
       {
         "id": "ZV42484",
         "kinds": [
-          "SNOWAccount",
-          "SNOWBase"
+          "SNOW_Account",
+          "SNOW_Base"
         ],
         "properties": {
           "organization_name": "CGXOVHZ",
@@ -26,8 +26,8 @@
       {
         "id": "ACHILES@SPECTERDEV.ONMICROSOFT.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "ACHILES@SPECTERDEV.ONMICROSOFT.COM",
@@ -53,8 +53,8 @@
       {
         "id": "AROBBINS@SPECTERDEV.ONMICROSOFT.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "AROBBINS@SPECTERDEV.ONMICROSOFT.COM",
@@ -80,8 +80,8 @@
       {
         "id": "CMADDALENA@SPECTERDEV.ONMICROSOFT.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "CMADDALENA@SPECTERDEV.ONMICROSOFT.COM",
@@ -107,8 +107,8 @@
       {
         "id": "DUMMYUSER@GMAIL.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "DUMMYUSER@GMAIL.COM",
@@ -134,8 +134,8 @@
       {
         "id": "GFOSTER@SPECTEROPS.IO",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "GFOSTER@SPECTEROPS.IO",
@@ -161,8 +161,8 @@
       {
         "id": "HOPEW@SPECTERDEV.ONMICROSOFT.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "HOPEW@SPECTERDEV.ONMICROSOFT.COM",
@@ -188,8 +188,8 @@
       {
         "id": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM",
@@ -215,8 +215,8 @@
       {
         "id": "JKNUDSEN@SPECTERDEV.ONMICROSOFT.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "JKNUDSEN@SPECTERDEV.ONMICROSOFT.COM",
@@ -242,8 +242,8 @@
       {
         "id": "LPAINE@SPECTERDEV.ONMICROSOFT.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "LPAINE@SPECTERDEV.ONMICROSOFT.COM",
@@ -269,8 +269,8 @@
       {
         "id": "RWINCHESTER@SPECTERDEV.ONMICROSOFT.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "RWINCHESTER@SPECTERDEV.ONMICROSOFT.COM",
@@ -294,16 +294,16 @@
         }
       },
       {
-        "id": "SNOWFLAKE",
+        "id": "SNOW_FLAKE",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
-          "name": "SNOWFLAKE",
+          "name": "SNOW_FLAKE",
           "created_on": "2024-06-21 08:30:41.209 -0700",
-          "login_name": "SNOWFLAKE",
-          "display_name": "SNOWFLAKE",
+          "login_name": "SNOW_FLAKE",
+          "display_name": "SNOW_FLAKE",
           "first_name": "",
           "last_name": "",
           "email": "",
@@ -323,8 +323,8 @@
       {
         "id": "SPECTERDEV",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "SPECTERDEV",
@@ -350,8 +350,8 @@
       {
         "id": "TESTACCOUNT@GMAIL.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "TESTACCOUNT@GMAIL.COM",
@@ -377,8 +377,8 @@
       {
         "id": "WSHCRODER@SPECTERDEV.ONMICROSOFT.COM",
         "kinds": [
-          "SNOWUser",
-          "SNOWBase"
+          "SNOW_User",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "WSHCRODER@SPECTERDEV.ONMICROSOFT.COM",
@@ -404,8 +404,8 @@
       {
         "id": "AAD_PROVISIONER",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-30 14:14:09.572 -0700",
@@ -422,8 +422,8 @@
       {
         "id": "ACCOUNTADMIN",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-21 08:30:41.229 -0700",
@@ -440,8 +440,8 @@
       {
         "id": "DETECTION",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-30 15:16:10.387 -0700",
@@ -458,8 +458,8 @@
       {
         "id": "GENERIC_SCIM_PROVISIONER",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2025-06-10 10:45:07.272 -0700",
@@ -476,8 +476,8 @@
       {
         "id": "ORGADMIN",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-21 08:30:41.493 -0700",
@@ -494,8 +494,8 @@
       {
         "id": "PUBLIC",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-21 08:30:41.220 -0700",
@@ -512,8 +512,8 @@
       {
         "id": "SECURITYADMIN",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-21 08:30:41.237 -0700",
@@ -528,14 +528,14 @@
         }
       },
       {
-        "id": "SNOWFLAKE ADMIN",
+        "id": "SNOW_FLAKE ADMIN",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-07-01 13:12:12.141 -0700",
-          "name": "SNOWFLAKE ADMIN",
+          "name": "SNOW_FLAKE ADMIN",
           "is_default": "N",
           "is_current": "N",
           "is_inherited": "N",
@@ -546,14 +546,14 @@
         }
       },
       {
-        "id": "SNOWFLAKE USERS",
+        "id": "SNOW_FLAKE USERS",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-30 15:16:09.904 -0700",
-          "name": "SNOWFLAKE USERS",
+          "name": "SNOW_FLAKE USERS",
           "is_default": "N",
           "is_current": "N",
           "is_inherited": "N",
@@ -566,8 +566,8 @@
       {
         "id": "SYSADMIN",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-21 08:30:41.244 -0700",
@@ -584,8 +584,8 @@
       {
         "id": "USERADMIN",
         "kinds": [
-          "SNOWRole",
-          "SNOWBase"
+          "SNOW_Role",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-21 08:30:41.249 -0700",
@@ -602,8 +602,8 @@
       {
         "id": "COMPUTE_WH",
         "kinds": [
-          "SNOWWarehouse",
-          "SNOWBase"
+          "SNOW_Warehouse",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "COMPUTE_WH",
@@ -616,8 +616,8 @@
       {
         "id": "SYSTEM$STREAMLIT_NOTEBOOK_WH",
         "kinds": [
-          "SNOWWarehouse",
-          "SNOWBase"
+          "SNOW_Warehouse",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "SYSTEM$STREAMLIT_NOTEBOOK_WH",
@@ -628,30 +628,30 @@
         }
       },
       {
-        "id": "SNOWFLAKE",
+        "id": "SNOW_FLAKE",
         "kinds": [
-          "SNOWDatabase",
-          "SNOWBase"
+          "SNOW_Database",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-21 08:30:41.631 -0700",
-          "name": "SNOWFLAKE",
+          "name": "SNOW_FLAKE",
           "is_default": "N",
           "is_current": "N",
-          "origin": "SNOWFLAKE.ACCOUNT_USAGE",
+          "origin": "SNOW_FLAKE.ACCOUNT_USAGE",
           "owner": "",
           "kind": "APPLICATION"
         }
       },
       {
-        "id": "SNOWFLAKE_SAMPLE_DATA",
+        "id": "SNOW_FLAKE_SAMPLE_DATA",
         "kinds": [
-          "SNOWDatabase",
-          "SNOWBase"
+          "SNOW_Database",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-21 08:30:46.037 -0700",
-          "name": "SNOWFLAKE_SAMPLE_DATA",
+          "name": "SNOW_FLAKE_SAMPLE_DATA",
           "is_default": "N",
           "is_current": "N",
           "origin": "SFSALESSHARED.SFC_SAMPLES_AZURECENTRALUS.SAMPLE_DATA",
@@ -662,8 +662,8 @@
       {
         "id": "SPECTERDEV_AZURE",
         "kinds": [
-          "SNOWDatabase",
-          "SNOWBase"
+          "SNOW_Database",
+          "SNOW_Base"
         ],
         "properties": {
           "created_on": "2024-06-21 08:34:59.541 -0700",
@@ -678,8 +678,8 @@
       {
         "id": "AAD_PROVISIONING",
         "kinds": [
-          "SNOWIntegration",
-          "SNOWBase"
+          "SNOW_Integration",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "AAD_PROVISIONING",
@@ -692,8 +692,8 @@
       {
         "id": "GENERIC_SCIM_PROVISIONING",
         "kinds": [
-          "SNOWIntegration",
-          "SNOWBase"
+          "SNOW_Integration",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "GENERIC_SCIM_PROVISIONING",
@@ -706,8 +706,8 @@
       {
         "id": "PINGONE_SSO",
         "kinds": [
-          "SNOWIntegration",
-          "SNOWBase"
+          "SNOW_Integration",
+          "SNOW_Base"
         ],
         "properties": {
           "name": "PINGONE_SSO",
@@ -720,27 +720,27 @@
     ],
     "edges": [
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "ACHILES@SPECTERDEV.ONMICROSOFT.COM"
         },
         "end": {
-          "value": "SNOWFLAKE ADMIN"
+          "value": "SNOW_FLAKE ADMIN"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "CMADDALENA@SPECTERDEV.ONMICROSOFT.COM"
         },
         "end": {
-          "value": "SNOWFLAKE ADMIN"
+          "value": "SNOW_FLAKE ADMIN"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM"
         },
@@ -750,9 +750,9 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "end": {
           "value": "ACCOUNTADMIN"
@@ -760,7 +760,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "SPECTERDEV"
         },
@@ -770,17 +770,17 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "JKNUDSEN@SPECTERDEV.ONMICROSOFT.COM"
         },
         "end": {
-          "value": "SNOWFLAKE USERS"
+          "value": "SNOW_FLAKE USERS"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "CMADDALENA@SPECTERDEV.ONMICROSOFT.COM"
         },
@@ -790,7 +790,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM"
         },
@@ -800,7 +800,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "HOPEW@SPECTERDEV.ONMICROSOFT.COM"
         },
@@ -810,7 +810,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "RWINCHESTER@SPECTERDEV.ONMICROSOFT.COM"
         },
@@ -820,7 +820,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "WSHCRODER@SPECTERDEV.ONMICROSOFT.COM"
         },
@@ -830,7 +830,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "LPAINE@SPECTERDEV.ONMICROSOFT.COM"
         },
@@ -840,17 +840,17 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM"
         },
         "end": {
-          "value": "SNOWFLAKEADMIN"
+          "value": "SNOW_FLAKEADMIN"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "SPECTERDEV"
         },
@@ -860,7 +860,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "JATKINSON@SPECTERDEV.ONMICROSOFT.COM"
         },
@@ -870,7 +870,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "AROBBINS@SPECTERDEV.ONMICROSOFT.COM"
         },
@@ -880,17 +880,17 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "PUBLIC"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWCreateRole",
+        "kind": "SNOW_CreateRole",
         "start": {
           "value": "GENERIC_SCIM_PROVISIONER"
         },
@@ -900,7 +900,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateUser",
+        "kind": "SNOW_CreateUser",
         "start": {
           "value": "GENERIC_SCIM_PROVISIONER"
         },
@@ -910,39 +910,39 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "DATA_QUALITY_MONITORING_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "APP_USAGE_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "DATA_QUALITY_MONITORING_LOOKUP"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWExecuteTask",
+        "kind": "SNOW_ExecuteTask",
         "start": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "end": {
           "value": "ZV42484"
@@ -950,47 +950,47 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "COST_INSIGHTS_USER"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "EVENTS_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "DATA_QUALITY_MONITORING_VIEWER"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "CORTEX_ANALYST_REQUESTS_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWApplyBudget",
+        "kind": "SNOW_ApplyBudget",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1000,7 +1000,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1010,7 +1010,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWManageWarehouses",
+        "kind": "SNOW_ManageWarehouses",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1020,7 +1020,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateAccount",
+        "kind": "SNOW_CreateAccount",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1030,7 +1030,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWAudit",
+        "kind": "SNOW_Audit",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1040,7 +1040,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWImportShare",
+        "kind": "SNOW_ImportShare",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1050,7 +1050,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWMonitorExecution",
+        "kind": "SNOW_MonitorExecution",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1060,7 +1060,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1070,17 +1070,17 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "ACCOUNTADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE_SAMPLE_DATA"
+          "value": "SNOW_FLAKE_SAMPLE_DATA"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1090,7 +1090,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1100,7 +1100,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1110,7 +1110,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1120,7 +1120,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1130,7 +1130,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1140,7 +1140,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1150,7 +1150,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1160,7 +1160,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1170,7 +1170,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOperate",
+        "kind": "SNOW_Operate",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1180,7 +1180,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWMonitor",
+        "kind": "SNOW_Monitor",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1190,7 +1190,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1200,7 +1200,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWExecuteTask",
+        "kind": "SNOW_ExecuteTask",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1210,7 +1210,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateIntegration",
+        "kind": "SNOW_CreateIntegration",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1220,7 +1220,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCancelQuery",
+        "kind": "SNOW_CancelQuery",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1230,7 +1230,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOverrideShareRestrictions",
+        "kind": "SNOW_OverrideShareRestrictions",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1240,7 +1240,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateReplicationGroup",
+        "kind": "SNOW_CreateReplicationGroup",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1250,7 +1250,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateApplication",
+        "kind": "SNOW_CreateApplication",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1260,7 +1260,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWMonitor",
+        "kind": "SNOW_Monitor",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1270,7 +1270,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateApiIntegration",
+        "kind": "SNOW_CreateApiIntegration",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1280,7 +1280,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1290,7 +1290,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateApplicationPackage",
+        "kind": "SNOW_CreateApplicationPackage",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1300,7 +1300,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateExternalVolume",
+        "kind": "SNOW_CreateExternalVolume",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1310,7 +1310,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWExecuteManagedAlert",
+        "kind": "SNOW_ExecuteManagedAlert",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1320,7 +1320,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateShare",
+        "kind": "SNOW_CreateShare",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1330,7 +1330,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWExecuteDataMetricFunction",
+        "kind": "SNOW_ExecuteDataMetricFunction",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1340,7 +1340,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWBindServiceEndpoint",
+        "kind": "SNOW_BindServiceEndpoint",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1350,7 +1350,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWPurchaseDataExchangeListing",
+        "kind": "SNOW_PurchaseDataExchangeListing",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1360,7 +1360,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWApplyMaskingPolicy",
+        "kind": "SNOW_ApplyMaskingPolicy",
         "start": {
           "value": "ACCOUNTADMIN"
         },
@@ -1370,57 +1370,47 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "AI_OBSERVABILITY_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "ANOMALY_INSIGHTS_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "PERFORMANCE_EXPLORER_USER"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "PUBLIC"
         },
         "end": {
-          "value": "SNOWFLAKE_SAMPLE_DATA"
+          "value": "SNOW_FLAKE_SAMPLE_DATA"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
-        "start": {
-          "value": "PUBLIC"
-        },
-        "end": {
-          "value": "SYSTEM$STREAMLIT_NOTEBOOK_WH"
-        },
-        "properties": {}
-      },
-      {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "PUBLIC"
         },
@@ -1430,37 +1420,47 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
+        "start": {
+          "value": "PUBLIC"
+        },
+        "end": {
+          "value": "SYSTEM$STREAMLIT_NOTEBOOK_WH"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOW_Usage",
         "start": {
           "value": "TRUST_CENTER_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "APP_USAGE_VIEWER"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "BUDGET_VIEWER"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWCreateWarehouse",
+        "kind": "SNOW_CreateWarehouse",
         "start": {
           "value": "SYSADMIN"
         },
@@ -1470,7 +1470,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateDatabase",
+        "kind": "SNOW_CreateDatabase",
         "start": {
           "value": "SYSADMIN"
         },
@@ -1480,7 +1480,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateComputerPool",
+        "kind": "SNOW_CreateComputerPool",
         "start": {
           "value": "SYSADMIN"
         },
@@ -1490,7 +1490,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWApplySessionPolicy",
+        "kind": "SNOW_ApplySessionPolicy",
         "start": {
           "value": "SECURITYADMIN"
         },
@@ -1500,7 +1500,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWManageGrants",
+        "kind": "SNOW_ManageGrants",
         "start": {
           "value": "SECURITYADMIN"
         },
@@ -1510,7 +1510,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWApplyPackagesPolicy",
+        "kind": "SNOW_ApplyPackagesPolicy",
         "start": {
           "value": "SECURITYADMIN"
         },
@@ -1520,7 +1520,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWAttachPolicy",
+        "kind": "SNOW_AttachPolicy",
         "start": {
           "value": "SECURITYADMIN"
         },
@@ -1530,7 +1530,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "SECURITYADMIN"
         },
@@ -1540,7 +1540,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWBindServiceEndpoint",
+        "kind": "SNOW_BindServiceEndpoint",
         "start": {
           "value": "SECURITYADMIN"
         },
@@ -1550,7 +1550,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateNetworkPolicy",
+        "kind": "SNOW_CreateNetworkPolicy",
         "start": {
           "value": "SECURITYADMIN"
         },
@@ -1560,7 +1560,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWApplyAuthenticationPolicy",
+        "kind": "SNOW_ApplyAuthenticationPolicy",
         "start": {
           "value": "SECURITYADMIN"
         },
@@ -1570,7 +1570,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWApplyPasswordPolicy",
+        "kind": "SNOW_ApplyPasswordPolicy",
         "start": {
           "value": "SECURITYADMIN"
         },
@@ -1580,27 +1580,27 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "CORTEX_ANALYST_REQUESTS_VIEWER"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "EXTERNAL_ACCESS_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWPurchaseDataExchangeListing",
+        "kind": "SNOW_PurchaseDataExchangeListing",
         "start": {
           "value": "ORGADMIN"
         },
@@ -1610,27 +1610,27 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "TRUST_CENTER_VIEWER"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "BUDGET_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWCreateRole",
+        "kind": "SNOW_CreateRole",
         "start": {
           "value": "USERADMIN"
         },
@@ -1640,7 +1640,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWCreateUser",
+        "kind": "SNOW_CreateUser",
         "start": {
           "value": "USERADMIN"
         },
@@ -1650,7 +1650,7 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "AAD_PROVISIONER"
         },
@@ -1660,37 +1660,27 @@
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "AAD_PROVISIONER"
         },
         "end": {
-          "value": "SNOWFLAKE USERS"
+          "value": "SNOW_FLAKE USERS"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWOwnership",
+        "kind": "SNOW_Ownership",
         "start": {
           "value": "AAD_PROVISIONER"
         },
         "end": {
-          "value": "SNOWFLAKE ADMIN"
+          "value": "SNOW_FLAKE ADMIN"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWCreateUser",
-        "start": {
-          "value": "AAD_PROVISIONER"
-        },
-        "end": {
-          "value": "ZV42484"
-        },
-        "properties": {}
-      },
-      {
-        "kind": "SNOWCreateRole",
+        "kind": "SNOW_CreateUser",
         "start": {
           "value": "AAD_PROVISIONER"
         },
@@ -1700,32 +1690,42 @@
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_CreateRole",
+        "start": {
+          "value": "AAD_PROVISIONER"
+        },
+        "end": {
+          "value": "ZV42484"
+        },
+        "properties": {}
+      },
+      {
+        "kind": "SNOW_Usage",
         "start": {
           "value": "EVENTS_VIEWER"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "CORTEX_MODELS_ADMIN"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       },
       {
-        "kind": "SNOWUsage",
+        "kind": "SNOW_Usage",
         "start": {
           "value": "AI_OBSERVABILITY_EVENTS_LOOKUP"
         },
         "end": {
-          "value": "SNOWFLAKE"
+          "value": "SNOW_FLAKE"
         },
         "properties": {}
       }
