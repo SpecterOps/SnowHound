@@ -58,7 +58,7 @@ Note: As mentioned above, users can only enumerate warehouses for which they hav
 
 ### Grants
 
-Finally, we must gather information on privilege grants. These are maintained in the ACCOUNT_USAGE schema of the default SNOWFLAKE database. By default, these views are only available to the ACCOUNTADMIN role. Still, users not granted USAGE of the ACCOUNTADMIN role can be granted the necessary read access via the [SECURITY_VIEWER](https://docs.snowflake.com/en/sql-reference/account-usage#account-usage-views-by-database-role) database role. The following command does this (if run as ACCOUNTADMIN):
+Finally, we must gather information on privilege grants. These are maintained in the ACCOUNT_USAGE schema of the default SNOW_FLAKE database. By default, these views are only available to the ACCOUNTADMIN role. Still, users not granted USAGE of the ACCOUNTADMIN role can be granted the necessary read access via the [SECURITY_VIEWER](https://docs.snowflake.com/en/sql-reference/account-usage#account-usage-views-by-database-role) database role. The following command does this (if run as ACCOUNTADMIN):
 
 ```sql
 GRANT DATABASE ROLE snowflake.SECURITY_VIEWER TO <Role>
