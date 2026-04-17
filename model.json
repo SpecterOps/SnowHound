@@ -1,41 +1,41 @@
 {
   "custom_types": {
-    "SNOWAccount": {
+    "SNOW_Account": {
       "icon": {
         "type": "font-awesome",
         "name": "building",
         "color": "#5FED83"
       }
     },
-    "SNOWApplication": {
+    "SNOW_Application": {
       "icon": {
         "type": "font-awesome",
         "name": "window-maximize",
         "color": "#A1C6EA"
       }
     },
-    "SNOWApplicationRole": {
+    "SNOW_ApplicationRole": {
       "icon": {
         "type": "font-awesome",
         "name": "user-shield",
         "color": "#C6C3FF"
       }
     },
-    "SNOWDatabase": {
+    "SNOW_Database": {
       "icon": {
         "type": "font-awesome",
         "name": "database",
         "color": "#FF80D2"
       }
     },
-    "SNOWFunction": {
+    "SNOW_Function": {
       "icon": {
         "type": "font-awesome",
         "name": "code",
         "color": "#A9E5E5"
       }
     },
-    "SNOWIntegration": {
+    "SNOW_Integration": {
       "icon": {
         "type": "font-awesome",
         "name": "user-tie",
@@ -87,53 +87,53 @@
     "SNOWProcedure": {
       "icon": {
         "type": "font-awesome",
-        "name": "cogs",
+        "name": "gears",
         "color": "#D8C8F8"
       }
     },
-    "SNOWRole": {
+    "SNOW_Role": {
       "icon": {
         "type": "font-awesome",
         "name": "user-group",
         "color": "#C06EFF"
       }
     },
-    "SNOWSchema": {
+    "SNOW_Schema": {
       "icon": {
         "type": "font-awesome",
         "name": "network-wired",
         "color": "#DEFEFA"
       }
     },
-    "SNOWStage": {
+    "SNOW_Stage": {
       "icon": {
         "type": "font-awesome",
         "name": "layer-group",
         "color": "#80E0C6"
       }
     },
-    "SNOWTable": {
+    "SNOW_Table": {
       "icon": {
         "type": "font-awesome",
         "name": "table",
         "color": "#FFD2A6"
       }
     },
-    "SNOWUser": {
+    "SNOW_User": {
       "icon": {
         "type": "font-awesome",
         "name": "user",
         "color": "#FF8E40"
       }
     },
-    "SNOWView": {
+    "SNOW_View": {
       "icon": {
         "type": "font-awesome",
         "name": "eye",
         "color": "#A6E0FF"
       }
     },
-    "SNOWWarehouse": {
+    "SNOW_Warehouse": {
       "icon": {
         "type": "font-awesome",
         "name": "warehouse",
