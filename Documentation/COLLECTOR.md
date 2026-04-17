@@ -62,6 +62,8 @@ Verify connectivity:
 snow sql -q "SELECT CURRENT_USER(), CURRENT_ROLE();"
 ```
 
+For a `config.toml` example using `SNOWFLAKE_JWT` and an RSA private key so the collector does not prompt for MFA on every `snow` subcommand, see [SNOWFLAKE_CLI_KEYPAIR_AUTH.md](SNOWFLAKE_CLI_KEYPAIR_AUTH.md).
+
 ### Step 5: Run the Collector
 
 1. Open a PowerShell terminal and navigate to the repository root.
