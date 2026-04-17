@@ -49,8 +49,56 @@
       "name": "SNOW_Integration",
       "display_name": "Integration",
       "description": "A Snowflake integration object that connects to external services (API, security, storage, etc.)",
-      "is_display_kind": "true",
+      "is_display_kind": "false",
       "icon": "user-tie",
+      "color": "#BFFFD1"
+    },
+    {
+      "name": "SNOW_ApiIntegration",
+      "display_name": "API Integration",
+      "description": "A Snowflake integration object for API connectivity",
+      "is_display_kind": "true",
+      "icon": "plug",
+      "color": "#BFFFD1"
+    },
+    {
+      "name": "SNOW_CatalogIntegration",
+      "display_name": "Catalog Integration",
+      "description": "A Snowflake integration object for catalog connectivity",
+      "is_display_kind": "true",
+      "icon": "book",
+      "color": "#BFFFD1"
+    },
+    {
+      "name": "SNOW_ExternalAccessIntegration",
+      "display_name": "External Access Integration",
+      "description": "A Snowflake integration object for outbound external access",
+      "is_display_kind": "true",
+      "icon": "globe",
+      "color": "#BFFFD1"
+    },
+    {
+      "name": "SNOW_NotificationIntegration",
+      "display_name": "Notification Integration",
+      "description": "A Snowflake integration object for notification delivery",
+      "is_display_kind": "true",
+      "icon": "bell",
+      "color": "#BFFFD1"
+    },
+    {
+      "name": "SNOW_SecurityIntegration",
+      "display_name": "Security Integration",
+      "description": "A Snowflake integration object for identity and security integrations",
+      "is_display_kind": "true",
+      "icon": "shield-halved",
+      "color": "#BFFFD1"
+    },
+    {
+      "name": "SNOW_StorageIntegration",
+      "display_name": "Storage Integration",
+      "description": "A Snowflake integration object for external storage access",
+      "is_display_kind": "true",
+      "icon": "hard-drive",
       "color": "#BFFFD1"
     },
     {

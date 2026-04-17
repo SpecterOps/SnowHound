@@ -9,6 +9,12 @@ flowchart TD
     SNOW_Database[fa:fa-database SNOW_Database]
     SNOW_Function[fa:fa-code SNOW_Function]
     SNOW_Integration[fa:fa-user-tie SNOW_Integration]
+    SNOW_ApiIntegration[fa:fa-plug SNOW_ApiIntegration]
+    SNOW_CatalogIntegration[fa:fa-book SNOW_CatalogIntegration]
+    SNOW_ExternalAccessIntegration[fa:fa-globe SNOW_ExternalAccessIntegration]
+    SNOW_NotificationIntegration[fa:fa-bell SNOW_NotificationIntegration]
+    SNOW_SecurityIntegration[fa:fa-shield-halved SNOW_SecurityIntegration]
+    SNOW_StorageIntegration[fa:fa-hard-drive SNOW_StorageIntegration]
     SNOW_Procedure[fa:fa-cogs SNOW_Procedure]
     SNOW_Role[fa:fa-user-group SNOW_Role]
     SNOW_Schema[fa:fa-network-wired SNOW_Schema]
@@ -24,6 +30,12 @@ flowchart TD
     style SNOW_Database fill:#FF80D2
     style SNOW_Function fill:#A9E5E5
     style SNOW_Integration fill:#BFFFD1
+    style SNOW_ApiIntegration fill:#BFFFD1
+    style SNOW_CatalogIntegration fill:#BFFFD1
+    style SNOW_ExternalAccessIntegration fill:#BFFFD1
+    style SNOW_NotificationIntegration fill:#BFFFD1
+    style SNOW_SecurityIntegration fill:#BFFFD1
+    style SNOW_StorageIntegration fill:#BFFFD1
     style SNOW_Procedure fill:#D8C8F8
     style SNOW_Role fill:#C06EFF
     style SNOW_Schema fill:#DEFEFA
@@ -61,13 +73,13 @@ flowchart TD
     
     SNOW_Database -.->|SNOW_Contains| SNOW_Schema
     
-    SNOWSchema -.->|SNOWContains| SNOWFunction
-    SNOWSchema -.->|SNOWContains| SNOWProcedure
-    SNOWSchema -.->|SNOWContains| SNOWStage
-    SNOWSchema -.->|SNOWContains| SNOWTable
-    SNOWSchema -.->|SNOWContains| SNOWView
+    SNOW_Schema -.->|SNOW_Contains| SNOW_Function
+    SNOW_Schema -.->|SNOW_Contains| SNOW_Procedure
+    SNOW_Schema -.->|SNOW_Contains| SNOW_Stage
+    SNOW_Schema -.->|SNOW_Contains| SNOW_Table
+    SNOW_Schema -.->|SNOW_Contains| SNOW_View
 
-    SNOWStage -.->|SNOWUsesStorageIntegration| SNOWIntegration
+    SNOW_Stage -.->|SNOW_UsesStorageIntegration| SNOW_Integration
 
     SNOW_User -.->|SNOW_Usage| SNOW_Role
 

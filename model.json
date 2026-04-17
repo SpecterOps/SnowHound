@@ -42,49 +42,49 @@
         "color": "#BFFFD1"
       }
     },
-    "SNOWApiIntegration": {
+    "SNOW_ApiIntegration": {
       "icon": {
         "type": "font-awesome",
         "name": "plug",
         "color": "#BFFFD1"
       }
     },
-    "SNOWCatalogIntegration": {
+    "SNOW_CatalogIntegration": {
       "icon": {
         "type": "font-awesome",
         "name": "book",
         "color": "#BFFFD1"
       }
     },
-    "SNOWExternalAccessIntegration": {
+    "SNOW_ExternalAccessIntegration": {
       "icon": {
         "type": "font-awesome",
         "name": "globe",
         "color": "#BFFFD1"
       }
     },
-    "SNOWNotificationIntegration": {
+    "SNOW_NotificationIntegration": {
       "icon": {
         "type": "font-awesome",
         "name": "bell",
         "color": "#BFFFD1"
       }
     },
-    "SNOWSecurityIntegration": {
+    "SNOW_SecurityIntegration": {
       "icon": {
         "type": "font-awesome",
         "name": "shield-halved",
         "color": "#BFFFD1"
       }
     },
-    "SNOWStorageIntegration": {
+    "SNOW_StorageIntegration": {
       "icon": {
         "type": "font-awesome",
         "name": "hard-drive",
         "color": "#BFFFD1"
       }
     },
-    "SNOWProcedure": {
+    "SNOW_Procedure": {
       "icon": {
         "type": "font-awesome",
         "name": "gears",

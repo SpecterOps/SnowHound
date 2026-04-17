@@ -1,6 +1,6 @@
 # <img src="../Icons/SNOW_Integration.png" width="50"/> Integration
 
-A Snowflake integration object that connects to external services (API, security, storage, etc.). Integrations provide a bridge between Snowflake and external systems, supporting categories such as API, CATALOG, EXTERNAL_ACCESS, NOTIFICATION, SECURITY, and STORAGE.
+A shared Snowflake integration kind that connects to external services (API, security, storage, etc.). Concrete integration nodes also carry a category-specific kind such as `SNOW_StorageIntegration` or `SNOW_SecurityIntegration`. Integrations provide a bridge between Snowflake and external systems, supporting categories such as API, CATALOG, EXTERNAL_ACCESS, NOTIFICATION, SECURITY, and STORAGE.
 
 **Created by:** `Invoke-SnowHound`
 
@@ -13,7 +13,7 @@ A Snowflake integration object that connects to external services (API, security
 | type | string | Integration type |
 | category | string | Integration category (API, CATALOG, EXTERNAL_ACCESS, NOTIFICATION, SECURITY, STORAGE) |
 | created_on | datetime | Timestamp when the integration was created |
-| (conditional) | various | Additional properties from DESCRIBE SECURITY INTEGRATION for SECURITY category |
+| (conditional) | various | Additional normalized properties from `DESCRIBE <CATEGORY> INTEGRATION` |
 
 ## Edges
 

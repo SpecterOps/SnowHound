@@ -33,7 +33,7 @@ A Snowflake stage that references a location for data files used in loading and 
 
 | Edge Kind | Target Node | Traversable | Description |
 |---|---|---|---|
-| (none) | | | Stages have no outbound edges |
+| SNOW_UsesStorageIntegration | SNOW_StorageIntegration | Yes | Stage uses this storage integration |
 
 ### Inbound Edges
 
@@ -51,6 +51,7 @@ A Snowflake stage that references a location for data files used in loading and 
 ```mermaid
 flowchart TD
     SNOW_Schema["SNOW_Schema"]:::schema -.->|SNOW_Contains| SNOW_Stage["SNOW_Stage"]:::stage
+    SNOW_Stage -->|SNOW_UsesStorageIntegration| SNOW_StorageIntegration["SNOW_StorageIntegration"]:::integration
     SNOW_Role1["SNOW_Role"]:::role -->|SNOW_Usage| SNOW_Stage
     SNOW_Role2["SNOW_Role"]:::role -->|SNOW_Read| SNOW_Stage
     SNOW_Role3["SNOW_Role"]:::role -->|SNOW_Write| SNOW_Stage
@@ -58,5 +59,6 @@ flowchart TD
 
     classDef stage fill:#80E0C6,stroke:#333,color:#000
     classDef schema fill:#DEFEFA,stroke:#333,color:#000
+    classDef integration fill:#BFFFD1,stroke:#333,color:#000
     classDef role fill:#C06EFF,stroke:#333,color:#000
 ```

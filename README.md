@@ -145,8 +145,12 @@ Nodes correspond to each object type.
 | <img src="./Documentation/Icons/SNOW_Database.png" width="30"/> SNOW_Database               | database        | #FF80D2 | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it. |
 | <img src="./Documentation/Icons/SNOW_Function.png" width="30"/> SNOW_Function               | code            | #A9E5E5 | |
 | <img src="./Documentation/Icons/SNOW_Integration.png" width="30"/> SNOW_Integration         | user-tie        | #BFFFD1 | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application. |
-| SNOW_StorageIntegration                                                             | hard-drive      | #BFFFD1 | A storage-specific integration node, also tagged as `SNOW_Integration`. |
+| SNOW_ApiIntegration                                                                 | plug            | #BFFFD1 | An API-specific integration node, also tagged as `SNOW_Integration`. |
+| SNOW_CatalogIntegration                                                             | book            | #BFFFD1 | A catalog-specific integration node, also tagged as `SNOW_Integration`. |
+| SNOW_ExternalAccessIntegration                                                      | globe           | #BFFFD1 | An external-access-specific integration node, also tagged as `SNOW_Integration`. |
+| SNOW_NotificationIntegration                                                        | bell            | #BFFFD1 | A notification-specific integration node, also tagged as `SNOW_Integration`. |
 | SNOW_SecurityIntegration                                                            | shield-halved   | #BFFFD1 | A security-specific integration node, also tagged as `SNOW_Integration`. |
+| SNOW_StorageIntegration                                                             | hard-drive      | #BFFFD1 | A storage-specific integration node, also tagged as `SNOW_Integration`. |
 | <img src="./Documentation/Icons/SNOW_Procedure.png" width="30"/> SNOW_Procedure             | gears           | #D8C8F8 | |
 | <img src="./Documentation/Icons/SNOW_Role.png" width="30"/> SNOW_Role                       | user-group      | #C06EFF | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles. |
 | <img src="./Documentation/Icons/SNOW_Schema.png" width="30"/> SNOW_Schema                   | network-wired   | #DEFEFA | |
@@ -167,6 +171,8 @@ Nodes correspond to each object type.
 #### <img src="./Documentation/Icons/SNOW_Function.png" width="30"/> SNOW_Function
 
 #### <img src="./Documentation/Icons/SNOW_Integration.png" width="30"/> SNOW_Integration
+
+`SNOW_Integration` is the shared non-display kind applied to all integration nodes. The concrete display kind is category-specific, such as `SNOW_StorageIntegration`, `SNOW_SecurityIntegration`, `SNOW_ApiIntegration`, `SNOW_CatalogIntegration`, `SNOW_ExternalAccessIntegration`, or `SNOW_NotificationIntegration`.
 
 #### <img src="./Documentation/Icons/SNOW_Procedure.png" width="30"/> SNOW_Procedure
 

@@ -175,6 +175,7 @@ function Invoke-SnowHound
     $nodes = New-Object System.Collections.ArrayList
     $edges = New-Object System.Collections.ArrayList
 
+    Write-Host "[*] Starting SnowHound collection..."
     $account = snow sql -q "SELECT * FROM snowflake.organization_usage.accounts WHERE account_locator = CURRENT_ACCOUNT();" --format json | ConvertFrom-Json
 
     $accountProps = [PSCustomObject]@{
@@ -196,10 +197,12 @@ function Invoke-SnowHound
     }
 
     # Collect Account Information
+    Write-Host "[*] Collecting account information..."
     $accountId = "$($account.organization_name)-$($account.account_name)"
     $null = $nodes.Add((New-SnowflakeNode -Id $accountId -Kind "SNOW_Account" -Properties $accountProps))
 
     # Collect Users
+    Write-Host "[*] Collecting users..."
     foreach($user in (snow object list user --format json | ConvertFrom-Json))
     {
         $userProps = [PSCustomObject]@{
@@ -246,6 +249,7 @@ function Invoke-SnowHound
     }
 
     # Collect Roles
+    Write-Host "[*] Collecting roles..."
     foreach($role in (snow object list role --format json | ConvertFrom-Json))
     {
         $roleProps = [PSCustomObject]@{
@@ -268,6 +272,7 @@ function Invoke-SnowHound
     }
 
     # Collect Applications and Application Roles
+    Write-Host "[*] Collecting applications and application roles..."
     foreach ($application in (snow sql -q "SHOW APPLICATIONS" --format json | ConvertFrom-Json))
     {
         $appProps = [PSCustomObject]@{
@@ -318,6 +323,7 @@ function Invoke-SnowHound
     }
 
     # Collect Warehouses
+    Write-Host "[*] Collecting warehouses..."
     foreach($wh in (snow object list warehouse --format json | ConvertFrom-Json))
     {
         $warehouseProps = [PSCustomObject]@{
@@ -364,6 +370,7 @@ function Invoke-SnowHound
     }
 
     # Collect Databases
+    Write-Host "[*] Collecting databases..."
     foreach($db in (snow object list database --format json | ConvertFrom-Json))
     {
         $databaseProps = [PSCustomObject]@{
@@ -418,6 +425,7 @@ function Invoke-SnowHound
 
     # Collect Schemas
     # Naming Convention Derived from: https://docs.snowflake.com/en/sql-reference/identifiers
+    Write-Host "[*] Collecting schemas..."
     foreach($schema in (snow object list schema --format json | ConvertFrom-Json))
     {
         $schemaProps = [PSCustomObject]@{
@@ -530,6 +538,7 @@ function Invoke-SnowHound
 
     # Collect Stages
     # We should differentiate between Internal and External Stages at some point
+    Write-Host "[*] Collecting stages..."
     foreach($stage in (snow object list stage --format json | ConvertFrom-Json))
     {
         $stageProps = [PSCustomObject]@{
@@ -572,6 +581,7 @@ function Invoke-SnowHound
     }
 
     # Collect Tables
+    Write-Host "[*] Collecting tables..."
     foreach($table in (snow object list table --format json | ConvertFrom-Json))
     {
         $tableProps = [PSCustomObject]@{
@@ -610,6 +620,7 @@ function Invoke-SnowHound
     }
 
     # Collect Views
+    Write-Host "[*] Collecting views..."
     foreach($view in (snow object list view --format json | ConvertFrom-Json))
     {
         $viewProps = [PSCustomObject]@{
@@ -640,6 +651,7 @@ function Invoke-SnowHound
     }
 
     # Collect Integrations
+    Write-Host "[*] Collecting integrations..."
     foreach($int in (snow object list integration --format json | ConvertFrom-Json))
     {
         $integrationProps = [PSCustomObject]@{
@@ -688,6 +700,7 @@ function Invoke-SnowHound
     }
 
     # Collect Grants to Users
+    Write-Host "[*] Collecting grants to users..."
     foreach($grant_to_user in (snow sql -q "SELECT * FROM snowflake.account_usage.grants_to_users" --format json | ConvertFrom-Json | Where-Object {$_.DELETED_ON -eq $null}))
     {
         $userId = "$($accountId).$($grant_to_user.GRANTEE_NAME)"
@@ -696,6 +709,7 @@ function Invoke-SnowHound
     }
 
     # Collect Grants to Roles
+    Write-Host "[*] Collecting grants to roles..."
     foreach($grant_to_role in (snow sql -q "SELECT * FROM snowflake.account_usage.grants_to_roles WHERE GRANTED_ON IN ('ACCOUNT', 'APPLICATION', 'DATABASE', 'INTEGRATION', 'PROCEDURE', 'ROLE', 'SCHEMA', 'STAGE', 'TABLE', 'USER', 'VIEW', 'WAREHOUSE');" --format json | ConvertFrom-Json | Where-Object {$_.DELETED_ON -eq $null}))
     {
         $startKind = "SNOW_$(ConvertTo-PascalCase -String $grant_to_role.GRANTED_TO)"
@@ -809,5 +823,7 @@ function Invoke-SnowHound
         }
     } | ConvertTo-Json -Depth 10
 
+    Write-Host "[*] Writing output to ./snowhound_$($accountId).json"
     $payload | Out-File -FilePath "./snowhound_$($accountId).json"
+    Write-Host "[+] SnowHound collection complete."
 }
