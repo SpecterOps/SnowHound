@@ -61,11 +61,13 @@ flowchart TD
     
     SNOW_Database -.->|SNOW_Contains| SNOW_Schema
     
-    SNOW_Schema -.->|SNOW_Contains| SNOW_Function
-    SNOW_Schema -.->|SNOW_Contains| SNOW_Procedure
-    SNOW_Schema -.->|SNOW_Contains| SNOW_Stage
-    SNOW_Schema -.->|SNOW_Contains| SNOW_Table
-    SNOW_Schema -.->|SNOW_Contains| SNOW_View
+    SNOWSchema -.->|SNOWContains| SNOWFunction
+    SNOWSchema -.->|SNOWContains| SNOWProcedure
+    SNOWSchema -.->|SNOWContains| SNOWStage
+    SNOWSchema -.->|SNOWContains| SNOWTable
+    SNOWSchema -.->|SNOWContains| SNOWView
+
+    SNOWStage -.->|SNOWUsesStorageIntegration| SNOWIntegration
 
     SNOW_User -.->|SNOW_Usage| SNOW_Role
 

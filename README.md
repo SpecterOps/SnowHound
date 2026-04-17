@@ -125,7 +125,7 @@ If you do not have a Snowflake environment or if you want to test out Snowhound 
 
 ## Schema
 
-The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOW_Account, SNOW_User, SNOW_Role, SNOW_Warehouse, SNOW_Database, and SNOW_Integration. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
+The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOW_Account, SNOW_User, SNOW_Role, SNOW_Warehouse, SNOW_Database, and SNOW_Integration. Integrations can also be tagged with a more specific kind such as `SNOW_StorageIntegration` or `SNOW_SecurityIntegration`, while still retaining the shared `SNOW_Integration` kind. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
 
 The schema allows you to visualize the relationships between users, roles, databases, and other entities in your Snowflake account, providing a comprehensive view of your environment’s security posture. By defining these entities and their permissions, the schema enables you to identify potential attack paths, privilege escalation opportunities, and access risks. Each node type is linked through explicit access permissions, ensuring a clear mapping of how users and roles can exploit vulnerabilities or gain access to sensitive data.
 
@@ -145,6 +145,8 @@ Nodes correspond to each object type.
 | <img src="./Documentation/Icons/SNOW_Database.png" width="30"/> SNOW_Database               | database        | #FF80D2 | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it. |
 | <img src="./Documentation/Icons/SNOW_Function.png" width="30"/> SNOW_Function               | code            | #A9E5E5 | |
 | <img src="./Documentation/Icons/SNOW_Integration.png" width="30"/> SNOW_Integration         | user-tie        | #BFFFD1 | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application. |
+| SNOW_StorageIntegration                                                             | hard-drive      | #BFFFD1 | A storage-specific integration node, also tagged as `SNOW_Integration`. |
+| SNOW_SecurityIntegration                                                            | shield-halved   | #BFFFD1 | A security-specific integration node, also tagged as `SNOW_Integration`. |
 | <img src="./Documentation/Icons/SNOW_Procedure.png" width="30"/> SNOW_Procedure             | gears           | #D8C8F8 | |
 | <img src="./Documentation/Icons/SNOW_Role.png" width="30"/> SNOW_Role                       | user-group      | #C06EFF | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles. |
 | <img src="./Documentation/Icons/SNOW_Schema.png" width="30"/> SNOW_Schema                   | network-wired   | #DEFEFA | |
@@ -192,6 +194,7 @@ NOTE: I need to go back and document all of the edges to and from SNOW_Applicati
 | `SNOW_Usage`                       | `SNOW_Application` | `SNOW_Database`    | y          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_Database`    | y          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_Integration` | y          |
+| `SNOW_UsesStorageIntegration`      | `SNOW_Stage`       | `SNOW_Integration` | n          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_Role`        | y          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_User`        | y          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_Warehouse`   | y          |
