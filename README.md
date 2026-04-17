@@ -125,7 +125,7 @@ If you do not have a Snowflake environment or if you want to test out Snowhound 
 
 ## Schema
 
-The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOWAccount, SNOWUser, SNOWRole, SNOWWarehouse, SNOWDatabase, and SNOWIntegration. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
+The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOWAccount, SNOWUser, SNOWRole, SNOWWarehouse, SNOWDatabase, and SNOWIntegration. Integrations can also be tagged with a more specific kind such as `SNOWStorageIntegration` or `SNOWSecurityIntegration`, while still retaining the shared `SNOWIntegration` kind. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
 
 The schema allows you to visualize the relationships between users, roles, databases, and other entities in your Snowflake account, providing a comprehensive view of your environment’s security posture. By defining these entities and their permissions, the schema enables you to identify potential attack paths, privilege escalation opportunities, and access risks. Each node type is linked through explicit access permissions, ensuring a clear mapping of how users and roles can exploit vulnerabilities or gain access to sensitive data.
 
@@ -145,6 +145,8 @@ Nodes correspond to each object type.
 | <img src="./images/black_SNOWDatabase.svg" width="30"/> SNOWDatabase               | database        | #FF80D2 | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it. |
 | <img src="./images/black_SNOWFunction.svg" width="30"/> SNOWFunction               | code            | #A9E5E5 | |
 | <img src="./images/black_SNOWIntegration.svg" width="30"/> SNOWIntegration         | user-tie        | #BFFFD1 | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application. |
+| SNOWStorageIntegration                                                              | hard-drive      | #BFFFD1 | A storage-specific integration node, also tagged as `SNOWIntegration`. |
+| SNOWSecurityIntegration                                                             | shield-halved   | #BFFFD1 | A security-specific integration node, also tagged as `SNOWIntegration`. |
 | <img src="./images/black_SNOWProcedure.svg" width="30"/> SNOWProcedure             | cogs            | #D8C8F8 | |
 | <img src="./images/black_SNOWRole.svg" width="30"/> SNOWRole                       | user-group      | #C06EFF | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles. |
 | <img src="./images/black_SNOWSchema.svg" width="30"/> SNOWSchema                   | network-wired   | #DEFEFA | |
@@ -192,6 +194,7 @@ NOTE: I need to go back and document all of the edges to and from SNOWApplicatio
 | `SNOWUsage`                       | `SNOWApplication` | `SNOWDatabase`    | y          |
 | `SNOWUsage`                       | `SNOWRole`        | `SNOWDatabase`    | y          |
 | `SNOWUsage`                       | `SNOWRole`        | `SNOWIntegration` | y          |
+| `SNOWUsesStorageIntegration`      | `SNOWStage`       | `SNOWIntegration` | n          |
 | `SNOWUsage`                       | `SNOWRole`        | `SNOWRole`        | y          |
 | `SNOWUsage`                       | `SNOWRole`        | `SNOWUser`        | y          |
 | `SNOWUsage`                       | `SNOWRole`        | `SNOWWarehouse`   | y          |

@@ -42,6 +42,48 @@
         "color": "#BFFFD1"
       }
     },
+    "SNOWApiIntegration": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "plug",
+        "color": "#BFFFD1"
+      }
+    },
+    "SNOWCatalogIntegration": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "book",
+        "color": "#BFFFD1"
+      }
+    },
+    "SNOWExternalAccessIntegration": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "globe",
+        "color": "#BFFFD1"
+      }
+    },
+    "SNOWNotificationIntegration": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "bell",
+        "color": "#BFFFD1"
+      }
+    },
+    "SNOWSecurityIntegration": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "shield-halved",
+        "color": "#BFFFD1"
+      }
+    },
+    "SNOWStorageIntegration": {
+      "icon": {
+        "type": "font-awesome",
+        "name": "hard-drive",
+        "color": "#BFFFD1"
+      }
+    },
     "SNOWProcedure": {
       "icon": {
         "type": "font-awesome",

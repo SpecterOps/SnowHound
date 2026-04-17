@@ -67,6 +67,8 @@ flowchart TD
     SNOWSchema -.->|SNOWContains| SNOWTable
     SNOWSchema -.->|SNOWContains| SNOWView
 
+    SNOWStage -.->|SNOWUsesStorageIntegration| SNOWIntegration
+
     SNOWUser -.->|SNOWUsage| SNOWRole
 
     SNOWRole -.->|SNOWCreateSchema| SNOWDatabase
