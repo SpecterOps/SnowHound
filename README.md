@@ -125,11 +125,7 @@ If you do not have a Snowflake environment or if you want to test out Snowhound 
 
 ## Schema
 
-<<<<<<< HEAD
-The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOWAccount, SNOWUser, SNOWRole, SNOWWarehouse, SNOWDatabase, and SNOWIntegration. Integrations can also be tagged with a more specific kind such as `SNOWStorageIntegration` or `SNOWSecurityIntegration`, while still retaining the shared `SNOWIntegration` kind. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
-=======
-The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOW_Account, SNOW_User, SNOW_Role, SNOW_Warehouse, SNOW_Database, and SNOW_Integration. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
->>>>>>> origin/main
+The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOW_Account, SNOW_User, SNOW_Role, SNOW_Warehouse, SNOW_Database, and SNOW_Integration. Integrations can also be tagged with a more specific kind such as `SNOW_StorageIntegration` or `SNOW_SecurityIntegration`, while still retaining the shared `SNOW_Integration` kind. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
 
 The schema allows you to visualize the relationships between users, roles, databases, and other entities in your Snowflake account, providing a comprehensive view of your environment’s security posture. By defining these entities and their permissions, the schema enables you to identify potential attack paths, privilege escalation opportunities, and access risks. Each node type is linked through explicit access permissions, ensuring a clear mapping of how users and roles can exploit vulnerabilities or gain access to sensitive data.
 
@@ -143,30 +139,14 @@ Nodes correspond to each object type.
 
 | Node                                                                               | Icon            | Color     | Description |
 |------------------------------------------------------------------------------------|-----------------|-----------|-------------|
-<<<<<<< HEAD
-| <img src="./images/black_SNOWAccount.svg" width="30"/> SNOWAccount                 | building        | #5FED83 | The top-level container for all Snowflake resources such as users, roles, databases, and integrations. |
-| <img src="./images/black_SNOWApplication.svg" width="30"/> SNOWApplication         | window-maximize | #A1C6EA | |
-| <img src="./images/black_SNOWApplicationRole.svg" width="30"/> SNOWApplicationRole | user-shield     | #C6C3FF | |
-| <img src="./images/black_SNOWDatabase.svg" width="30"/> SNOWDatabase               | database        | #FF80D2 | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it. |
-| <img src="./images/black_SNOWFunction.svg" width="30"/> SNOWFunction               | code            | #A9E5E5 | |
-| <img src="./images/black_SNOWIntegration.svg" width="30"/> SNOWIntegration         | user-tie        | #BFFFD1 | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application. |
-| SNOWStorageIntegration                                                              | hard-drive      | #BFFFD1 | A storage-specific integration node, also tagged as `SNOWIntegration`. |
-| SNOWSecurityIntegration                                                             | shield-halved   | #BFFFD1 | A security-specific integration node, also tagged as `SNOWIntegration`. |
-| <img src="./images/black_SNOWProcedure.svg" width="30"/> SNOWProcedure             | cogs            | #D8C8F8 | |
-| <img src="./images/black_SNOWRole.svg" width="30"/> SNOWRole                       | user-group      | #C06EFF | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles. |
-| <img src="./images/black_SNOWSchema.svg" width="30"/> SNOWSchema                   | network-wired   | #DEFEFA | |
-| <img src="./images/black_SNOWStage.svg" width="30"/> SNOWStage                     | layer-group     | #80E0C6 | |
-| <img src="./images/black_SNOWTable.svg" width="30"/> SNOWTable                     | table           | #FFD2A6 | |
-| <img src="./images/black_SNOWUser.svg" width="30"/> SNOWUser                       | user            | #FF8E40 | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access. |
-| <img src="./images/black_SNOWView.svg" width="30"/> SNOWView                       | eye             | #A6E0FF | |
-| <img src="./images/black_SNOWWarehouse.svg" width="30"/> SNOWWarehouse             | warehouse       | #9EECFF | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. |
-=======
 | <img src="./Documentation/Icons/SNOW_Account.png" width="30"/> SNOW_Account                 | building        | #5FED83 | The top-level container for all Snowflake resources such as users, roles, databases, and integrations. |
 | <img src="./Documentation/Icons/SNOW_Application.png" width="30"/> SNOW_Application         | window-maximize | #A1C6EA | |
 | <img src="./Documentation/Icons/SNOW_ApplicationRole.png" width="30"/> SNOW_ApplicationRole | user-shield     | #C6C3FF | |
 | <img src="./Documentation/Icons/SNOW_Database.png" width="30"/> SNOW_Database               | database        | #FF80D2 | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it. |
 | <img src="./Documentation/Icons/SNOW_Function.png" width="30"/> SNOW_Function               | code            | #A9E5E5 | |
 | <img src="./Documentation/Icons/SNOW_Integration.png" width="30"/> SNOW_Integration         | user-tie        | #BFFFD1 | Represents an integration with an external system or service in Snowflake, such as a data pipeline or third-party application. |
+| SNOW_StorageIntegration                                                             | hard-drive      | #BFFFD1 | A storage-specific integration node, also tagged as `SNOW_Integration`. |
+| SNOW_SecurityIntegration                                                            | shield-halved   | #BFFFD1 | A security-specific integration node, also tagged as `SNOW_Integration`. |
 | <img src="./Documentation/Icons/SNOW_Procedure.png" width="30"/> SNOW_Procedure             | gears           | #D8C8F8 | |
 | <img src="./Documentation/Icons/SNOW_Role.png" width="30"/> SNOW_Role                       | user-group      | #C06EFF | Represents a role in Snowflake that defines a set of permissions, which can be assigned to users or other roles. |
 | <img src="./Documentation/Icons/SNOW_Schema.png" width="30"/> SNOW_Schema                   | network-wired   | #DEFEFA | |
@@ -175,7 +155,6 @@ Nodes correspond to each object type.
 | <img src="./Documentation/Icons/SNOW_User.png" width="30"/> SNOW_User                       | user            | #FF8E40 | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access. |
 | <img src="./Documentation/Icons/SNOW_View.png" width="30"/> SNOW_View                       | eye             | #A6E0FF | |
 | <img src="./Documentation/Icons/SNOW_Warehouse.png" width="30"/> SNOW_Warehouse             | warehouse       | #9EECFF | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. |
->>>>>>> origin/main
 
 #### <img src="./Documentation/Icons/SNOW_Account.png" width="30"/> SNOW_Account
 
@@ -212,76 +191,10 @@ NOTE: I need to go back and document all of the edges to and from SNOW_Applicati
 
 | Edge Type                         | Source            | Target            | Travesable |
 |-----------------------------------|-------------------|-------------------| ---------- |
-<<<<<<< HEAD
-| `SNOWUsage`                       | `SNOWApplication` | `SNOWDatabase`    | y          |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWDatabase`    | y          |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWIntegration` | y          |
-| `SNOWUsesStorageIntegration`      | `SNOWStage`       | `SNOWIntegration` | n          |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWRole`        | y          |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWUser`        | y          |
-| `SNOWUsage`                       | `SNOWRole`        | `SNOWWarehouse`   | y          |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWDatabase`    | y          |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWIntegration` | y          |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWRole`        | y          |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWUser`        | y          |
-| `SNOWOwnership`                   | `SNOWRole`        | `SNOWWarehouse`   | y          |
-| `SNOWApplyBudget`                 | `SNOWRole`        | `SNOWDatabase`    | n          |
-| `SNOWApplyBudget`                 | `SNOWRole`        | `SNOWWarehouse`   | n          |
-| `SNOWAudit`                       | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWModify`                      | `SNOWRole`        | `SNOWDatabase`    | n          |
-| `SNOWModify`                      | `SNOWRole`        | `SNOWWarehouse`   | n          |
-| `SNOWMonitor`                     | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWMonitor`                     | `SNOWRole`        | `SNOWDatabase`    | n          |
-| `SNOWMonitor`                     | `SNOWRole`        | `SNOWWarehouse`   | n          |
-| `SNOWOperate`                     | `SNOWRole`        | `SNOWWarehouse`   | n          |
-| `SNOWApplyAggregationPolicy`      | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWApplyAuthenticationPolicy`   | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWApplyMaskingPolicy`          | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWApplyPackagesPolicy`         | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWApplyPasswordPolicy`         | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWApplyProtectionPolicy`       | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWApplyRowAccessPolicy`        | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWApplySessionPolicy`          | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWAttachPolicy`                | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWBindServiceEndpoint`         | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCancelQuery`                 | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateAccount`               | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateApiIntegration`        | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateApplication`           | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateApplicationPackage`    | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateComputerPool`          | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateCredential`            | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateDataExchangeListing`   | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateDatabase`              | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateDatabaseRole`          | `SNOWRole`        | `SNOWDatabase`    | n          |
-| `SNOWCreateExternalVolume`        | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateIntegration`           | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateNetworkPolicy`         | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateReplicationGroup`      | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateRole`                  | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateSchema`                | `SNOWRole`        | `SNOWDatabase`    | n          |
-| `SNOWCreateShare`                 | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateUser`                  | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWCreateWarehouse`             | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWExecuteDataMetricFunction`   | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWExecuteManagedAlert`         | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWExecuteManagedTask`          | `SNOWApplication` | `SNOWAccount`     | n          |
-| `SNOWExecuteManagedTask`          | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWExecuteTask`                 | `SNOWApplication` | `SNOWAccount`     | n          |
-| `SNOWExecuteTask`                 | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWImportShare`                 | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWManageGrants`                | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWManageWarehouses`            | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWManagementSharing`           | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWMonitorExecution`            | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWOverrideShareRestrictions`   | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWPurchaseDataExchangeListing` | `SNOWRole`        | `SNOWAccount`     | n          |
-| `SNOWReferenceUsage`              | `SNOWRole`        | `SNOWDatabase`    | n          |
-| `SNOWUseAnyRole`                  | `SNOWRole`        | `SNOWIntegration` | n          |
-=======
 | `SNOW_Usage`                       | `SNOW_Application` | `SNOW_Database`    | y          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_Database`    | y          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_Integration` | y          |
+| `SNOW_UsesStorageIntegration`      | `SNOW_Stage`       | `SNOW_Integration` | n          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_Role`        | y          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_User`        | y          |
 | `SNOW_Usage`                       | `SNOW_Role`        | `SNOW_Warehouse`   | y          |
@@ -343,7 +256,6 @@ NOTE: I need to go back and document all of the edges to and from SNOW_Applicati
 | `SNOW_PurchaseDataExchangeListing` | `SNOW_Role`        | `SNOW_Account`     | n          |
 | `SNOW_ReferenceUsage`              | `SNOW_Role`        | `SNOW_Database`    | n          |
 | `SNOW_UseAnyRole`                  | `SNOW_Role`        | `SNOW_Integration` | n          |
->>>>>>> origin/main
 
 ### To Do
 

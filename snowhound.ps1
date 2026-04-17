@@ -16,11 +16,7 @@ function New-SnowflakeNode
 
     $props = [pscustomobject]@{
         id = $Id
-<<<<<<< HEAD
         kinds = @($Kind)
-=======
-        kinds = @($Kind, 'SNOW_Base')
->>>>>>> origin/main
         properties = $Properties
     }
 
@@ -524,17 +520,9 @@ function Invoke-SnowHound
             #external_access_integrations = Normalize-Null $procedure.external_access_integrations
         }
 
-<<<<<<< HEAD
-        # Add a section where we call DESC PROCEDURE to enumerate the procedure language and execute as properties
-
-        $procedureId = "$($accountId).$($procedure.catalog_name).$($procedure.schema_name).$($procedureName)"
-        $null = $nodes.Add((New-SnowflakeNode -Id $procedureId -Kind "SNOWProcedure" -Properties $procedureProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $procedureId))
-=======
         $procedureId = "$($accountId).$($procedure.catalog_name).$($procedure.schema_name).$($procedure.name)"
         $null = $nodes.Add((New-SnowHoundNode -Id $procedureId -Kind "SNOW_Procedure" -Properties $procedureProps))
         $null = $edges.Add((New-SnowflakeEdge -Kind "SNOW_Contains" -StartId $accountId -EndId $procedureId))
->>>>>>> origin/main
         $schemaId = "$($accountId).$($procedure.catalog_name).$($procedure.schema_name)"
         $null = $edges.Add((New-SnowflakeEdge -Kind "SNOW_Contains" -StartId $schemaId -EndId $procedureId))
     }
@@ -574,17 +562,13 @@ function Invoke-SnowHound
         $null = $nodes.Add((New-SnowflakeNode -Id $stageId -Kind "SNOW_Stage" -Properties $stageProps))
         $null = $edges.Add((New-SnowflakeEdge -Kind "SNOW_Contains" -StartId $accountId -EndId $stageId))
         $schemaId = "$($accountId).$($stage.database_name).$($stage.schema_name)"
-<<<<<<< HEAD
-        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $schemaId -EndId $stageId))
+        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOW_Contains" -StartId $schemaId -EndId $stageId))
 
         if(-not [string]::IsNullOrWhiteSpace($stage.storage_integration))
         {
             $storageIntegrationId = "$($accountId).$($stage.storage_integration)"
-            $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWUsesStorageIntegration" -StartId $stageId -EndId $storageIntegrationId))
+            $null = $edges.Add((New-SnowflakeEdge -Kind "SNOW_UsesStorageIntegration" -StartId $stageId -EndId $storageIntegrationId))
         }
-=======
-        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOW_Contains" -StartId $schemaId -EndId $stageId))
->>>>>>> origin/main
     }
 
     # Collect Tables
@@ -691,30 +675,16 @@ function Invoke-SnowHound
             'SECURITY' {
                 if(-not [string]::IsNullOrWhiteSpace($integrationProps.run_as_role))
                 {
-<<<<<<< HEAD
                     $runasroleId = "$($accountId).$($integrationProps.run_as_role)"
-                    $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWRunAsRole" -StartId $integrationId -EndId $runasroleId))
-=======
-                    if($property.property.toLower() -eq 'run_as_role')
-                    {
-                        $runasroleId = "$($accountId).$($property.property_value)"
-                        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOW_RunAsRole" -StartId $integrationId -EndId $runasroleId))
-                    }
-                    $integrationProps | Add-Member -MemberType NoteProperty -Name $property.property.toLower() -Value (Normalize-Null $property.property_value)
->>>>>>> origin/main
+                    $null = $edges.Add((New-SnowflakeEdge -Kind "SNOW_RunAsRole" -StartId $integrationId -EndId $runasroleId))
                 }
             }
             'STORAGE' {}
         }
         
-<<<<<<< HEAD
-        $integrationKind = "SNOW$(ConvertTo-PascalCase -String $int.category)Integration"
-        $null = $nodes.Add((New-SnowflakeNode -Id $integrationId -Kind @($integrationKind, "SNOWIntegration") -Properties $integrationProps))
-        $null = $edges.Add((New-SnowflakeEdge -Kind "SNOWContains" -StartId $accountId -EndId $integrationId))
-=======
-        $null = $nodes.Add((New-SnowflakeNode -Id $integrationId -Kind "SNOW_Integration" -Properties $integrationProps))
+        $integrationKind = "SNOW_$(ConvertTo-PascalCase -String $int.category)Integration"
+        $null = $nodes.Add((New-SnowflakeNode -Id $integrationId -Kind @($integrationKind, "SNOW_Integration") -Properties $integrationProps))
         $null = $edges.Add((New-SnowflakeEdge -Kind "SNOW_Contains" -StartId $accountId -EndId $integrationId))
->>>>>>> origin/main
     }
 
     # Collect Grants to Users
