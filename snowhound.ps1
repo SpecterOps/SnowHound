@@ -815,7 +815,7 @@ function Invoke-SnowHound
 
     $payload = [PSCustomObject]@{
         metadata = [PSCustomObject]@{
-            source_kind = "SNOW_Base"
+            source_kind = "Snowflake"
         }
         graph = [PSCustomObject]@{
             nodes = $nodes
