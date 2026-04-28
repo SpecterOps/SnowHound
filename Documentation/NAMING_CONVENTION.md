@@ -20,75 +20,75 @@ This works well within a single account, but BloodHound graphs can contain data 
 
 ## SnowHound Object Identifiers
 
-Every node in the BloodHound graph is assigned an `id` that uniquely identifies it across all accounts in the graph. The identifier is constructed by prefixing Snowflake's contextual name with the organization and account name.
+Every node in the BloodHound graph is assigned an `id` that uniquely identifies it across all accounts in the graph. The identifier is constructed by prefixing Snowflake's contextual name with a Snowflake-style environment identifier.
 
 ### Account Identifier (Base Prefix)
 
-All object IDs begin with the account identifier, which combines the Snowflake organization name and account name:
+All object IDs begin with the account identifier, which combines the Snowflake account name and organization name:
 
 ```
-<org_name>-<account_name>
+<account_name>.<org_name>
 ```
 
-For example, an account named `main` in the organization `acme` produces the base prefix `acme-main`.
+For example, an account named `main` in the organization `acme` produces the base prefix `main.acme`.
 
 ### Account-Level Objects
 
 Objects that are unique within a Snowflake account append the object name directly to the account identifier:
 
 ```
-<org_name>-<account_name>.<object_name>
+<account_name>.<org_name>.<object_name>
 ```
 
 | Object Type | ID Pattern | Example |
 |-------------|-----------|---------|
-| Account | `<org>-<account>` | `acme-main` |
-| User | `<org>-<account>.<login_name>` | `acme-main.ALICE` |
-| Role | `<org>-<account>.<role_name>` | `acme-main.ANALYST` |
-| Application | `<org>-<account>.<app_name>` | `acme-main.SNOWPARK_ML` |
-| Warehouse | `<org>-<account>.<wh_name>` | `acme-main.COMPUTE_WH` |
-| Database | `<org>-<account>.<db_name>` | `acme-main.ANALYTICS` |
-| Integration | `<org>-<account>.<integration_name>` | `acme-main.S3_STORAGE` |
+| Account | `<account>.<org>` | `main.acme` |
+| User | `<account>.<org>.<login_name>` | `main.acme.ALICE` |
+| Role | `<account>.<org>.<role_name>` | `main.acme.ANALYST` |
+| Application | `<account>.<org>.<app_name>` | `main.acme.SNOWPARK_ML` |
+| Warehouse | `<account>.<org>.<wh_name>` | `main.acme.COMPUTE_WH` |
+| Database | `<account>.<org>.<db_name>` | `main.acme.ANALYTICS` |
+| Integration | `<account>.<org>.<integration_name>` | `main.acme.S3_STORAGE` |
 
 ### Database-Level Objects
 
 Schemas are scoped to a database, so the database name is included in the identifier:
 
 ```
-<org_name>-<account_name>.<database_name>.<schema_name>
+<account_name>.<org_name>.<database_name>.<schema_name>
 ```
 
 | Object Type | ID Pattern | Example |
 |-------------|-----------|---------|
-| Schema | `<org>-<account>.<db>.<schema>` | `acme-main.ANALYTICS.PUBLIC` |
+| Schema | `<account>.<org>.<db>.<schema>` | `main.acme.ANALYTICS.PUBLIC` |
 
 ### Schema-Level Objects
 
 Tables, views, stages, functions, and procedures are scoped to a schema, so the full database and schema path is included:
 
 ```
-<org_name>-<account_name>.<database_name>.<schema_name>.<object_name>
+<account_name>.<org_name>.<database_name>.<schema_name>.<object_name>
 ```
 
 | Object Type | ID Pattern | Example |
 |-------------|-----------|---------|
-| Table | `<org>-<account>.<db>.<schema>.<table>` | `acme-main.ANALYTICS.PUBLIC.CUSTOMERS` |
-| View | `<org>-<account>.<db>.<schema>.<view>` | `acme-main.ANALYTICS.PUBLIC.CUSTOMER_SUMMARY` |
-| Stage | `<org>-<account>.<db>.<schema>.<stage>` | `acme-main.DATA.RAW.S3_INGEST` |
-| Function | `<org>-<account>.<db>.<schema>.<function>` | `acme-main.ANALYTICS.PUBLIC.CALC_REVENUE` |
-| Procedure | `<org>-<account>.<db>.<schema>.<procedure>` | `acme-main.ANALYTICS.PUBLIC.LOAD_DATA` |
+| Table | `<account>.<org>.<db>.<schema>.<table>` | `main.acme.ANALYTICS.PUBLIC.CUSTOMERS` |
+| View | `<account>.<org>.<db>.<schema>.<view>` | `main.acme.ANALYTICS.PUBLIC.CUSTOMER_SUMMARY` |
+| Stage | `<account>.<org>.<db>.<schema>.<stage>` | `main.acme.DATA.RAW.S3_INGEST` |
+| Function | `<account>.<org>.<db>.<schema>.<function>` | `main.acme.ANALYTICS.PUBLIC.CALC_REVENUE` |
+| Procedure | `<account>.<org>.<db>.<schema>.<procedure>` | `main.acme.ANALYTICS.PUBLIC.LOAD_DATA` |
 
 ### Application Roles
 
 Application roles are a special case. They are scoped to their parent application, so the application name is included in the identifier:
 
 ```
-<org_name>-<account_name>.<application_name>.<role_name>
+<account_name>.<org_name>.<application_name>.<role_name>
 ```
 
 | Object Type | ID Pattern | Example |
 |-------------|-----------|---------|
-| Application Role | `<org>-<account>.<app>.<role>` | `acme-main.SNOWPARK_ML.APP_ADMIN` |
+| Application Role | `<account>.<org>.<app>.<role>` | `main.acme.SNOWPARK_ML.APP_ADMIN` |
 
 ## FQDN Property
 
@@ -115,13 +115,13 @@ This format mirrors how users think about identity in enterprise environments (`
 
 ## Display Name
 
-Each node also has a `name` property that contains only the object's short name (e.g., `CUSTOMERS`, `ANALYST`, `COMPUTE_WH`). This is the label shown in the BloodHound graph visualization and keeps the UI clean when the full identifier would be too long to display.
+Each node also has a `name` property that contains the object's display label. For most object kinds this is the short name (e.g., `CUSTOMERS`, `ANALYST`, `COMPUTE_WH`). For `SNOW_Account`, the display label is the full environment identifier (for example `main.acme`) for clarity.
 
 ## Summary
 
 | Property | Purpose | Example |
 |----------|---------|---------|
-| `id` | Globally unique graph identifier | `acme-main.ANALYTICS.PUBLIC.CUSTOMERS` |
+| `id` | Globally unique graph identifier | `main.acme.ANALYTICS.PUBLIC.CUSTOMERS` |
 | `fqdn` | Human-readable qualified name | `ANALYTICS.PUBLIC.CUSTOMERS@main.acme` |
 | `name` | Short display label | `CUSTOMERS` |
 

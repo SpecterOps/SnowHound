@@ -1,4 +1,4 @@
-# <img src="../Icons/SNOW_Integration.png" width="50"/> API Integration
+# <img src="../Icons/SNOW_ApiIntegration.png" width="50"/> API Integration
 
 A Snowflake API integration used to connect Snowflake-managed features to an external API endpoint or service. API integrations are represented as concrete integration nodes and also carry the shared `SNOW_Integration` kind.
 

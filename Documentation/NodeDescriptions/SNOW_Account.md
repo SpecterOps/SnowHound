@@ -9,8 +9,8 @@ A Snowflake account representing an organization's cloud data platform tenant. T
 | Property Name | Data Type | Description |
 |---|---|---|
 | name | string | Display name of the Account |
-| organization_name | string | Name of the parent Snowflake organization |
-| account_name | string | Account name within the organization |
+| environmentid | string | Snowflake-style account identifier used as the graph root ID (`account_name.organization_name`) |
+| collected | boolean | Indicates that this account was directly collected by SnowHound |
 | fqdn | string | Fully qualified domain name (account_name.organization_name) |
 | created_on | datetime | Timestamp when the account was created |
 | region | string | Cloud region where the account is hosted |

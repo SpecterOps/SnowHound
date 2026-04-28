@@ -14,13 +14,13 @@ Snowflake, unlike many other systems, does not use globally unique identifiers f
 . However, because BloodHound can contain data from multiple Snowflake accounts within the same graph, we extend this convention to ensure global uniqueness. For account-level objects, SNOW_Hound prefixes the object name with the organization and account name, following the pattern:
 
 ```bash
-<org_name>-<account_name>.<object_name>
+<account_name>.<org_name>.<object_name>
 ```
 
 For schema-level objects, this pattern extends to include database and schema context:
 
 ```bash
-<org_name>-<account_name>.<database_name>.<schema_name>.<object_name>
+<account_name>.<org_name>.<database_name>.<schema_name>.<object_name>
 ```
 
 This full identifier uniquely distinguishes every object in the graph, while the node’s name field retains only the object name for readability. Additionally, to provide a more familiar representation for users coming from an Active Directory background, SNOW_Hound includes a second naming format in the fqdn field:
@@ -125,7 +125,7 @@ If you do not have a Snowflake environment or if you want to test out Snowhound 
 
 ## Schema
 
-The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOW_Account, SNOW_User, SNOW_Role, SNOW_Warehouse, SNOW_Database, and SNOW_Integration. Integrations can also be tagged with a more specific kind such as `SNOW_StorageIntegration` or `SNOW_SecurityIntegration`, while still retaining the shared `SNOW_Integration` kind. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
+The schema defines the structure and relationships between various entities in the Snowflake environment, which are critical for mapping access and attack paths. In this extension, the schema consists of several key node types, including SNOW_Account, SNOW_User, SNOW_Role, SNOW_Warehouse, SNOW_Database, and SNOW_Integration. Integrations can also be tagged with a more specific kind such as `SNOW_StorageIntegration` or `SNOW_SecurityIntegration`, while still retaining the shared `SNOW_Integration` kind. Nodes now use a Snowflake-style dotted account root (`<account>.<org>`) for IDs, and object nodes carry an `environmentid` property that points back to the account node ID. These nodes are interconnected through edges that represent permissions, access grants, and roles, showing how users and services interact with Snowflake resources.
 
 The schema allows you to visualize the relationships between users, roles, databases, and other entities in your Snowflake account, providing a comprehensive view of your environment’s security posture. By defining these entities and their permissions, the schema enables you to identify potential attack paths, privilege escalation opportunities, and access risks. Each node type is linked through explicit access permissions, ensuring a clear mapping of how users and roles can exploit vulnerabilities or gain access to sensitive data.
 
@@ -139,7 +139,7 @@ Nodes correspond to each object type.
 
 | Node                                                                               | Icon            | Color     | Description |
 |------------------------------------------------------------------------------------|-----------------|-----------|-------------|
-| <img src="./Documentation/Icons/SNOW_Account.png" width="30"/> SNOW_Account                 | building        | #5FED83 | The top-level container for all Snowflake resources such as users, roles, databases, and integrations. |
+| <img src="./Documentation/Icons/SNOW_Account.png" width="30"/> SNOW_Account                 | building        | #5FED83 | The top-level container for all Snowflake resources such as users, roles, databases, and integrations. Includes `collected = true` and uses the Snowflake-style environment identifier as its display name. |
 | <img src="./Documentation/Icons/SNOW_Application.png" width="30"/> SNOW_Application         | window-maximize | #A1C6EA | |
 | <img src="./Documentation/Icons/SNOW_ApplicationRole.png" width="30"/> SNOW_ApplicationRole | user-shield     | #C6C3FF | |
 | <img src="./Documentation/Icons/SNOW_Database.png" width="30"/> SNOW_Database               | database        | #FF80D2 | Represents a Snowflake database, linked to users, roles, and warehouses that have access to it. |
@@ -156,7 +156,7 @@ Nodes correspond to each object type.
 | <img src="./Documentation/Icons/SNOW_Schema.png" width="30"/> SNOW_Schema                   | network-wired   | #DEFEFA | |
 | <img src="./Documentation/Icons/SNOW_Stage.png" width="30"/> SNOW_Stage                     | layer-group     | #80E0C6 | |
 | <img src="./Documentation/Icons/SNOW_Table.png" width="30"/> SNOW_Table                     | table           | #FFD2A6 | |
-| <img src="./Documentation/Icons/SNOW_User.png" width="30"/> SNOW_User                       | user            | #FF8E40 | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access. |
+| <img src="./Documentation/Icons/SNOW_User.png" width="30"/> SNOW_User                       | user            | #FF8E40 | Represents an individual user in a Snowflake account, linked to roles, warehouses, and databases that define their access. SCIM-managed users may also carry a populated `scim_user_name`. |
 | <img src="./Documentation/Icons/SNOW_View.png" width="30"/> SNOW_View                       | eye             | #A6E0FF | |
 | <img src="./Documentation/Icons/SNOW_Warehouse.png" width="30"/> SNOW_Warehouse             | warehouse       | #9EECFF | Represents a Snowflake virtual warehouse providing computational resources for running queries, with access controlled by roles and users. |
 
@@ -265,7 +265,7 @@ NOTE: I need to go back and document all of the edges to and from SNOW_Applicati
 
 ### To Do
 
-- Add support for detailed information on integrations, specifically security integrations associated with SCIM or SSO (type = `SCIM - *` or `SAML2`)
+- Add explicit edges for confirmed SCIM-managed users and richer IdP-side relationships
 - Add support for more detailed objects such as Application Roles (these currently show up as unknown objects)
 
 ## Contributing
