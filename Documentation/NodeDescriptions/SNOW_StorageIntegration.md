@@ -1,4 +1,4 @@
-# <img src="../Icons/SNOW_Integration.png" width="50"/> Storage Integration
+# <img src="../Icons/SNOW_StorageIntegration.png" width="50"/> Storage Integration
 
 A Snowflake storage integration that links Snowflake-managed access to external cloud storage. Storage integrations are commonly referenced by external stages and are represented as concrete integration nodes that also carry the shared `SNOW_Integration` kind.
 

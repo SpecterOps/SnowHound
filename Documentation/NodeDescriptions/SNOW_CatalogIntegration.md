@@ -1,4 +1,4 @@
-# <img src="../Icons/SNOW_Integration.png" width="50"/> Catalog Integration
+# <img src="../Icons/SNOW_CatalogIntegration.png" width="50"/> Catalog Integration
 
 A Snowflake catalog integration used to connect Snowflake to an external catalog or governance system. Catalog integrations are represented as concrete integration nodes and also carry the shared `SNOW_Integration` kind.
 

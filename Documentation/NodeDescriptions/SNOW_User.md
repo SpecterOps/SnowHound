@@ -10,6 +10,7 @@ A Snowflake user account that can authenticate and interact with the platform. U
 |---|---|---|
 | name | string | Display name of the User |
 | fqdn | string | Fully qualified domain name (name@account.org) |
+| environmentid | string | Snowflake account identifier for the environment that contains this user |
 | created_on | datetime | Timestamp when the user was created |
 | login_name | string | Login identifier for authentication |
 | display_name | string | Human-readable display name |
@@ -39,6 +40,7 @@ A Snowflake user account that can authenticate and interact with the platform. U
 | has_mfa | string | Whether MFA is enabled |
 | has_pat | string | Whether personal access tokens are enabled |
 | has_workload_identity | string | Whether workload identity is configured |
+| scim_user_name | string | SCIM username when the user was provisioned or updated through an enabled SCIM security integration |
 
 ## Edges
 

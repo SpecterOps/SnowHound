@@ -1,4 +1,4 @@
-# <img src="../Icons/SNOW_Integration.png" width="50"/> Notification Integration
+# <img src="../Icons/SNOW_NotificationIntegration.png" width="50"/> Notification Integration
 
 A Snowflake notification integration that connects Snowflake events or features to an external messaging or notification service. Notification integrations are represented as concrete integration nodes and also carry the shared `SNOW_Integration` kind.
 

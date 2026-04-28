@@ -1,4 +1,4 @@
-# <img src="../Icons/SNOW_Integration.png" width="50"/> External Access Integration
+# <img src="../Icons/SNOW_ExternalAccessIntegration.png" width="50"/> External Access Integration
 
 A Snowflake external access integration that governs outbound access from handlers such as functions and procedures to external network locations. External access integrations are represented as concrete integration nodes and also carry the shared `SNOW_Integration` kind.
 

@@ -1,4 +1,4 @@
-# <img src="../Icons/SNOW_Integration.png" width="50"/> Security Integration
+# <img src="../Icons/SNOW_SecurityIntegration.png" width="50"/> Security Integration
 
 A Snowflake security integration that connects Snowflake authentication, provisioning, or identity workflows to an external identity system. Security integrations are represented as concrete integration nodes and also carry the shared `SNOW_Integration` kind.
 
@@ -10,6 +10,7 @@ A Snowflake security integration that connects Snowflake authentication, provisi
 |---|---|---|
 | name | string | Display name of the security integration |
 | fqdn | string | Fully qualified domain name |
+| environmentid | string | Snowflake account identifier for the environment that contains this integration |
 | type | string | Integration type |
 | category | string | Integration category (`SECURITY`) |
 | created_on | datetime | Timestamp when the integration was created |

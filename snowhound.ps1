@@ -43,46 +43,72 @@ function New-SnowflakeEdge
         $StartKind,
         
         [Parameter(Mandatory = $false)]
-        [ValidateSet('id', 'name')]
+        [ValidateSet('id', 'property')]
         [String]
         $StartMatchBy = 'id',
+
+        [Parameter(Mandatory = $false)]
+        [PSObject[]]
+        $StartPropertyMatchers,
 
         [Parameter(Mandatory = $false)]
         [String]
         $EndKind,
 
         [Parameter(Mandatory = $false)]
-        [ValidateSet('id', 'name')]
+        [ValidateSet('id', 'property')]
         [String]
-        $EndMatchBy = 'id'
+        $EndMatchBy = 'id',
+
+        [Parameter(Mandatory = $false)]
+        [PSObject[]]
+        $EndPropertyMatchers,
+
+        [Parameter(Mandatory = $false)]
+        [PSObject]
+        $Properties = @{}
     )
+
+    function New-SnowflakeEdgeEndpoint
+    {
+        param(
+            [string]$MatchBy,
+            [PSObject]$Value,
+            [string]$Kind,
+            [PSObject[]]$PropertyMatchers
+        )
+
+        $endpoint = @{}
+
+        if($MatchBy -eq 'property')
+        {
+            if(-not $PropertyMatchers -or $PropertyMatchers.Count -eq 0)
+            {
+                throw "property_matchers are required when match_by is 'property'."
+            }
+
+            $endpoint.match_by = 'property'
+            $endpoint.property_matchers = @($PropertyMatchers)
+        }
+        else
+        {
+            $endpoint.value = $Value
+            $endpoint.match_by = $MatchBy
+        }
+
+        if(-not [string]::IsNullOrWhiteSpace($Kind))
+        {
+            $endpoint.kind = $Kind
+        }
+
+        return $endpoint
+    }
 
     $edge = @{
         kind = $Kind
-        start = @{
-            value = $StartId
-        }
-        end = @{
-            value = $EndId
-        }
-        properties = @{}
-    }
-
-    if($PSBoundParameters.ContainsKey('StartKind')) 
-    {
-        $edge.start.Add('kind', $StartKind)
-    }
-    if($PSBoundParameters.ContainsKey('StartMatchBy')) 
-    {
-        $edge.start.Add('match_by', $StartMatchBy)
-    }
-    if($PSBoundParameters.ContainsKey('EndKind'))
-    {
-        $edge.end.Add('kind', $EndKind)
-    }
-    if($PSBoundParameters.ContainsKey('EndMatchBy')) 
-    {
-        $edge.end.Add('match_by', $EndMatchBy)
+        start = New-SnowflakeEdgeEndpoint -MatchBy $StartMatchBy -Value $StartId -Kind $StartKind -PropertyMatchers $StartPropertyMatchers
+        end = New-SnowflakeEdgeEndpoint -MatchBy $EndMatchBy -Value $EndId -Kind $EndKind -PropertyMatchers $EndPropertyMatchers
+        properties = $Properties
     }
 
     Write-Output $edge
@@ -146,6 +172,23 @@ function Normalize-PropertyName
     return (($Name.ToLower() -replace '[^a-z0-9]+', '_') -replace '_+', '_').Trim('_')
 }
 
+function Get-DescribePropertyValue
+{
+    param($Property)
+
+    if ($null -ne $Property.PSObject.Properties['property_value'])
+    {
+        return $Property.property_value
+    }
+
+    if ($null -ne $Property.PSObject.Properties['value'])
+    {
+        return $Property.value
+    }
+
+    return $null
+}
+
 function ConvertTo-PascalCase {
     param (
         [string]$String
@@ -165,6 +208,50 @@ function ConvertTo-PascalCase {
     return $pascalCaseString
 }
 
+function Get-ScimProvisionerRoles
+{
+    $roles = New-Object 'System.Collections.Generic.HashSet[string]' ([System.StringComparer]::OrdinalIgnoreCase)
+
+    foreach($integration in (snow object list integration --format json | ConvertFrom-Json))
+    {
+        if($integration.category -ne 'SECURITY')
+        {
+            continue
+        }
+
+        $integrationType = Normalize-Null $integration.type
+        if($integrationType -notmatch '^SCIM\s*-')
+        {
+            continue
+        }
+
+        $integrationEnabled = $false
+        $runAsRole = ""
+
+        foreach($property in (snow sql -q "DESCRIBE SECURITY INTEGRATION $($integration.name)" --format json | ConvertFrom-Json))
+        {
+            $propertyName = Normalize-PropertyName $property.property
+            $propertyValue = Normalize-Null (Get-DescribePropertyValue $property)
+
+            if($propertyName -eq 'enabled')
+            {
+                $integrationEnabled = ($propertyValue -eq 'true')
+            }
+            elseif($propertyName -eq 'run_as_role')
+            {
+                $runAsRole = $propertyValue
+            }
+        }
+
+        if($integrationEnabled -and -not [string]::IsNullOrWhiteSpace($runAsRole))
+        {
+            $null = $roles.Add($runAsRole)
+        }
+    }
+
+    return $roles
+}
+
 # Account Identifiers Docs: https://docs.snowflake.com/en/user-guide/admin-account-identifier <orgname>.<accountname>
 # https://docs.snowflake.com/en/user-guide/admin-account-identifier
 # Object Identifiers Docs: https://docs.snowflake.com/en/sql-reference/identifiers <orgname>.<accountname>.<databasename>.<schemaname>.<objectname>
@@ -177,12 +264,13 @@ function Invoke-SnowHound
 
     Write-Host "[*] Starting SnowHound collection..."
     $account = snow sql -q "SELECT * FROM snowflake.organization_usage.accounts WHERE account_locator = CURRENT_ACCOUNT();" --format json | ConvertFrom-Json
+    $accountId = "$($account.account_name).$($account.organization_name)"
 
     $accountProps = [PSCustomObject]@{
-        name              = Normalize-Null $account.account_name
-        organization_name = Normalize-Null $account.organization_name
-        account_name      = Normalize-Null $account.account_name
-        fqdn              = Normalize-Null "$($account.account_name).$($account.organization_name)"
+        name              = Normalize-Null $accountId
+        environmentid     = Normalize-Null $accountId
+        collected         = $true
+        fqdn              = Normalize-Null $accountId
         created_on        = Normalize-Null $account.created_on
         region            = Normalize-Null $account.region
         region_group      = Normalize-Null $account.region_group
@@ -198,8 +286,10 @@ function Invoke-SnowHound
 
     # Collect Account Information
     Write-Host "[*] Collecting account information..."
-    $accountId = "$($account.organization_name)-$($account.account_name)"
     $null = $nodes.Add((New-SnowflakeNode -Id $accountId -Kind "SNOW_Account" -Properties $accountProps))
+
+    Write-Host "[*] Identifying SCIM provisioner roles..."
+    $scimProvisionerRoles = Get-ScimProvisionerRoles
 
     # Collect Users
     Write-Host "[*] Collecting users..."
@@ -209,8 +299,7 @@ function Invoke-SnowHound
             name                    = Normalize-Null $user.name
             fqdn                    = Normalize-Null "$($user.name)@$($account.account_name).$($account.organization_name)"
             # Relationship properties
-            organization_name       = Normalize-Null $account.organization_name
-            account_name            = Normalize-Null $account.account_name
+            environmentid           = Normalize-Null $accountId
             # Object properties
             created_on              = Normalize-Null $user.created_on
             login_name              = Normalize-Null $user.login_name
@@ -241,6 +330,19 @@ function Invoke-SnowHound
             has_mfa                 = Normalize-Null $user.has_mfa
             has_pat                 = Normalize-Null $user.has_pat
             has_workload_identity   = Normalize-Null $user.has_workload_identity
+            scim_user_name          = ""
+        }
+
+        if($scimProvisionerRoles.Contains($user.owner))
+        {
+            foreach($property in (snow sql -q "DESCRIBE USER `"$($user.name)`"" --format json | ConvertFrom-Json))
+            {
+                if((Normalize-PropertyName $property.property) -eq 'scim_user_name')
+                {
+                    $userProps.scim_user_name = Normalize-Null (Get-DescribePropertyValue $property)
+                    break
+                }
+            }
         }
 
         $userId = "$($accountId).$($user.login_name)"
@@ -279,8 +381,7 @@ function Invoke-SnowHound
             name                 = Normalize-Null $application.name
             fqdn                 = Normalize-Null "$($application.name)@$($account.account_name).$($account.organization_name)"
             # Relationship properties
-            organization_name    = Normalize-Null $account.organization_name
-            account_name         = Normalize-Null $account.account_name
+            environmentid        = Normalize-Null $accountId
             # Object properties
             created_on           = Normalize-Null $application.created_on
             is_default           = Normalize-Null $application.is_default
@@ -330,8 +431,7 @@ function Invoke-SnowHound
             name                   = Normalize-Null $wh.name
             fqdn                   = Normalize-Null "$($wh.name)@$($account.account_name).$($account.organization_name)"
             # Relationship properties
-            organization_name      = Normalize-Null $account.organization_name
-            account_name           = Normalize-Null $account.account_name
+            environmentid          = Normalize-Null $accountId
             # Object properties
             state                  = Normalize-Null $wh.state
             type                   = Normalize-Null $wh.type
@@ -377,8 +477,7 @@ function Invoke-SnowHound
             name              = Normalize-Null $db.name
             fqdn              = Normalize-Null "$($db.name)@$($account.account_name).$($account.organization_name)"
             # Relationship properties
-            organization_name = Normalize-Null $account.organization_name
-            account_name      = Normalize-Null $account.account_name
+            environmentid     = Normalize-Null $accountId
             # Object properties
             created_on        = Normalize-Null $db.created_on
             is_default        = Normalize-Null $db.is_default
@@ -432,8 +531,7 @@ function Invoke-SnowHound
             name                            = Normalize-Null $schema.name
             fqdn                            = Normalize-Null "$($schema.database_name).$($schema.name)@$($account.account_name).$($account.organization_name)"
             # Relationship properties
-            organization_name               = Normalize-Null $account.organization_name
-            account_name                    = Normalize-Null $account.account_name
+            environmentid                   = Normalize-Null $accountId
             database_name                   = Normalize-Null $schema.database_name
             # Object properties
             created_on                      = Normalize-Null $schema.created_on
@@ -545,8 +643,7 @@ function Invoke-SnowHound
             name                 = Normalize-Null $stage.name
             fqdn                 = Normalize-Null "$($stage.database_name).$($stage.schema_name).$($stage.name)@$($account.account_name).$($account.organization_name)"
             # Relationship properties
-            organization_name            = Normalize-Null $account.organization_name
-            account_name                 = Normalize-Null $account.account_name
+            environmentid                = Normalize-Null $accountId
             database_name                = Normalize-Null $stage.database_name
             schema_name                  = Normalize-Null $stage.schema_name
             # Object properties
@@ -588,8 +685,7 @@ function Invoke-SnowHound
             name                    = Normalize-Null $table.name
             fqdn                    = Normalize-Null "$($table.database_name).$($table.schema_name).$($table.name)@$($account.account_name).$($account.organization_name)"
             # Relationship properties
-            organization_name            = Normalize-Null $account.organization_name
-            account_name                 = Normalize-Null $account.account_name
+            environmentid                = Normalize-Null $accountId
             database_name                = Normalize-Null $table.database_name
             schema_name                  = Normalize-Null $table.schema_name
             # Object properties
@@ -627,8 +723,7 @@ function Invoke-SnowHound
             name             = Normalize-Null $view.name
             fqdn             = Normalize-Null "$($view.database_name).$($view.schema_name).$($view.name)@$($account.account_name).$($account.organization_name)"
             # Relationship properties
-            organization_name            = Normalize-Null $account.organization_name
-            account_name                 = Normalize-Null $account.account_name
+            environmentid                = Normalize-Null $accountId
             database_name                = Normalize-Null $view.database_name
             schema_name                  = Normalize-Null $view.schema_name
             # Object properties
@@ -658,8 +753,7 @@ function Invoke-SnowHound
             name       = Normalize-Null $int.name
             fqdn       = Normalize-Null "$($int.name)@$($account.account_name).$($account.organization_name)"
             # Relationship properties
-            organization_name            = Normalize-Null $account.organization_name
-            account_name                 = Normalize-Null $account.account_name
+            environmentid                = Normalize-Null $accountId
             # Object properties
             type       = Normalize-Null $int.type
             category   = Normalize-Null $int.category
@@ -674,7 +768,7 @@ function Invoke-SnowHound
 
             if(-not [string]::IsNullOrWhiteSpace($propertyName))
             {
-                $integrationProps | Add-Member -MemberType NoteProperty -Name $propertyName -Value (Normalize-Null $property.property_value)
+                $integrationProps | Add-Member -MemberType NoteProperty -Name $propertyName -Value (Normalize-Null (Get-DescribePropertyValue $property))
             }
         }
 

@@ -80,7 +80,7 @@ For a `config.toml` example using `SNOWFLAKE_JWT` and an RSA private key so the 
    Invoke-SnowHound
    ```
 
-4. The collector will output a file named `snowhound_<org>-<account>.json` in the current directory.
+4. The collector will output a file named `snowhound_<account>.<org>.json` in the current directory.
 
 ### Step 6: Upload to BloodHound
 
@@ -126,18 +126,18 @@ The collector gathers metadata about the following Snowflake objects and their r
 
 | Object Type | Node Kind | Identifier Pattern |
 |-------------|-----------|-------------------|
-| Account | `SNOW_Account` | `<org>-<account>` |
-| User | `SNOW_User` | `<org>-<account>.<login_name>` |
-| Role | `SNOW_Role` | `<org>-<account>.<role_name>` |
-| Application | `SNOW_Application` | `<org>-<account>.<app_name>` |
-| Application Role | `SNOW_ApplicationRole` | `<org>-<account>.<app_name>.<role_name>` |
-| Database | `SNOW_Database` | `<org>-<account>.<db_name>` |
-| Schema | `SNOW_Schema` | `<org>-<account>.<db_name>.<schema_name>` |
-| Warehouse | `SNOW_Warehouse` | `<org>-<account>.<wh_name>` |
-| Integration | `SNOW_Integration` | `<org>-<account>.<integration_name>` |
-| Table | `SNOW_Table` | `<org>-<account>.<db>.<schema>.<table_name>` |
-| View | `SNOW_View` | `<org>-<account>.<db>.<schema>.<view_name>` |
-| Stage | `SNOW_Stage` | `<org>-<account>.<db>.<schema>.<stage_name>` |
+| Account | `SNOW_Account` | `<account>.<org>` |
+| User | `SNOW_User` | `<account>.<org>.<login_name>` |
+| Role | `SNOW_Role` | `<account>.<org>.<role_name>` |
+| Application | `SNOW_Application` | `<account>.<org>.<app_name>` |
+| Application Role | `SNOW_ApplicationRole` | `<account>.<org>.<app_name>.<role_name>` |
+| Database | `SNOW_Database` | `<account>.<org>.<db_name>` |
+| Schema | `SNOW_Schema` | `<account>.<org>.<db_name>.<schema_name>` |
+| Warehouse | `SNOW_Warehouse` | `<account>.<org>.<wh_name>` |
+| Integration | `SNOW_Integration` | `<account>.<org>.<integration_name>` |
+| Table | `SNOW_Table` | `<account>.<org>.<db>.<schema>.<table_name>` |
+| View | `SNOW_View` | `<account>.<org>.<db>.<schema>.<view_name>` |
+| Stage | `SNOW_Stage` | `<account>.<org>.<db>.<schema>.<stage_name>` |
 
 Privilege grants (`grants_to_roles` and `grants_to_users`) are mapped to edges in the graph. Each Snowflake privilege becomes a typed edge (e.g., `SNOW_Usage`, `SNOW_Ownership`, `SNOW_Select`) connecting the grantee to the target object.
 
@@ -157,7 +157,7 @@ If you do not have a Snowflake environment or want to test SnowHound before coll
 
 - Verify your private key path and format (PKCS#8 `.p8` is expected).
 - Ensure the public key registered in Snowflake matches your private key.
-- Check that the account identifier uses the correct format (`<org>-<account>` or the legacy account locator).
+- Check that the account identifier uses the correct Snowflake format (`<account>.<org>` or the legacy account locator, depending on your CLI configuration).
 - Run `snow connection test -c snowhound` to diagnose connection issues.
 
 ### Missing objects in the graph
